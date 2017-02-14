@@ -1,14 +1,15 @@
 {
-  "private": true,
   "name": "axp-mock-extension",
   "version": "0.0.1",
   "contributors": [
-    "Zach Ripka"
+    "Zach Ripka",
+    "Jack Cross"
   ],
   "maintainers": [
-    "Zach Ripka"
+    "Zach Ripka",
+    "Jack Cross"
   ],
-  "description": "Provides a Chrome Extension for use with axp-mock-middleware.",
+  "description": "Provides a Chrome Extension for use with Parrot middleware.",
   "main": "./dist/index.js",
   "scripts": {
     "watch": "webpack --watch",
@@ -16,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@stash.aexp.com/aim200005270/axp-mock-extension.git"
+    "url": "https://stash.aexp.com/stash/users/jcros8/repos/parrot/browse"
   },
   "keywords": [],
   "author": "",
@@ -39,8 +40,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "axp-base": "git+ssh://git@stash.aexp.com/apex/axp-base.git#release/2.0",
-    "axp-mock-middleware": "git+ssh://git@stash.aexp.com/apex/axp-mock-middleware.git#development",
+    "parrot-devtools": "../parrot-devtools",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   }

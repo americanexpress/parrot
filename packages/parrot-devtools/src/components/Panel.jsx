@@ -1,15 +1,3 @@
-import * as url from 'url';
-
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-
-
-import { Dropdown } from 'axp-base';
-
-// styles
-import 'axp-dls/dist/styles/dls.min.css';
-import 'axp-base/axp-base.scss';
-
 interface IScenario {
   request: string;
   response: string;
@@ -144,11 +132,4 @@ class Panel extends React.Component<any, {
       </div>
     );
   }
-}
-
-try {
-  ReactDOM.render(<Panel />, document.querySelector('root'));
-} catch(e) {
-  const error: Error = e;
-  ReactDOM.render(<p>{error.message}</p>, document.querySelector('root'));
 }
