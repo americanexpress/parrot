@@ -12,8 +12,6 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import fs from 'fs';
-import validateAgainstSwagger from './swagger';
-import loadSwagger from '../loadSwagger';
 import LogCreator from '../logUtils';
 import MiddlewareConfig from '../middlewareConfig';
 
@@ -106,24 +104,14 @@ export function createRoute(router, config) {
       return;
     }
 
-    loadSwagger.then((swaggerModel) => {
-      try {
-        validateAgainstSwagger(response, swaggerModel,
-          urlParamPath, method, config.response.statusCode || 200);
-      } catch (e) {
-        console.log(LogCreator.swagger(`Swagger validation resulted in an error:
-          ${e.message}\nCheck that your scenarios and Swagger are valid.`));
-      }
-
-      res.status(config.response.statusCode || 200);
-      if (config.response.delay) {
-        setTimeout(() => {
-          res.send(response);
-        }, config.response.delay);
-      } else {
+    res.status(config.response.statusCode || 200);
+    if (config.response.delay) {
+      setTimeout(() => {
         res.send(response);
-      }
-    });
+      }, config.response.delay);
+    } else {
+      res.send(response);
+    }
   });
 }
 
