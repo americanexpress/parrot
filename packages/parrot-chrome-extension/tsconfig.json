@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react",
+    "types": [
+      "chrome",
+      "node",
+      "whatwg-fetch",
+      "es6-promise"
+    ]
+  }
+}

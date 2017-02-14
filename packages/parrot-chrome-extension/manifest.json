@@ -1,0 +1,19 @@
+{
+  "name": "axp-mock-middleware",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Devtools panel for axp-mock-middleware",
+  "background": {
+    "scripts": ["dist/background.bundle.js"]
+  },
+  "devtools_page": "views/devtools.html",
+  "permissions": [
+    "<all_urls>",
+    "tabs"
+  ],
+  "icons": {
+     "16": "assets/img/parrot_16x.png",
+     "48": "assets/img/parrot_48x.png",
+    "128": "assets/img/parrot_128x.png"
+  }
+}

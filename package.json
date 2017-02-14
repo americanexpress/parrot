@@ -1,0 +1,13 @@
+{
+  "name": "parrot",
+  "version": "0.0.1",
+  "scripts": {},
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Jason Schapiro <jason.schapiro@aexp.com>",
+    "Nathan Force <nathan.a.force@aexp.com>"
+  ],
+  "devDependencies": {
+    "lerna": "2.0.0-beta.34"
+  }
+}
