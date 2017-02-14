@@ -1,22 +1,5 @@
 import SwaggerValidator from 'swagger-model-validator';
 import isEmpty from 'lodash/isEmpty';
-// import LogCreator, { loggerColors } from '../logUtils';
-//
-//
-// function logSwaggerErrors(errors) {
-//   let output = LogCreator.swagger('Your response has' +
-//     ` ${errors.length} issues with the definition:\n`);
-//
-//   errors.forEach((message, index) => {
-//     const displayIndex = `      [${index}]`.slice(-6);
-//     output += `\t${loggerColors.info(displayIndex)} ${loggerColors.swagger(message)}\n`;
-//   });
-//
-//   output += loggerColors.swagger('\tDouble check the data controller API'
-//     + ' (https://stash.aexp.com/stash/projects/FA/repos/api/browse)'
-//     + ' to make sure your response structure is correct.');
-//   console.log(output);
-// }
 
 export function translateUrlParams(path) {
   return path.replace(new RegExp(/(\/:)\w+/, 'g'), match => `/{${match.slice(2)}}`);
