@@ -1,0 +1,33 @@
+{
+  "name": "parrot-swagger-validator",
+  "version": "1.0.0",
+  "description": "Validate Mock Scenario Objects against a swagger schema",
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Arick Force <Nathan.A.Force@aexp.com>",
+    "Jason Schapiro <jason.schapiro@aexp.com>"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib --copy-files",
+    "lint": "eslint --ignore-path .gitignore --ext .js src test",
+    "test": "BABEL_ENV=test mocha --compilers js:babel-register"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.16.3",
+    "swagger-model-validator": "^2.1.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.7.5",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.7.2",
+    "chai": "^3.5.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "mocha": "^2.4.5"
+  }
+}

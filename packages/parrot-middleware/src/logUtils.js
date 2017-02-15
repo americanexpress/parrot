@@ -3,20 +3,20 @@ import chalk from 'chalk';
 // Logging colors
 export const loggerColors = {
   info: chalk.white,
+  warn: chalk.yellow,
   error: chalk.red,
-  swagger: chalk.yellow
 };
 
 // Logging templates
 const infoTemplate = message => loggerColors.info(`Info: ${message}`);
 const errorTemplate = message => loggerColors.error(`Error: ${message}`);
-const swaggerTemplate = message => loggerColors.swagger(`Swagger: ${message}`);
+const warnTemplate = message => loggerColors.warn(`Warning: ${message}`);
 
 class LogCreator {
   constructor() {
     this.info = this.baseTemplate(infoTemplate);
     this.error = this.baseTemplate(errorTemplate);
-    this.swagger = this.baseTemplate(swaggerTemplate);
+    this.warn = this.baseTemplate(warnTemplate);
   }
   baseTemplate(template) {
     return message => `[Parrot] ${chalk.underline(this.path)}`
