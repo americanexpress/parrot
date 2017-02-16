@@ -1,10 +1,4 @@
 /* eslint-disable no-param-reassign */
-import util from 'util';
-
-import isEqual from 'lodash/isEqual';
-import isEmpty from 'lodash/isEmpty';
-import cloneDeep from 'lodash/cloneDeep';
-
 import { Router } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';

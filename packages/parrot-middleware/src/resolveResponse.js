@@ -13,9 +13,6 @@ export default function resolveResponse(config, request, logger) {
     let resource = configCopy.response.resource;
     let path = configCopy.request.path;
     Object.keys(request.params).forEach((param) => {
-      if (typeof resource === 'string') {
-        resource = resource.replace(`:${param}`, request.params[param]);
-      }
       path = path.replace(`:${param}`, request.params[param]);
     });
     configCopy.response.resource = resource;
