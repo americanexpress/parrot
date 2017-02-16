@@ -1,8 +1,8 @@
 {
-  "name": "axp-mock-middleware",
+  "name": "Parrot Devtools",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Devtools panel for axp-mock-middleware",
+  "description": "Devtools panel for Parrot middleware.",
   "devtools_page": "views/devtools.html",
   "background": {
     "scripts": ["dist/background.bundle.js"]

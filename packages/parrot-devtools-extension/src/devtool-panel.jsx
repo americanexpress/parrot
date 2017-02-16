@@ -1,9 +1,8 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as url from 'url';
+import React from 'react';
+import { render } from 'react-dom';
 
-import Panel from 'parrot-devtools';
+import Panel from 'parrot-devtools-base';
 
-chrome.runtime.sendMessage(chrome.devtools.inspectedWindow.tabId, (url) =>
-  ReactDOM.render(<Panel url={url} />, document.querySelector('root'));
-);
+chrome.runtime.sendMessage(chrome.devtools.inspectedWindow.tabId, (url) => {
+  render(<Panel url={url} />, document.querySelector('root'));
+});

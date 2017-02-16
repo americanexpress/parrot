@@ -1,1 +1,0 @@
-!function(t){function e(o){if(r[o])return r[o].exports;var s=r[o]={exports:{},id:o,loaded:!1};return t[o].call(s.exports,s,s.exports,e),s.loaded=!0,s.exports}var r={};return e.m=t,e.c=r,e.p="/static/",e(0)}({0:function(t,e,r){t.exports=r(179)},179:function(t,e){"use strict";chrome.devtools.panels.create("Parrot","assets/img/parrot_48x.png","views/devtool-panel.html")}});
