@@ -22,25 +22,19 @@
   "keywords": [],
   "author": "",
   "devDependencies": {
-    "@types/chrome": "0.0.38",
-    "@types/es6-promise": "0.0.32",
-    "@types/node": "^6.0.59",
-    "@types/react": "0.0.0",
-    "@types/react-dom": "^0.14.20",
-    "@types/whatwg-fetch": "0.0.33",
+    "babel-loader": "^6.3.1",
     "css-loader": "^0.26.1",
     "file-loader": "^0.9.0",
     "import-glob-loader": "^1.1.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
-    "ts-loader": "^1.3.3",
     "typescript": "^2.1.4",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
-    "parrot-devtools": "../parrot-devtools",
+    "parrot-devtools-base": "../parrot-devtools-base",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   }

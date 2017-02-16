@@ -2,8 +2,8 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    'devtool-panel': ['./src/devtool-panel.jsx'],
-    'devtools': ['./src/devtools.js'],
+    'devtool-panel': ['./src/devtool-panel.tsx'],
+    'devtools': ['./src/devtools.ts'],
   },
   output: {
     path: __dirname + '/dist',
