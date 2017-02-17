@@ -8,17 +8,17 @@ import isEmpty from 'lodash/isEmpty';
 */
 export default function resolveResponse(config, request, logger) {
   const configCopy = cloneDeep(config); // do not modify original config
-  /* eslint-disable guard-for-in */
-  if (!isEmpty(request.params)) {
-    let resource = configCopy.response.resource;
-    let path = configCopy.request.path;
-    Object.keys(request.params).forEach((param) => {
-      path = path.replace(`:${param}`, request.params[param]);
-    });
-    configCopy.response.resource = resource;
-    configCopy.request.path = path;
+  // Handle cases where request params are used
+  // {
+  //  request: '/account-data/offers/v1/offers/:id',
+  //  response: ({ id }) => require(`test/mocks/details/${id}`)
+  // }
+  if (!isEmpty(request.params) &&
+    typeof configCopy.response.resource === 'function') {
+    configCopy.response.resource = configCopy.response.resource(request.params);
   }
 
+  // Match request headers
   Object.keys(configCopy.request).forEach((property) => {
     if (property === 'headers') {
       Object.keys(configCopy.request.headers).forEach((header) => {
@@ -36,6 +36,5 @@ export default function resolveResponse(config, request, logger) {
   // Update logging to use the matched config path
   logger.setPath(config.request.path);
 
-  return config.response.resource;
-  /* eslint-enable guard-for-in */
+  return configCopy.response.resource;
 }

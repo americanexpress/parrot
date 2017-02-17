@@ -22,6 +22,27 @@ describe('Spec: resolveResponse', () => {
     expect(response).toEqual(mockConfig.response.resource);
   });
 
+  it('provides a callback if request parameters used in route', () => {
+    const mockConfig = {
+      request: {
+        path: '/account-data/v1/test/:id'
+      },
+      response: {
+        resource: ({ id }) => ({ testId: `PMC-${id}`})
+      }
+    };
+    const mockRequest = {
+      path: '/account-data/v1/test/:id',
+      params: {
+        id: 25
+      }
+    };
+    const response = resolveResponse(mockConfig, mockRequest, logger);
+    expect(response).toEqual({
+      testId: 'PMC-25'
+    })
+  });
+
   it('throws an error if config does not match', () => {
     const mockRequest = {
       path: '/account-data/v1/test',
