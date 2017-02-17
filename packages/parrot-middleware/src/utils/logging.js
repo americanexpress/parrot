@@ -30,4 +30,4 @@ class LogCreator {
   }
  }
 
-export default new LogCreator();
+export default LogCreator;
