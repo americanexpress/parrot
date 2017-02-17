@@ -12,7 +12,7 @@ export default function createRoute(router, config, logger) {
       const app = {req, res};
       responseResource = resolveResponse(config, app, logger);
     } catch (e) {
-      logger.info(e.message);
+      console.log(e.message)
       next(); // something didn't match, move on to next route
       return;
     }

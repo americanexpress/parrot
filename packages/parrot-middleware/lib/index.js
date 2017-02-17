@@ -47,7 +47,7 @@ function createMiddlewareForScenario(_ref) {
           (0, _validateRouteConfig2.default)(config);
           (0, _createRoute2.default)(router, (0, _normalizeRouteConfig2.default)(config), logger);
         } catch (e) {
-          logger.error(e.message);
+          console.error(e.message);
         }
       });
       // TODO this is cohesion to axp-app, externalize to initialization params

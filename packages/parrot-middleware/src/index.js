@@ -19,7 +19,7 @@ export default function createMiddlewareForScenario({ scenarios, validator }) {
           validateRouteConfig(config);
           createRoute(router, normalizeRouteConfig(config), logger);
         } catch (e) {
-          logger.error(e.message);
+          console.error(e.message);
         }
       });
       // TODO this is cohesion to axp-app, externalize to initialization params

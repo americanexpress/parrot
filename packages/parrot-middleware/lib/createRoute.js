@@ -26,7 +26,7 @@ function createRoute(router, config, logger) {
       var app = { req: req, res: res };
       responseResource = (0, _resolveResponse2.default)(config, app, logger);
     } catch (e) {
-      logger.info(e.message);
+      console.log(e.message);
       next(); // something didn't match, move on to next route
       return;
     }
