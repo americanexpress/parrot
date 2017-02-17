@@ -23,7 +23,8 @@ function createRoute(router, config, logger) {
   return router[method](urlParamPath, function (req, res, next) {
     var responseResource = void 0;
     try {
-      responseResource = (0, _resolveResponse2.default)(config, req, logger);
+      var app = { req: req, res: res };
+      responseResource = (0, _resolveResponse2.default)(config, app, logger);
     } catch (e) {
       logger.info(e.message);
       next(); // something didn't match, move on to next route

@@ -9,7 +9,8 @@ export default function createRoute(router, config, logger) {
   return router[method](urlParamPath, (req, res, next) => {
     let responseResource;
     try {
-      responseResource = resolveResponse(config, req, logger);
+      const app = {req, res};
+      responseResource = resolveResponse(config, app, logger);
     } catch (e) {
       logger.info(e.message);
       next(); // something didn't match, move on to next route
