@@ -1,4 +1,4 @@
-# axp-mock-extension
+# Parrot Devtools
 
 This extension adds chrome extension support for [axp-mock-middleware](https://stash.aexp.com/stash/projects/APEX/repos/axp-mock-middleware/browse).
 

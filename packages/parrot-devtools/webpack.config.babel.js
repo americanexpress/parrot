@@ -2,17 +2,27 @@ import path from 'path';
 
 module.exports = {
   entry: {
-    'devtool-panel': ['./src/devtool-panel.jsx']
-  },
-  eslint: {
-    configFile: path.resolve('.eslintrc')
+    'chrome/devtool-panel': ['./src/browser/extension/devtool-panel.jsx'],
+    'chrome/devtools': ['./src/browser/extension/devtools.js'],
+    'chrome/background': ['./src/browser/extension/background.js'],
+    'base/devtools': ['./src/app/index.js'],
   },
   output: {
     path: path.join(__dirname, '/dist'),
-    publicPath: '/static/',
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.scss'],
   },
   module: {
-    loaders: [{ test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' }]
-  }
+    rules: [{
+      test: /\.jsx?$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+    }, {
+      test: /\.s?css$/,
+      loader: 'style-loader!css-loader!sass-loader!import-glob-loader',
+      exclude: /node_modules/,
+    }],
+  },
 };

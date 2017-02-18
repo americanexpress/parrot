@@ -1,67 +1,20 @@
-## Other Repos
-#################
-.svn
-
-## Project Specific
-#################
-
-.vagrant
+# node/npm
 node_modules
-out
-.coverdata
-.coverrun
-coverage
+*.log
+
+# build
 dist
-# uncomment once this package is being published
-#build
-env
-reports/*
-!reports/.gitkeep
-npm-debug.log
-.sass-cache
-logs/
-./config/development.js
+parrot-chrome-extension
+parrot-devtools
+
+# test
 test-results
-.gitkeep
+coverage
 
-
-## OSX
-#################
-
-[Tt]humbs.db
-*.DS_Store
-
-## Generic
-#################
-
-*.tmp
-*.bak
-*.cya
-
-## Webstorm
-#################
-
+# editors
+# webstorm
 .idea
 
-## Eclipse
-#################
-
-*.pydevproject
-.project
-.metadata
-.gradle
-bin/
-tmp/
-target/
-*.swp
-*~.nib
-local.properties
-.classpath
-.settings/
-.loadpath
-
-## Atlassian
-#################
-
-atlassian-ide-plugin.xml
-
+# OS
+.DS_Store
+[T|t]humb.db

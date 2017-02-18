@@ -12,11 +12,13 @@
   "description": "Provides a Chrome Extension for use with Parrot middleware.",
   "main": "./dist/index.js",
   "scripts": {
-    "watch": "webpack --watch",
-    "clean": "rimraf dist",
+    "start": "chokidar 'src/**' -c 'npm run build'",
+    "clean": "rm -rf build && rimraf dist",
     "lint": "eslint --ignore-path .eslintignore --ext .js --ext .jsx ./",
     "prebuild": "npm run clean && npm run lint",
-    "build": "webpack -p"
+    "build": "webpack && npm run pack:chrome && npm run pack:base",
+    "pack:chrome": "node scripts/pack-chrome.js",
+    "pack:base": "node scripts/pack-base.js"
   },
   "repository": {
     "type": "git",
@@ -25,14 +27,18 @@
   "keywords": [],
   "author": "",
   "devDependencies": {
+    "archiver": "^1.3.0",
     "babel-cli": "^6.6.5",
     "babel-core": "^6.5.2",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.2.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-0": "^6.5.0",
+    "chokidar-cli": "^1.2.0",
+    "css-loader": "^0.26.1",
     "enzyme": "^2.7.0",
     "enzyme-to-json": "^1.4.5",
     "eslint": "^3.13.1",
@@ -40,16 +46,25 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.1",
     "eslint-plugin-react": "^6.9.0",
+    "fs-extra": "^2.0.0",
+    "import-glob-loader": "^1.1.0",
     "jest": "^18.1.0",
+    "node-sass": "^4.5.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.0.1",
     "react-router-dom": "^4.0.0-beta.3",
     "rimraf": "^2.5.2",
-    "webpack": "^1.12.13"
+    "sass-loader": "^6.0.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.0.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "material-ui": "^0.17.0",
     "parrot-devtools-base": "../parrot-devtools-base",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-tap-event-plugin": "^2.0.1",
+    "url": "^0.11.0"
   }
 }
