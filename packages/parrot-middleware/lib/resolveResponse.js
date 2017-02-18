@@ -30,13 +30,15 @@ function resolveResponse(config, request, logger) {
   var configCopy = (0, _cloneDeep2.default)(config); // do not modify original config
   /* eslint-disable guard-for-in */
   if (!(0, _isEmpty2.default)(request.params)) {
-    var resource = configCopy.response.resource;
-    var path = configCopy.request.path;
-    Object.keys(request.params).forEach(function (param) {
-      path = path.replace(':' + param, request.params[param]);
-    });
-    configCopy.response.resource = resource;
-    configCopy.request.path = path;
+    (function () {
+      var resource = configCopy.response.resource;
+      var path = configCopy.request.path;
+      Object.keys(request.params).forEach(function (param) {
+        path = path.replace(':' + param, request.params[param]);
+      });
+      configCopy.response.resource = resource;
+      configCopy.request.path = path;
+    })();
   }
 
   Object.keys(configCopy.request).forEach(function (property) {
