@@ -16,7 +16,7 @@
     "clean": "rm -rf build && rimraf dist",
     "lint": "eslint --ignore-path .eslintignore --ext .js --ext .jsx ./",
     "prebuild": "npm run clean && npm run lint",
-    "build": "webpack && npm run pack:chrome && npm run pack:base",
+    "build": "webpack -p && npm run pack:chrome && npm run pack:base",
     "pack:chrome": "node scripts/pack-chrome.js",
     "pack:base": "node scripts/pack-base.js"
   },

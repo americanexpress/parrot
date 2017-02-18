@@ -1,40 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import url from 'url';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 
-const paperStyle = {
-  position: 'absolute',
-  top: 10,
-  bottom: 10,
-  left: 10,
-  right: 10,
-};
-
-class Panel extends Component {
+class ScenarioSelector extends Component {
   static propTypes = {
-    url: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  }
-
-  static defaultProps = {
-    url: 'http://localhost:3000',
+    url: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
   }
 
   state = {
     loading: true,
     scenarios: {},
-    dropdownValue: '',
+    scenario: '',
     error: null,
   };
 
   async componentDidMount() {
-    this.baseUrl = url.parse(this.props.url);
-    const scenariosUrl = url.format({ ...this.baseUrl, pathname: '/scenarios' });
-
     try {
-      const resp = await fetch(scenariosUrl, {
+      const resp = await fetch(this.createUrl('/scenarios'), {
         headers: {
           Accept: 'application/json',
         },
@@ -46,67 +30,61 @@ class Panel extends Component {
       this.setState({ // eslint-disable-line react/no-did-mount-set-state
         loading: false,
         scenarios,
-        dropdownValue: keys[0],
+        scenario: keys[0],
       });
     } catch (error) {
       this.setState({ error }); // eslint-disable-line react/no-did-mount-set-state
     }
   }
 
-  setScenario = ({ value: dropdownValue }) => {
+  setScenario = ({ value: scenario }) => {
     this.setState({
-      dropdownValue,
+      scenario,
     }, async () => {
-      const scenarioUrl = url.format({ ...this.baseUrl, pathname: '/scenario' });
-
       try {
-        const resp = await fetch(scenarioUrl, {
+        const resp = await fetch(this.createUrl('/scenario'), {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            scenario: dropdownValue,
+            scenario,
           }),
         });
 
-        // Reload if we are in chrome
-        if (chrome && resp.ok) {
+        if (!resp.ok) {
+          this.setState({ error: resp.statusText });
+        } else if (chrome) { // Reload if we are in chrome
           chrome.devtools.inspectedWindow.reload(null);
         }
-      } catch (error) {
+      } catch ({ message: error }) {
         this.setState({ error });
       }
     });
   }
 
-  getContent() {
+  createUrl = pathname => url.format({ ...url.parse(this.props.url), pathname })
+
+  render() {
     if (this.state.error) {
-      return <pre>{this.state.error.message}</pre>;
+      return <pre>{this.state.error}</pre>;
     } else if (this.state.loading) {
       return <CircularProgress />;
     }
 
     return (
-      <DropDownMenu
-        value={this.state.dropdownValue}
+      <SelectField
+        floatingLabelText="Scenario"
+        value={this.state.scenario}
         onChange={this.setScenario}
       >
         {Object.keys(this.state.scenarios).map(scenario =>
-          <MenuItem value={scenario} primaryText={scenario} />,
+          <MenuItem key={scenario} value={scenario} primaryText={scenario} />,
         )}
-      </DropDownMenu>
-    );
-  }
-
-  render() {
-    return (
-      <Paper style={paperStyle}>
-        {this.getContent()}
-      </Paper>
+      </SelectField>
     );
   }
 }
 
-export default Panel;
+export default ScenarioSelector;

@@ -1,17 +1,46 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Paper from 'material-ui/Paper';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-const DevTools = ({ children }) =>
-  <MuiThemeProvider>
-    {children}
-  </MuiThemeProvider>;
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
-DevTools.propTypes = {
-  children: PropTypes.node,
+const paperStyle = {
+  position: 'absolute',
+  padding: '0 20',
+  top: 10,
+  bottom: 10,
+  left: 10,
+  right: 10,
 };
 
-DevTools.defaultProps = {
-  children: null,
-};
+class DevTools extends Component {
+  static propTypes = {
+    render: PropTypes.func.isRequired,
+    url: PropTypes.string,
+  }
+
+  static defaultProps = {
+    url: 'http://localhost:3000',
+  }
+
+  state = {
+    url: this.props.url,
+  }
+
+  setUrl = url => this.setState({ url });
+
+  render() {
+    return (
+      <MuiThemeProvider>
+        <Paper style={paperStyle}>
+          {this.props.render({ url: this.state.url, setUrl: this.setUrl })}
+        </Paper>
+      </MuiThemeProvider>
+    );
+  }
+}
 
 export default DevTools;

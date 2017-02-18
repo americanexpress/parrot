@@ -4,7 +4,7 @@ node_modules
 
 # build
 dist
-parrot-chrome-extension
+parrot-devtools-chrome-extension
 parrot-devtools
 
 # test

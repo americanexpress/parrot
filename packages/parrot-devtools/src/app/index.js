@@ -2,18 +2,23 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Panel from './components/Panel';
+import UrlInput from './components/UrlInput';
+import ScenarioSelector from './components/ScenarioSelector';
 import DevTools from './components/DevTools';
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
-
 ReactDOM.render(
-  <DevTools>
-    <Panel />
-  </DevTools>,
+  <DevTools
+    render={({ url, setUrl }) => (
+      <div>
+        <div>
+          <ScenarioSelector url={url} />
+        </div>
+        <div>
+          <UrlInput url={url} setUrl={setUrl} />
+        </div>
+      </div>
+    )}
+  />,
   document.querySelector('root'),
 );
