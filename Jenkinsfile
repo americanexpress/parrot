@@ -35,6 +35,19 @@ def npmTest() {
 }
 
 def preRelease() {
+  currentBuild.displayName = "${RELEASE_BRANCH}"
+
+  // just for developing
+  stage('clone') {
+    echo 'checkout!!'
+    // remove all files/folders at this level
+    // including dot-prefixed
+    // http://unix.stackexchange.com/a/77313
+    sh 'rm -Rf ./* ./.[!.]*'
+    sh 'ls -lah'
+    sh "git clone \"ssh://git@stash.aexp.com/~jcros8/parrot.git\" --branch \"${RELEASE_BRANCH}\" ."
+  }
+
   stage('merge with master') {
     sh "git checkout \"${RELEASE_BRANCH}\""
     sh 'git checkout master'
