@@ -10,7 +10,8 @@ describe('Spec: resolveResponse', () => {
   it('can match a config to a request', () => {
     const mockRequest = {
       path: '/api/v1/test',
-      method: 'get'
+      method: 'get',
+      params: {},
     };
     const mockConfig = {
       request: { ...mockRequest },
@@ -32,7 +33,7 @@ describe('Spec: resolveResponse', () => {
       }
     };
     const mockRequest = {
-      path: '/api/v1/test/:id',
+      path: '/api/v1/test/25',
       params: {
         id: 25
       }
@@ -47,7 +48,7 @@ describe('Spec: resolveResponse', () => {
     const statusCode = 400;
     const mockConfig = {
       request: {
-        path: '/api/v1/test/:id'
+        path: '/api/v1/test/:id',
       },
       response: {
         resource: (req, res) => {
@@ -60,7 +61,7 @@ describe('Spec: resolveResponse', () => {
       }
     };
     const mockReq = {
-      path: '/api/v1/test/:id',
+      path: '/api/v1/test/25',
       headers: {
         accountId: 1029
       },
@@ -80,6 +81,7 @@ describe('Spec: resolveResponse', () => {
   it('throws an error if config does not match', () => {
     const mockRequest = {
       path: '/api/v1/test',
+      params: {},
       method: 'get'
     };
     const mockConfig = {
@@ -95,6 +97,7 @@ describe('Spec: resolveResponse', () => {
   it('matches headers only if all headers match', () => {
     const mockRequest = {
       path: '/api/v1/test',
+      params: {},
       headers: {
         test: 'valid',
         other: 'valid'
