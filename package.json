@@ -1,7 +1,9 @@
 {
   "name": "parrot",
   "version": "1.0.0",
-  "scripts": {},
+  "scripts": {
+    "install": "lerna bootstrap"
+  },
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Jason Schapiro <jason.schapiro@aexp.com>",
