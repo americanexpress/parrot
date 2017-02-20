@@ -25,8 +25,6 @@ import myScenarios from './mock';
 createMiddlewareForScenario({ scenarios: myScenarios })(app);
 ```
 
-##
-
 ## Example Scenarios Object
 
 ```js
@@ -108,11 +106,11 @@ The scenarios object is used to define all API responses to be handled by a UI c
 
 ### Response Options
 
-| Property     | Description                              | Type            | Required |
-| ------------ | ---------------------------------------- | --------------- | :------: |
-| `resource`   | Text to be returned directly or object to be returned as JSON | String / Object |  **Y**   |
-| `delay`      | Set a response delay in ms               | Number          |    N     |
-| `statusCode` | Defaults to 200, but can be set explicitly | Number          |    N     |
+| Property     | Description                              | Type                       | Required |
+| ------------ | ---------------------------------------- | -------------------------- | :------: |
+| `resource`   | Text to be returned directly or object to be returned as JSON or callback function with express `req` / `res` functions | String / Object / Function |  **Y**   |
+| `delay`      | Set a response delay in ms               | Number                     |    N     |
+| `statusCode` | Defaults to 200, but can be set explicitly | Number                     |    N     |
 
 ## Handling HTTP Methods
 
@@ -137,20 +135,37 @@ If your UI depends on making other HTTP calls like PUT, DELETE, POST or PATCH, i
 }]
 ```
 
-## Using URL Params
+## Accessing Express `req` & `res` Objects
 
-When dealing with a many responses (like offer details or transaction ETDs), it can be tedious to define each scenario. To help with this, `parrot-middleware` uses the Express url param syntax to allow for automated scenario matching. The express `req.params` object is provided to a callback and can be used to deteremine the mock resource. For example:
+### Using `req`
+
+When dealing with a many responses (like offer details or transaction ETDs), it can be tedious to define each scenario. Express provides an interface for dealing with these dynamic scenarios by using **url parameters** (`req.params`). To help with this, `parrot-middleware` exposes the underlying express `req` object if the response resource is a functional callback. The express `req.params` object is provided to a callback and can be used to deteremine the mock resource. For example:
 
 ```js
 {
   request: '/api/balance/:type/:id',
-  response: ({ type, id }) => require(`./mock/balance/${type}/${id}`)
+  response: ({ params: { type, id } }) => require(`./mock/balance/${type}/${id}`)
 }
 ```
 
 This setup means when your component hits the endpoint `/account-data/offers/v1/offers/25`, it will know to send the response from `test/mocks/details/25.json`
 
 If the application tries to hit an endpoint with no defined response JSON, it will 404 and send an error alerting you that no scenario exists for that case.
+
+### Using `res`
+
+By default, if your resource is an object, `parrot-middleware` will send the response as JSON, and if it is a string it will just use `res.send` to respond. There are some cases where developers may want to use custom responses, and in this case we will provide the express `res` object as an argument to the functional resource callback.
+
+```js
+{
+  request: '/wow',
+  response: {
+    resource: (req, res) => {
+      const myImg = fs.readFileSync('./greatImage.png');
+      res.sendFile(myImg);
+    }
+}
+```
 
 ## Querystring Parameters
 
