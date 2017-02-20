@@ -24,9 +24,11 @@ class LogCreator {
   }
   setScenario(scenario) {
     this.scenario = scenario;
+    return this;
   }
   setPath(path) {
     this.path = path;
+    return this;
   }
  }
 
