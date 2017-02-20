@@ -37,7 +37,7 @@ class ScenarioSelector extends Component {
     }
   }
 
-  setScenario = ({ value: scenario }) => {
+  setScenario = (event, key, scenario) => {
     this.setState({
       scenario,
     }, async () => {
