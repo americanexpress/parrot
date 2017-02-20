@@ -1,16 +1,11 @@
 {
-  "name": "parrot-devtools-extension",
-  "version": "0.0.1",
+  "name": "parrot-devtools",
+  "version": "1.0.0",
   "contributors": [
     "Zach Ripka",
     "Jack Cross"
   ],
-  "maintainers": [
-    "Zach Ripka",
-    "Jack Cross"
-  ],
-  "description": "Provides a Chrome Extension for use with Parrot middleware.",
-  "main": "./dist/index.js",
+  "description": "Devtool components for easy scenario switching when developing with Parrot.",
   "scripts": {
     "start": "chokidar 'src/**' -c 'npm run build'",
     "clean": "rm -rf build && rimraf dist",
@@ -24,8 +19,12 @@
     "type": "git",
     "url": "https://stash.aexp.com/stash/users/jcros8/repos/parrot/browse"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "parrot",
+    "devtools"
+  ],
+  "author": "Zach Ripka",
+  "license": "Apache-2.0",
   "devDependencies": {
     "archiver": "^1.3.0",
     "babel-cli": "^6.6.5",
