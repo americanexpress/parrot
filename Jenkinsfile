@@ -68,8 +68,7 @@ def releaseAndPublish() {
   }
 
   stage('publish') {
-    // sh './node_modules/.bin/lerna --canary --yes'
-    println './node_modules/.bin/lerna --canary --yes'
+    sh './node_modules/.bin/lerna publish --canary --yes'
   }
 
   stage('push changes upstream') {
