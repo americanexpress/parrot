@@ -42,13 +42,13 @@ export default function validateAgainstSwagger(resolvedResponse, swaggerModel, p
     return {
       valid: false,
       errors: Error('The Swagger defined an empty response but the provided'
-        + ` response was non-empty for path: ${path}`);
+        + ` response was non-empty for path: ${path}`)
     };
   } else if (model && isEmpty(response)) {
     return {
       valid: false,
       errors: Error('The Swagger defined a non-empty response but the provided'
-        + ` response was empty for path: ${path}`);
+        + ` response was empty for path: ${path}`)
     };
   } else if (!model && isEmpty(response)) {
     return {
