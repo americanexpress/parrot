@@ -1,0 +1,20 @@
+# node/npm
+node_modules
+*.log
+
+# build
+dist
+parrot-devtools-chrome-extension
+parrot-devtools
+
+# test
+test-results
+coverage
+
+# editors
+# webstorm
+.idea
+
+# OS
+.DS_Store
+[T|t]humb.db

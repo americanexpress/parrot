@@ -55,11 +55,13 @@ var LogCreator = function () {
     key: 'setScenario',
     value: function setScenario(scenario) {
       this.scenario = scenario;
+      return this;
     }
   }, {
     key: 'setPath',
     value: function setPath(path) {
       this.path = path;
+      return this;
     }
   }]);
 

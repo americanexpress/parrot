@@ -44,13 +44,15 @@ function resolveResponse(config, app, logger) {
       });
       // Special case to check against paths using request params
     } else if (property === 'path') {
-      var parsedPath = config.request.path;
-      Object.keys(req.params).forEach(function (param) {
-        parsedPath = parsedPath.replace(':' + param, req.params[param]);
-      });
-      if (!(0, _isEqual2.default)(parsedPath, req.path)) {
-        throw Error(logger.info('Not able to match parsed request property ' + property + '.' + (' Trying next route. \n\trequest: ' + _util2.default.inspect(req[property])) + ('\n\tconfig: ' + _util2.default.inspect(configCopy.request[property]))));
-      }
+      (function () {
+        var parsedPath = config.request.path;
+        Object.keys(req.params).forEach(function (param) {
+          parsedPath = parsedPath.replace(':' + param, req.params[param]);
+        });
+        if (!(0, _isEqual2.default)(parsedPath, req.path)) {
+          throw Error(logger.info('Not able to match parsed request property ' + property + '.' + (' Trying next route. \n\trequest: ' + _util2.default.inspect(req[property])) + ('\n\tconfig: ' + _util2.default.inspect(configCopy.request[property]))));
+        }
+      })();
     } else if (!(0, _isEqual2.default)(req[property], configCopy.request[property])) {
       throw Error(logger.info('Not able to match request property ' + property + '.' + (' Trying next route. \n\trequest: ' + _util2.default.inspect(req[property])) + ('\n\tconfig: ' + _util2.default.inspect(configCopy.request[property]))));
     }

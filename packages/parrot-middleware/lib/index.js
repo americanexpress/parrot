@@ -50,19 +50,6 @@ function createMiddlewareForScenario(_ref) {
           console.error(e.message);
         }
       });
-      // TODO this is cohesion to axp-app, externalize to initialization params
-      // Might not be needed with holocron
-      // catch all with 404
-      /*
-      router.get('/account-data/*', (req, res) => {
-        LogCreator.setPath(req.path);
-        console.error(LogCreator.error('Route failed. If there are no other errors, you have not'
-          + ' defined this route.'));
-         res.status(404).send({
-          error: `Could not return mock data for: ${req.path}`,
-        });
-      });
-      */
     }
 
     function setActiveScenario(scenarioName) {
