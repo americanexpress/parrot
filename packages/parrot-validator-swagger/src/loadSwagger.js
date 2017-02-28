@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch';
 const swaggerDefaultPath = `${__dirname}/.validationSwaggerCache`;
 
 // Attempts to fetch and if successful caches locally
-async function fetchSwagger(swaggerUrl = process.env.MOCK_MIDDLEWARE_SWAGGER_URL,
+export async function fetchSwagger(swaggerUrl = process.env.SWAGGER_URL,
   swaggerPath = swaggerDefaultPath) {
   const response = await fetch(swaggerUrl);
   const swagger = await response.text();
@@ -13,16 +13,16 @@ async function fetchSwagger(swaggerUrl = process.env.MOCK_MIDDLEWARE_SWAGGER_URL
   return swagger;
 }
 
-async function loadSwagger(swaggerPath = swaggerDefaultPath) {
+async function loadSwagger(swaggerPath = swaggerDefaultPath, swaggerUrl) {
   let swagger;
   try {
-    swagger = await fetchSwagger();
+    swagger = await fetchSwagger(swaggerUrl);
   } catch (fetchError) {
     try {
       swagger = fs.readFileSync(swaggerPath);
     } catch (readError) {
       throw new Error('Arr! The Swagger definitions could not be fetched and do not exist'
-        + ' locally. Your responses will not be validated.')
+        + ' locally. Your responses will not be validated.');
     }
   }
   try {

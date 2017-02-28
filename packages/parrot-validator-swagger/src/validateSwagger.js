@@ -5,12 +5,13 @@ export function translateUrlParams(path) {
   return path.replace(new RegExp(/(\/:)\w+/, 'g'), match => `/{${match.slice(2)}}`);
 }
 
-export default function validateAgainstSwagger(resolvedResponse, swaggerModel, path, method, responseCode) {
+export default function
+  validateAgainstSwagger(resolvedResponse, swaggerModel, path, method, responseCode) {
   // If we were not able to load the Swagger model
   if (swaggerModel instanceof Error) {
     return {
       valid: false,
-      errors: swaggerModel
+      errors: swaggerModel,
     };
   }
 
@@ -21,15 +22,16 @@ export default function validateAgainstSwagger(resolvedResponse, swaggerModel, p
   if (!pathItem) {
     return {
       valid: false,
-      errors: Error(`The path provided is not defined in the Swagger: ${path}`)
+      errors: Error(`The path provided is not defined in the Swagger: ${path}`),
     };
   }
 
+  // Check if mock response has valid responseCode
   const responseObj = pathItem[method.toLowerCase()].responses[responseCode];
   if (!responseObj) {
     return {
       valid: false,
-      errors: Error(`The response code ${responseCode} is not defined in the Swagger for path: ${path}`)
+      errors: Error(`The response code ${responseCode} is not defined in the Swagger for path: ${path}`),
     };
   }
 
@@ -38,27 +40,28 @@ export default function validateAgainstSwagger(resolvedResponse, swaggerModel, p
     model = swaggerModel.responses[responseObj.$ref.replace('#/responses/', '')].schema;
   }
 
-  if (!model && !isEmpty(response)) {
+  // Ensure emptiness/non-emptiness matches swagger schema
+  if (!model && !isEmpty(resolvedResponse)) {
     return {
       valid: false,
       errors: Error('The Swagger defined an empty response but the provided'
-        + ` response was non-empty for path: ${path}`)
+        + ` response was non-empty for path: ${path}`),
     };
-  } else if (model && isEmpty(response)) {
+  } else if (model && isEmpty(resolvedResponse)) {
     return {
       valid: false,
       errors: Error('The Swagger defined a non-empty response but the provided'
-        + ` response was empty for path: ${path}`)
+        + ` response was empty for path: ${path}`),
     };
-  } else if (!model && isEmpty(response)) {
+  } else if (!model && isEmpty(resolvedResponse)) {
     return {
-      valid: true
+      valid: true,
     };
   }
 
   // Validate the response against the model
   // The library returns an object with properties that match our validation
-  const results = new SwaggerValidator().validate(response, model,
+  const results = new SwaggerValidator().validate(resolvedResponse, model,
     swaggerModel.definitions, true, true);
 
   return results;
