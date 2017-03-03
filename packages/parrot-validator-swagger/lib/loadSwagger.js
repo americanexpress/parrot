@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.fetchSwagger = undefined;
 
 // Attempts to fetch and if successful caches locally
-var fetchSwagger = function () {
-  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-    var swaggerUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : process.env.MOCK_MIDDLEWARE_SWAGGER_URL;
+var fetchSwagger = exports.fetchSwagger = function () {
+  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(swaggerUrl) {
     var swaggerPath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : swaggerDefaultPath;
     var response, swagger;
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -36,61 +36,70 @@ var fetchSwagger = function () {
     }, _callee, this);
   }));
 
-  return function fetchSwagger() {
+  return function fetchSwagger(_x) {
     return _ref.apply(this, arguments);
   };
 }();
 
 var loadSwagger = function () {
-  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-    var swaggerPath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : swaggerDefaultPath;
+  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(swaggerUrl) {
+    var swaggerPath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : swaggerDefaultPath;
     var swagger;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             swagger = void 0;
-            _context2.prev = 1;
-            _context2.next = 4;
-            return fetchSwagger();
 
-          case 4:
+            if (swaggerUrl) {
+              _context2.next = 3;
+              break;
+            }
+
+            throw new Error('Missing swagger JSON url in validator config.');
+
+          case 3:
+            _context2.prev = 3;
+            _context2.next = 6;
+            return fetchSwagger(swaggerUrl);
+
+          case 6:
             swagger = _context2.sent;
-            _context2.next = 16;
+            _context2.next = 18;
             break;
 
-          case 7:
-            _context2.prev = 7;
-            _context2.t0 = _context2['catch'](1);
+          case 9:
             _context2.prev = 9;
+            _context2.t0 = _context2['catch'](3);
+            _context2.prev = 11;
 
             swagger = _fs2.default.readFileSync(swaggerPath);
-            _context2.next = 16;
+            _context2.next = 18;
             break;
 
-          case 13:
-            _context2.prev = 13;
-            _context2.t1 = _context2['catch'](9);
+          case 15:
+            _context2.prev = 15;
+            _context2.t1 = _context2['catch'](11);
             throw new Error('Arr! The Swagger definitions could not be fetched and do not exist' + ' locally. Your responses will not be validated.');
 
-          case 16:
-            _context2.prev = 16;
+          case 18:
+            _context2.prev = 18;
             return _context2.abrupt('return', JSON.parse(swagger));
 
-          case 20:
-            _context2.prev = 20;
-            _context2.t2 = _context2['catch'](16);
+          case 22:
+            _context2.prev = 22;
+            _context2.t2 = _context2['catch'](18);
             throw new Error('JSON parse failed: ' + _context2.t2);
 
-          case 23:
+          case 25:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, this, [[1, 7], [9, 13], [16, 20]]);
+    }, _callee2, this, [[3, 9], [11, 15], [18, 22]]);
   }));
 
-  return function loadSwagger() {
+  return function loadSwagger(_x3) {
     return _ref2.apply(this, arguments);
   };
 }();

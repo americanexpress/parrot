@@ -1,7 +1,8 @@
 {
-  "name": "parrot-swagger-validator",
+  "name": "parrot-validator-swagger",
   "version": "1.0.0",
   "description": "Validate Mock Scenario Objects against a swagger schema",
+  "main": "lib/index.js",
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Nathan Arick Force <Nathan.A.Force@aexp.com>",

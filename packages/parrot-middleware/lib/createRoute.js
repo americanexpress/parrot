@@ -14,7 +14,7 @@ var _resolveResponse2 = _interopRequireDefault(_resolveResponse);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function createRoute(router, config, logger) {
+function createRoute(router, config, validator, logger) {
   // Set Default Method to HTTP GET
   var method = config.request.method ? config.request.method.toLowerCase() : 'get';
   var statusCode = config.response.statusCode || 200;
@@ -29,6 +29,19 @@ function createRoute(router, config, logger) {
       console.log(e.message);
       next(); // something didn't match, move on to next route
       return;
+    }
+
+    if (validator) {
+      var routeValidation = validator(responseResource, config);
+      // Convert to array if passes back a single error
+      var errors = [];
+      if (routeValidation.errors) {
+        errors = Array.isArray(routeValidation.errors) ? routeValidation.errors : [routeValidation.errors];
+      }
+      console.log('The route validation found ' + errors.length + ' error(s).');
+      errors.forEach(function (err) {
+        return console.log(logger.warn(err.message));
+      });
     }
 
     var responseMethod = (typeof responseResource === 'undefined' ? 'undefined' : _typeof(responseResource)) === 'object' ? 'json' : 'send';
