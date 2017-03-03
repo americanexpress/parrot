@@ -5,16 +5,18 @@ import fetch from 'isomorphic-fetch';
 const swaggerDefaultPath = `${__dirname}/.validationSwaggerCache`;
 
 // Attempts to fetch and if successful caches locally
-export async function fetchSwagger(swaggerUrl = process.env.SWAGGER_URL,
-  swaggerPath = swaggerDefaultPath) {
+export async function fetchSwagger(swaggerUrl, swaggerPath = swaggerDefaultPath) {
   const response = await fetch(swaggerUrl);
   const swagger = await response.text();
   fs.writeFile(swaggerPath, swagger);
   return swagger;
 }
 
-async function loadSwagger(swaggerPath = swaggerDefaultPath, swaggerUrl) {
+async function loadSwagger(swaggerUrl, swaggerPath = swaggerDefaultPath) {
   let swagger;
+  if (!swaggerUrl) {
+    throw new Error('Missing swagger JSON url in validator config.');
+  }
   try {
     swagger = await fetchSwagger(swaggerUrl);
   } catch (fetchError) {
