@@ -12,12 +12,12 @@ export default function createMiddlewareForScenario({ scenarios, validator }) {
   return (app) => {
     const logger = new LogCreator();
     let router;
-    function createRoutesForScenario(scenario) {
+    function createRoutesForScenario(scenario, routeValidator) {
       router = Router();
       scenario.forEach((config) => {
         try {
           validateRouteConfig(config);
-          createRoute(router, normalizeRouteConfig(config), logger);
+          createRoute(router, normalizeRouteConfig(config), routeValidator, logger);
         } catch (e) {
           console.error(e.message);
         }
@@ -26,7 +26,7 @@ export default function createMiddlewareForScenario({ scenarios, validator }) {
 
     function setActiveScenario(scenarioName) {
       logger.setScenario(scenarioName);
-      createRoutesForScenario(scenarios[scenarioName]);
+      createRoutesForScenario(scenarios[scenarioName], validator);
       return scenarioName;
     }
 

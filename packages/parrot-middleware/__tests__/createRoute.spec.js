@@ -33,7 +33,7 @@ describe('createRoute', () => {
   };
 
   it('adds a path to the router', () => {
-    createRoute(router, mockConfig, logger);
+    createRoute(router, mockConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();
     const [path, callback] = router.get.mock.calls[0];
     expect(path).toEqual(mockConfig.request.path);
@@ -46,7 +46,7 @@ describe('createRoute', () => {
   });
 
   it('calls next if resolveResponse throws an error', () => {
-    createRoute(router, mockConfig, logger);
+    createRoute(router, mockConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();
     const [path, callback] = router.get.mock.calls[0];
     expect(path).toEqual(mockConfig.request.path);
@@ -71,7 +71,7 @@ describe('createRoute', () => {
         resource: { success: true }
       }
     };
-    createRoute(router, mockDelayConfig, logger);
+    createRoute(router, mockDelayConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();
     const [path, callback] = router.get.mock.calls[0];
     expect(path).toEqual(mockDelayConfig.request.path);
@@ -93,7 +93,7 @@ describe('createRoute', () => {
         resource: 'Hello, world.',
       }
     };
-    createRoute(router, mockTextConfig, logger);
+    createRoute(router, mockTextConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();
     const [path, callback] = router.get.mock.calls[0];
     expect(path).toEqual(mockTextConfig.request.path);
@@ -103,5 +103,58 @@ describe('createRoute', () => {
     callback(mockReq, mockRes, mockNext);
     expect(mockRes.status).toHaveBeenCalled();
     expect(mockRes.send).toHaveBeenCalledWith(mockTextConfig.response.resource);
+  });
+
+  describe('validator', () => {
+    let consoleSpy;
+    beforeEach(() => {
+      consoleSpy = spyOn(console, 'log');
+    });
+
+    afterEach(() => {
+      consoleSpy.mockReset();
+      consoleSpy.mockRestore();
+    });
+
+    it('always logs validator count even if valid route', () => {
+      const validator = jest.fn(() => ({
+        valid: true
+      }));
+      createRoute(router, mockConfig, validator, logger);
+      expect(router.get).toHaveBeenCalled();
+      const [path, callback] = router.get.mock.calls[0];
+      const mockReq = { ...mockConfig.request };
+      callback(mockReq, mockRes, mockNext);
+      expect(consoleSpy.mock.calls[0]).toEqual('The route validation found 0 error(s)');
+      expect(consoleSpy.mock.calls.length).toEqual(1);
+    });
+
+    it('can log a single error', () => {
+      const validator = jest.fn(() => ({
+        valid: false,
+        errors: new Error('You failed.'),
+      }));
+      createRoute(router, mockConfig, validator, logger);
+      expect(router.get).toHaveBeenCalled();
+      const [path, callback] = router.get.mock.calls[0];
+      const mockReq = { ...mockConfig.request };
+      callback(mockReq, mockRes, mockNext);
+      expect(consoleSpy.mock.calls[0]).toEqual('The route validation found 1 error(s)');
+      expect(consoleSpy.mock.calls.length).toEqual(2);
+    });
+
+    it('can log multiple errors', () => {
+      const validator = jest.fn(() => ({
+        valid: false,
+        errors: [ Error('You failed.'), Error('You should try harder.') ]
+      }));
+      createRoute(router, mockConfig, validator, logger);
+      expect(router.get).toHaveBeenCalled();
+      const [path, callback] = router.get.mock.calls[0];
+      const mockReq = { ...mockConfig.request };
+      callback(mockReq, mockRes, mockNext);
+      expect(consoleSpy.mock.calls[0]).toEqual('The route validation found 2 error(s)');
+      expect(consoleSpy.mock.calls.length).toEqual(3);
+    });
   });
 });

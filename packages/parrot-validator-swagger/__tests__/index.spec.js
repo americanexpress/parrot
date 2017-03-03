@@ -1,4 +1,4 @@
-import validator from '../src/index';
+import SwaggerValidator from '../src/index';
 
 jest.mock('../src/loadSwagger');
 jest.mock('../src/validateSwagger');
@@ -7,6 +7,11 @@ describe('Spec: index', () => {
   let loadSwagger;
   let validateSwagger;
   let mockResponse;
+  const validatorConfig = {
+    swaggerUrl: 'http://something.com/schema',
+    swaggerCachePath: `${__dirname}/.parrotSwagger`
+  };
+  let validator;
   let config;
   beforeEach(() => {
     loadSwagger = require('../src/loadSwagger');
@@ -25,6 +30,7 @@ describe('Spec: index', () => {
         statusCode: 200
       }
     };
+    validator = SwaggerValidator(validatorConfig);
   });
 
   it('calls loadSwagger', () => {
