@@ -42,6 +42,7 @@ function validateAgainstSwagger(resolvedResponse, swaggerModel, path, method, re
     };
   }
 
+  // Check if mock response has valid responseCode
   var responseObj = pathItem[method.toLowerCase()].responses[responseCode];
   if (!responseObj) {
     return {
@@ -55,17 +56,18 @@ function validateAgainstSwagger(resolvedResponse, swaggerModel, path, method, re
     model = swaggerModel.responses[responseObj.$ref.replace('#/responses/', '')].schema;
   }
 
-  if (!model && !(0, _isEmpty2.default)(response)) {
+  // Ensure emptiness/non-emptiness matches swagger schema
+  if (!model && !(0, _isEmpty2.default)(resolvedResponse)) {
     return {
       valid: false,
       errors: Error('The Swagger defined an empty response but the provided' + (' response was non-empty for path: ' + path))
     };
-  } else if (model && (0, _isEmpty2.default)(response)) {
+  } else if (model && (0, _isEmpty2.default)(resolvedResponse)) {
     return {
       valid: false,
       errors: Error('The Swagger defined a non-empty response but the provided' + (' response was empty for path: ' + path))
     };
-  } else if (!model && (0, _isEmpty2.default)(response)) {
+  } else if (!model && (0, _isEmpty2.default)(resolvedResponse)) {
     return {
       valid: true
     };
@@ -73,7 +75,7 @@ function validateAgainstSwagger(resolvedResponse, swaggerModel, path, method, re
 
   // Validate the response against the model
   // The library returns an object with properties that match our validation
-  var results = new _swaggerModelValidator2.default().validate(response, model, swaggerModel.definitions, true, true);
+  var results = new _swaggerModelValidator2.default().validate(resolvedResponse, model, swaggerModel.definitions, true, true);
 
   return results;
 }

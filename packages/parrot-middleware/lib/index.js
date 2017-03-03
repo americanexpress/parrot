@@ -40,12 +40,12 @@ function createMiddlewareForScenario(_ref) {
   return function (app) {
     var logger = new _logging2.default();
     var router = void 0;
-    function createRoutesForScenario(scenario) {
+    function createRoutesForScenario(scenario, routeValidator) {
       router = (0, _express.Router)();
       scenario.forEach(function (config) {
         try {
           (0, _validateRouteConfig2.default)(config);
-          (0, _createRoute2.default)(router, (0, _normalizeRouteConfig2.default)(config), logger);
+          (0, _createRoute2.default)(router, (0, _normalizeRouteConfig2.default)(config), routeValidator, logger);
         } catch (e) {
           console.error(e.message);
         }
@@ -54,7 +54,7 @@ function createMiddlewareForScenario(_ref) {
 
     function setActiveScenario(scenarioName) {
       logger.setScenario(scenarioName);
-      createRoutesForScenario(scenarios[scenarioName]);
+      createRoutesForScenario(scenarios[scenarioName], validator);
       return scenarioName;
     }
 
