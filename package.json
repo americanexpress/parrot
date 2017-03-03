@@ -2,7 +2,10 @@
   "name": "parrot",
   "version": "1.0.0",
   "scripts": {
-    "install": "lerna bootstrap"
+    "install": "lerna bootstrap",
+    "clean": "git clean -d -X",
+    "lint": "eslint --ext js .",
+    "test": "jest"
   },
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
@@ -10,6 +13,30 @@
     "Nathan Force <nathan.a.force@aexp.com>"
   ],
   "devDependencies": {
+    "babel-jest": "^17.0.2",
+    "eslint": "^3.8.1",
+    "eslint-config-axp": "^2.1.0",
+    "jasmine-reporters": "^2.2.0",
+    "jest": "^19.0.0",
     "lerna": "2.0.0-beta.34"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./jest-setup.js",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!devtools/**",
+      "!**/node_modules/**",
+      "!**/build/**",
+      "!**/test-results/**",
+      "!packages/*/lib/**"
+    ],
+    "coverageDirectory": "./test-results/coverage",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "cobertura"
+    ]
   }
 }
