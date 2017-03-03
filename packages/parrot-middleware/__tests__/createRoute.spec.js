@@ -46,6 +46,8 @@ describe('createRoute', () => {
   });
 
   it('calls next if resolveResponse throws an error', () => {
+    // Suppress Logging Message for test
+    const consoleSpy = spyOn(console, 'log');
     createRoute(router, mockConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();
     const [path, callback] = router.get.mock.calls[0];
@@ -60,6 +62,8 @@ describe('createRoute', () => {
     expect(mockRes.status).not.toHaveBeenCalled();
     expect(mockRes.json).not.toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
+    // Confirm that logging was called
+    expect(consoleSpy.calls.any()).toEqual(true);
   });
 
   it('will delay response if response config has a delay', () => {
@@ -108,12 +112,8 @@ describe('createRoute', () => {
   describe('validator', () => {
     let consoleSpy;
     beforeEach(() => {
+      // Spies are automatically removed after the describe block finishes
       consoleSpy = spyOn(console, 'log');
-    });
-
-    afterEach(() => {
-      consoleSpy.mockReset();
-      consoleSpy.mockRestore();
     });
 
     it('always logs validator count even if valid route', () => {
@@ -125,8 +125,8 @@ describe('createRoute', () => {
       const [path, callback] = router.get.mock.calls[0];
       const mockReq = { ...mockConfig.request };
       callback(mockReq, mockRes, mockNext);
-      expect(consoleSpy.mock.calls[0]).toEqual('The route validation found 0 error(s)');
-      expect(consoleSpy.mock.calls.length).toEqual(1);
+      expect(consoleSpy.calls.first().args[0]).toEqual('The route validation found 0 error(s).');
+      expect(consoleSpy.calls.count()).toEqual(1);
     });
 
     it('can log a single error', () => {
@@ -139,8 +139,8 @@ describe('createRoute', () => {
       const [path, callback] = router.get.mock.calls[0];
       const mockReq = { ...mockConfig.request };
       callback(mockReq, mockRes, mockNext);
-      expect(consoleSpy.mock.calls[0]).toEqual('The route validation found 1 error(s)');
-      expect(consoleSpy.mock.calls.length).toEqual(2);
+      expect(consoleSpy.calls.first().args[0]).toEqual('The route validation found 1 error(s).');
+      expect(consoleSpy.calls.count()).toEqual(2);
     });
 
     it('can log multiple errors', () => {
@@ -153,8 +153,8 @@ describe('createRoute', () => {
       const [path, callback] = router.get.mock.calls[0];
       const mockReq = { ...mockConfig.request };
       callback(mockReq, mockRes, mockNext);
-      expect(consoleSpy.mock.calls[0]).toEqual('The route validation found 2 error(s)');
-      expect(consoleSpy.mock.calls.length).toEqual(3);
+      expect(consoleSpy.calls.first().args[0]).toEqual('The route validation found 2 error(s).');
+      expect(consoleSpy.calls.count()).toEqual(3);
     });
   });
 });
