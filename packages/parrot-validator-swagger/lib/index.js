@@ -22,7 +22,7 @@ function SwaggerValidator(validatorConfig) {
 
   return function validator(resolvedResponse, routeConfig) {
     var urlParamPath = routeConfig.request.path;
-    var method = routeConfig.request.method.toLowerCase();
+    var method = routeConfig.request.method ? routeConfig.request.method.toLowerCase() : 'get';
     var statusCode = routeConfig.response.statusCode || 200;
     return (0, _loadSwagger2.default)(swaggerUrl, swaggerCachePath).then(function (swaggerModel) {
       try {
