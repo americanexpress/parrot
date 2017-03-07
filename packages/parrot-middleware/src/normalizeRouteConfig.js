@@ -10,11 +10,13 @@ export default function normalizeRouteConfig(config) {
   if (typeof configCopy.request === 'string') {
     configCopy.request = {
       path: configCopy.request,
+      method: 'GET'
     };
   }
   if (typeof config.response !== 'object' || typeof config.response.resource === 'undefined') {
     configCopy.response = {
       resource: configCopy.response,
+      statusCode: 200
     };
   }
   return configCopy;

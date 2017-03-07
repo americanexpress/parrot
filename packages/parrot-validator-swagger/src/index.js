@@ -6,7 +6,8 @@ export default function SwaggerValidator(validatorConfig) {
 
   return function validator(resolvedResponse, routeConfig) {
     const urlParamPath = routeConfig.request.path;
-    const method = routeConfig.request.method.toLowerCase();
+    const method = routeConfig.request.method ?
+      routeConfig.request.method.toLowerCase() : 'get';
     const statusCode = routeConfig.response.statusCode || 200;
     return loadSwagger(swaggerUrl, swaggerCachePath).then((swaggerModel) => {
       try {

@@ -38,6 +38,12 @@ describe('Spec: index', () => {
     expect(loadSwagger.default).toHaveBeenCalled();
   });
 
+  it('sets default method if not set', async () => {
+    config.request.method = undefined;
+    await validator(mockResponse, config);
+    expect(validateSwagger.default.mock.calls[0][3]).toEqual('get');
+  });
+
   it('sets default statusCode if not set', async () => {
     config.response.statusCode = undefined;
     await validator(mockResponse, config);

@@ -45,7 +45,7 @@ def preRelease() {
     // http://unix.stackexchange.com/a/77313
     sh 'rm -Rf ./* ./.[!.]*'
     sh 'ls -lah'
-    sh "git clone \"ssh://git@stash.aexp.com/~jcros8/parrot.git\" --branch \"${RELEASE_BRANCH}\" ."
+    sh "git clone \"ssh://git@stash.aexp.com/one/parrot.git\" --branch \"${RELEASE_BRANCH}\" ."
   }
 
   stage('merge with master') {
