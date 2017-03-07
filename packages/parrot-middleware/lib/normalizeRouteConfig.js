@@ -23,12 +23,14 @@ function normalizeRouteConfig(config) {
   var configCopy = (0, _cloneDeep2.default)(config); // do not modify original config
   if (typeof configCopy.request === 'string') {
     configCopy.request = {
-      path: configCopy.request
+      path: configCopy.request,
+      method: 'GET'
     };
   }
   if (_typeof(config.response) !== 'object' || typeof config.response.resource === 'undefined') {
     configCopy.response = {
-      resource: configCopy.response
+      resource: configCopy.response,
+      statusCode: 200
     };
   }
   return configCopy;

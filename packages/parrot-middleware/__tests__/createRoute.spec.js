@@ -66,6 +66,17 @@ describe('createRoute', () => {
     expect(consoleSpy.calls.any()).toEqual(true);
   });
 
+  it('uses get as default method if not specified in config', () => {
+    const simpleConfig = {
+      ...mockConfig,
+      request: {
+        path: '/test',
+      }
+    };
+    createRoute(router, simpleConfig, undefined, logger);
+    expect(router.get).toHaveBeenCalled();
+  });
+
   it('will delay response if response config has a delay', () => {
     const delay = 2000;
     const mockDelayConfig = {
@@ -114,6 +125,19 @@ describe('createRoute', () => {
     beforeEach(() => {
       // Spies are automatically removed after the describe block finishes
       consoleSpy = spyOn(console, 'log');
+    });
+
+    it('catches internal validator errors', () => {
+      const validator = jest.fn(() => {
+        throw Error('Something something undefined');
+      });
+      createRoute(router, mockConfig, validator, logger);
+      expect(router.get).toHaveBeenCalled();
+      const [path, callback] = router.get.mock.calls[0];
+      const mockReq = { ...mockConfig.request };
+      callback(mockReq, mockRes, mockNext);
+      expect(consoleSpy.calls.first().args[0]).toMatch(/Validator failed due to internal error/);
+      expect(consoleSpy.calls.count()).toEqual(1);
     });
 
     it('always logs validator count even if valid route', () => {
