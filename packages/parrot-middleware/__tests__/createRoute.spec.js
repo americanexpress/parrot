@@ -140,21 +140,21 @@ describe('createRoute', () => {
       expect(consoleSpy.calls.count()).toEqual(1);
     });
 
-    it('always logs validator count even if valid route', () => {
-      const validator = jest.fn(() => ({
+    it('always logs validator count even if valid route', async () => {
+      const validator = jest.fn(() => Promise.resolve({
         valid: true
       }));
       createRoute(router, mockConfig, validator, logger);
       expect(router.get).toHaveBeenCalled();
       const [path, callback] = router.get.mock.calls[0];
       const mockReq = { ...mockConfig.request };
-      callback(mockReq, mockRes, mockNext);
+      await callback(mockReq, mockRes, mockNext);
       expect(consoleSpy.calls.first().args[0]).toEqual('The route validation found 0 error(s).');
       expect(consoleSpy.calls.count()).toEqual(1);
     });
 
-    it('can log a single error', () => {
-      const validator = jest.fn(() => ({
+    it('can log a single error', async () => {
+      const validator = jest.fn(() => Promise.resolve({
         valid: false,
         errors: new Error('You failed.'),
       }));
@@ -162,13 +162,13 @@ describe('createRoute', () => {
       expect(router.get).toHaveBeenCalled();
       const [path, callback] = router.get.mock.calls[0];
       const mockReq = { ...mockConfig.request };
-      callback(mockReq, mockRes, mockNext);
+      await callback(mockReq, mockRes, mockNext);
       expect(consoleSpy.calls.first().args[0]).toEqual('The route validation found 1 error(s).');
       expect(consoleSpy.calls.count()).toEqual(2);
     });
 
-    it('can log multiple errors', () => {
-      const validator = jest.fn(() => ({
+    it('can log multiple errors', async () => {
+      const validator = jest.fn(() => Promise.resolve({
         valid: false,
         errors: [ Error('You failed.'), Error('You should try harder.') ]
       }));
@@ -176,7 +176,7 @@ describe('createRoute', () => {
       expect(router.get).toHaveBeenCalled();
       const [path, callback] = router.get.mock.calls[0];
       const mockReq = { ...mockConfig.request };
-      callback(mockReq, mockRes, mockNext);
+      await callback(mockReq, mockRes, mockNext);
       expect(consoleSpy.calls.first().args[0]).toEqual('The route validation found 2 error(s).');
       expect(consoleSpy.calls.count()).toEqual(3);
     });

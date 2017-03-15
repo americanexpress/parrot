@@ -19,15 +19,16 @@ export default function createRoute(router, config, validator, logger) {
 
     if (validator) {
       try {
-        const routeValidation = validator(responseResource, config);
-        // Convert to array if passes back a single error
-        let errors = [];
-        if (routeValidation.errors) {
-          errors = Array.isArray(routeValidation.errors) ?
-            routeValidation.errors : [routeValidation.errors];
-        }
-        console.log(`The route validation found ${errors.length} error(s).`);
-        errors.forEach(err => console.log(logger.warn(err.message)));
+         validator(responseResource, config).then((routeValidation) => {
+           // Convert to array if passes back a single error
+           let errors = [];
+           if (routeValidation.errors) {
+             errors = Array.isArray(routeValidation.errors) ?
+               routeValidation.errors : [routeValidation.errors];
+           }
+           console.log(`The route validation found ${errors.length} error(s).`);
+           errors.forEach(err => console.log(logger.warn(err.message)));
+         });
       } catch(err) {
         console.log('Validator failed due to internal error: ', err);
       }
