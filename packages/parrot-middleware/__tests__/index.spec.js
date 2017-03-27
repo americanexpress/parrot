@@ -71,7 +71,7 @@ describe('Spec: Index', () => {
 
     it('applies internally created routes to an express router', () => {
       createMiddlewareForScenario({ scenarios: scenarioFixture })(app);
-      const routerCallback = (app.use.mock.calls[2][0]);
+      const routerCallback = (app.use.mock.calls[1][0]);
       const params = ['req', 'res', 'next'];
       routerCallback(...params);
       expect(routerInstance.mock.calls[0]).toEqual(params);

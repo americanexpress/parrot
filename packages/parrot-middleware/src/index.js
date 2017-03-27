@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { Router } from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
 
 import LogCreator from './utils/logging';
 import validateRouteConfig from './validateRouteConfig';
@@ -32,7 +31,6 @@ export default function createMiddlewareForScenario({ scenarios, validator }) {
 
     let activeScenarioName = setActiveScenario(Object.keys(scenarios)[0]);
 
-    app.use(cors());
     app.use(bodyParser.json());
     app.use((req, res, next) => {
       router(req, res, next);
