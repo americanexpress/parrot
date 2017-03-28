@@ -11,10 +11,6 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _cors = require('cors');
-
-var _cors2 = _interopRequireDefault(_cors);
-
 var _logging = require('./utils/logging');
 
 var _logging2 = _interopRequireDefault(_logging);
@@ -33,6 +29,7 @@ var _createRoute2 = _interopRequireDefault(_createRoute);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/* eslint-disable no-param-reassign */
 function createMiddlewareForScenario(_ref) {
   var scenarios = _ref.scenarios,
       validator = _ref.validator;
@@ -60,7 +57,6 @@ function createMiddlewareForScenario(_ref) {
 
     var activeScenarioName = setActiveScenario(Object.keys(scenarios)[0]);
 
-    app.use((0, _cors2.default)());
     app.use(_bodyParser2.default.json());
     app.use(function (req, res, next) {
       router(req, res, next);
@@ -79,4 +75,4 @@ function createMiddlewareForScenario(_ref) {
       res.json(scenarios);
     });
   };
-} /* eslint-disable no-param-reassign */
+}
