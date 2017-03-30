@@ -1,8 +1,6 @@
-import chalk from 'chalk';
-
 const logValidation = (
   routeValidation,
-  outputFn = (txt) => console.log(chalk.yellow(txt)),
+  outputFn,
 ) => {
   let errors = [];
   if (routeValidation.errors) {

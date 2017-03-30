@@ -6,7 +6,7 @@ export function translateUrlParams(path) {
 }
 
 export default function
-  validateAgainstSwagger(resolvedResponse, swaggerModel, path, method, responseCode) {
+  validateAgainstSwagger(responseBody, swaggerModel, path, method, responseCode) {
   // If we were not able to load the Swagger model
   if (swaggerModel instanceof Error) {
     return {
@@ -41,19 +41,19 @@ export default function
   }
 
   // Ensure emptiness/non-emptiness matches swagger schema
-  if (!model && !isEmpty(resolvedResponse)) {
+  if (!model && !isEmpty(responseBody)) {
     return {
       valid: false,
       errors: Error('The Swagger defined an empty response but the provided'
         + ` response was non-empty for path: ${path}`),
     };
-  } else if (model && isEmpty(resolvedResponse)) {
+  } else if (model && isEmpty(responseBody)) {
     return {
       valid: false,
       errors: Error('The Swagger defined a non-empty response but the provided'
         + ` response was empty for path: ${path}`),
     };
-  } else if (!model && isEmpty(resolvedResponse)) {
+  } else if (!model && isEmpty(responseBody)) {
     return {
       valid: true,
     };
@@ -61,7 +61,7 @@ export default function
 
   // Validate the response against the model
   // The library returns an object with properties that match our validation
-  const results = new SwaggerValidator().validate(resolvedResponse, model,
+  const results = new SwaggerValidator().validate(responseBody, model,
     swaggerModel.definitions, true, true);
 
   return results;

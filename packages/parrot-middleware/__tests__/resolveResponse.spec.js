@@ -1,6 +1,8 @@
 import resolveResponse from '../src/resolveResponse';
 import LogCreator from '../src/utils/logging';
 
+jest.unmock('chalk')
+
 describe('Spec: resolveResponse', () => {
   let logger;
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import validateAgainstSwagger, { translateUrlParams } from '../src/validateSwagger';
+import validateAgainstSwagger, { translateUrlParams } from '../src/validateAgainstSwagger';
 
 describe('Spec: validateSwagger', () => {
   describe('translateUrlParams', () => {
