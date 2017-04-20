@@ -1,6 +1,6 @@
 import promisify from 'promisify-node';
 import path from 'path';
-import ParrotListener from '../src/parrotListener';
+import parrotListener from '../src/parrotListener';
 import writeFile from '../src/writeFile';
 import writeScenarioFile from '../src/writeScenarioFile';
 
@@ -13,11 +13,11 @@ path.join.mockImplementation(() => '/something');
 writeScenarioFile.mockImplementation(() => Promise.resolve({}));
 writeFile.mockImplementation(() => Promise.resolve({}));
 
-describe('ParrotListener', () => {
+describe('parrotListener', () => {
   let listener;
 
   it('returns an express middleware on initialization', () => {
-    listener = new ParrotListener({});
+    listener = parrotListener({});
     expect(listener).toEqual(expect.any(Function));
   });
 
@@ -33,7 +33,7 @@ describe('ParrotListener', () => {
     });
 
     it('can start the listener', () => {
-      listener = new ParrotListener({ listening: false });
+      listener = parrotListener({ listening: false });
       listener(app);
       expect(app.get).toHaveBeenCalled();
       expect(app.put).toHaveBeenCalled();
@@ -60,7 +60,7 @@ describe('ParrotListener', () => {
       const config = {
         listening: true,
       };
-      listener = new ParrotListener(config);
+      listener = parrotListener(config);
       listener(app);
       const res = {
         json: jest.fn(),
@@ -80,7 +80,7 @@ describe('ParrotListener', () => {
       const config = {
         listening: false,
       };
-      listener = new ParrotListener(config);
+      listener = parrotListener(config);
       listener(app);
       const res = {
         json: jest.fn(),
@@ -99,7 +99,7 @@ describe('ParrotListener', () => {
       const config = {
         listening: false,
       };
-      listener = new ParrotListener(config);
+      listener = parrotListener(config);
       listener(app);
       const res = {
         json: jest.fn(),
@@ -115,7 +115,7 @@ describe('ParrotListener', () => {
     });
 
     it('can stop the listener', () => {
-      listener = new ParrotListener({ listening: true, name: 'testing' });
+      listener = parrotListener({ listening: true, name: 'testing' });
       listener(app);
       expect(app.get).toHaveBeenCalled();
       expect(app.put).toHaveBeenCalled();
@@ -144,7 +144,7 @@ describe('ParrotListener', () => {
         listening: true,
         logger: jest.fn(),
       };
-      listener = new ParrotListener(config);
+      listener = parrotListener(config);
       listener(app);
       const setListening = app.put.mock.calls[0][1];
       const res = {
@@ -159,7 +159,7 @@ describe('ParrotListener', () => {
 
     describe('middleware', () => {
       const setupMiddleware = (config = { listening: true, name: 'testing', logger: jest.fn() }) => {
-        listener = new ParrotListener(config);
+        listener = parrotListener(config);
         listener(app);
         return app.use.mock.calls[1][0];
       };

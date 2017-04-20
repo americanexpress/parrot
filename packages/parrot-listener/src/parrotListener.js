@@ -8,73 +8,32 @@ import writeScenarioFile from './writeScenarioFile';
 
 const fs = promisify('fs');
 
-export default class ParrotListener {
-  constructor({
-    output = '',
-    matcher = () => true,
-    name,
-    parser = req => req,
-    listening = false,
-    logger = console.log,
-  }) {
-    this.options = {
-      logger,
-      output,
-      matcher,
-      parser,
-    };
+const parrotListener = ({
+  output = '',
+  matcher = () => true,
+  name,
+  parser = req => req,
+  listening = false,
+  logger = console.log,
+}) => {
+  let routes = [];
+  let scenarioName = name;
+  let isListening = listening;
 
-    this.name = name;
-    this.routes = [];
-    this.listening = listening;
-    return (app) => {
-      app.use(bodyParser.json());
-      app.get('/parrot/listen', (req, res) => {
-        res.json(this.listening);
-      });
-
-      app.put('/parrot/listen', (req, res) => {
-        if (req.body.action === 'START') {
-          if (this.listening === true) {
-            return res.status(500).json({
-              reason: 'Already listening!'
-            });
-          } else if (!req.body.name) {
-            return res.status(500).json({
-              reason: 'Missing request field: "name"'
-            });
-          }
-          this.startListening(req.body.name);
-          return res.status(200).send();
-        } else if (req.body.action === 'STOP') {
-          return this.stopListening().then(() =>
-            res.status(200).send()
-          );
-        } else {
-          return res.status(500).json({
-            reason: 'Unknown or missing action. Valid actions are: START, STOP'
-          });
-        }
-      });
-      app.use(this.middleware.bind(this));
-    }
+  const startListening = (name) => {
+    scenarioName = name;
+    isListening = true;
   }
 
-  startListening(name) {
-    this.name = name;
-    this.listening = true;
-  }
+  const stopListening = () => {
+    isListening = false;
+    return writeScenarioFile(scenarioName, routes, output)
+      .then(() => { routes = []; })
+      .catch(logger);
+  };
 
-  stopListening() {
-    this.listening = false;
-    return writeScenarioFile(this.name, this.routes, this.options.output).then(() => {
-      this.routes = [];
-    })
-    .catch(e => this.options.logger(e));
-  }
-
-  middleware(req, res, next) {
-    if (this.options.matcher(req)) {
+  const middleware = (req, res, next) => {
+    if (matcher(req)) {
       res.locals.parrot = {
         id: shortid.generate(),
       };
@@ -91,39 +50,73 @@ export default class ParrotListener {
         try {
           if (res.statusCode >= 200 && res.statusCode < 300) {
             const filename = `${res.locals.parrot.id}.json`;
-            const outputPath = path.join(__dirname, this.options.output, this.name, filename);
+            const outputPath = path.join(__dirname, output, scenarioName, filename);
             const body = Buffer.concat(chunks).toString('utf8');
 
             return writeFile(outputPath, body)
               .then(() => {
-                this.options.logger(`Created file for response.
+                logger(`Created file for response.
                   request: ${req.path},
                   location: ${outputPath}
                 `);
               })
               .then(() => {
-                this.routes.unshift({
-                  request: this.options.parser(req),
-                  response: `./${this.name}/${filename}`,
+                routes.unshift({
+                  request: parser(req),
+                  response: `./${scenarioName}/${filename}`,
                 });
               })
               .catch((e) => {
-                this.options.logger(`ERROR: Unable to write parrot-listener scenario file: ${e}\n`)
+                logger(`ERROR: Unable to write parrot-listener scenario file: ${e}\n`)
               });
           }
         } catch (e) {
-          this.options.logger(`ERROR: Error in parrot-listener middleware: ${e.stack}`);
+          logger(`ERROR: Error in parrot-listener middleware: ${e.stack}`);
         }
       });
 
       const killListener = () => {
-        if (this.listening) {
-          this.stopListening();
+        if (isListening) {
+          stopListening();
         }
       };
       process.on('exit', killListener);
       process.on('SIGINT', killListener);
     }
     next();
-  }
-};
+  };
+
+  return (app) => {
+    app.use(bodyParser.json());
+    app.get('/parrot/listen', (req, res) => {
+      res.json(isListening);
+    });
+
+    app.put('/parrot/listen', (req, res) => {
+      if (req.body.action === 'START') {
+        if (isListening === true) {
+          return res.status(500).json({
+            reason: 'Already listening!'
+          });
+        } else if (!req.body.name) {
+          return res.status(500).json({
+            reason: 'Missing request field: "name"'
+          });
+        }
+        startListening(req.body.name);
+        return res.status(200).send();
+      } else if (req.body.action === 'STOP') {
+        return stopListening().then(() =>
+          res.status(200).send()
+        );
+      } else {
+        return res.status(500).json({
+          reason: 'Unknown or missing action. Valid actions are: START, STOP'
+        });
+      }
+    });
+    app.use(middleware.bind(this));
+  };
+}
+
+export default parrotListener;
