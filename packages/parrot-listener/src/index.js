@@ -1,2 +1,2 @@
 export default from './parrotListener';
-export setupCmdArgs from './setupCmdArgs'
+export setupCmdArgs from './setupCmdArgs';
