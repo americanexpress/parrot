@@ -7,7 +7,7 @@
     "Jason Schapiro <jason.schapiro@aexp.com>"
   ],
   "description": "Intercepts and records HTTP requests into a parrot-compatible scenarios file",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "clean": "rimraf lib",
