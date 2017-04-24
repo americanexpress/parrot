@@ -5,7 +5,8 @@ const setupCmdArgs = (yargs) =>
      describe: 'Listen to incoming requests and generate scenarios',
      type: 'boolean',
    })
-   .option('name', {
+   .option('n', {
+     alias: 'name',
      describe: 'Name for your generated scenario',
      type: 'string',
    });
