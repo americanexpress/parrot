@@ -7,7 +7,7 @@ import validateRouteConfig from './validateRouteConfig';
 import normalizeRouteConfig from './normalizeRouteConfig';
 import createRoute from './createRoute';
 
-export default function createMiddlewareForScenario({ scenarios, validator }) {
+export default function createMiddlewareForScenario({ scenarios }) {
   return (app) => {
     const logger = new LogCreator();
     let router;
@@ -25,7 +25,7 @@ export default function createMiddlewareForScenario({ scenarios, validator }) {
 
     function setActiveScenario(scenarioName) {
       logger.setScenario(scenarioName);
-      createRoutesForScenario(scenarios[scenarioName], validator);
+      createRoutesForScenario(scenarios[scenarioName]);
       return scenarioName;
     }
 

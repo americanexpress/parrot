@@ -1,5 +1,7 @@
-import chalk from 'chalk';
 import LogCreator, { loggerColors } from '../../src/utils/logging';
+
+jest.unmock('chalk')
+const chalk = require('chalk');
 
 describe('Spec: logging utils', () => {
   describe('LogCreator', () => {
