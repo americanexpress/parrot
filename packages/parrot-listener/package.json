@@ -1,0 +1,41 @@
+{
+  "name": "parrot-listener",
+  "version": "1.0.0",
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Arick Force <Nathan.A.Force@aexp.com>",
+    "Jason Schapiro <jason.schapiro@aexp.com>"
+  ],
+  "description": "Intercepts and records HTTP requests into a parrot-compatible scenarios file",
+  "main": "lib/index.js",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "postinstall": "postinstall-build lib \"npm run build\"",
+    "build": "babel src --out-dir lib --copy-files",
+    "lint": "eslint --ignore-path .gitignore --ext .js src test",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
+    "mkdirp": "^0.5.1",
+    "postinstall-build": "^2.1.3",
+    "promisify-node": "^0.4.0",
+    "shortid": "^2.2.8"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.2",
+    "babel-jest": "^19.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
+    "jest": "^19.0.2"
+  }
+}
