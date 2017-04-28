@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import registerMiddleware from 'parrot-registry';
 import validateAgainstSwagger from './validateAgainstSwagger';
 import logValidation from './logValidation';
 
@@ -35,6 +36,7 @@ const swaggerValidator = ({
       });
     });
   }
+  registerMiddleware(app, { name: 'parrot-validator-swagger' });
   next();
 };
 

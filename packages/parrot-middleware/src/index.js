@@ -6,6 +6,7 @@ import LogCreator from './utils/logging';
 import validateRouteConfig from './validateRouteConfig';
 import normalizeRouteConfig from './normalizeRouteConfig';
 import createRoute from './createRoute';
+import registerMiddleware from 'parrot-registry';
 
 export default function createMiddlewareForScenario({ scenarios }) {
   return (app) => {
@@ -36,17 +37,19 @@ export default function createMiddlewareForScenario({ scenarios }) {
       router(req, res, next);
     });
 
-    app.post('/scenario', (req, res) => {
+    app.post('/parrot/scenario', (req, res) => {
       activeScenarioName = setActiveScenario(req.body.scenario);
       res.sendStatus(200);
     });
 
-    app.get('/scenario', (req, res) => {
+    app.get('/parrot/scenario', (req, res) => {
       res.json(activeScenarioName);
     });
 
-    app.get('/scenarios', (req, res) => {
+    app.get('/parrot/scenarios', (req, res) => {
       res.json(scenarios);
     });
+
+    registerMiddleware(app, { name: 'parrot-middleware' });
   };
 }

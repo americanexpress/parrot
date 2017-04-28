@@ -3,6 +3,7 @@ import mkdirp from 'mkdirp';
 import path from 'path';
 import promisify from 'promisify-node';
 import shortid from 'shortid';
+import registerMiddleware from 'parrot-registry';
 import writeFile from './writeFile';
 import writeScenarioFile from './writeScenarioFile';
 
@@ -89,7 +90,7 @@ const parrotListener = ({
   return (app) => {
     app.use(bodyParser.json());
     app.get('/parrot/listen', (req, res) => {
-      res.json(isListening);
+      res.json({ isListening, scenarioName });
     });
 
     app.put('/parrot/listen', (req, res) => {
@@ -98,12 +99,12 @@ const parrotListener = ({
           return res.status(500).json({
             reason: 'Already listening!'
           });
-        } else if (!req.body.name) {
+        } else if (!req.body.scenarioName) {
           return res.status(500).json({
-            reason: 'Missing request field: "name"'
+            reason: 'Missing request field: "scenarioName"'
           });
         }
-        startListening(req.body.name);
+        startListening(req.body.scenarioName);
         return res.status(200).send();
       } else if (req.body.action === 'STOP') {
         return stopListening().then(() =>
@@ -116,6 +117,7 @@ const parrotListener = ({
       }
     });
     app.use(middleware.bind(this));
+    registerMiddleware(app, { name: 'parrot-listener' });
   };
 }
 

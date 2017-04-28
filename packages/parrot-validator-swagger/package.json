@@ -1,6 +1,6 @@
 {
   "name": "parrot-validator-swagger",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Validate Mock Scenario Objects against a swagger schema",
   "main": "lib/index.js",
   "contributors": [
@@ -20,6 +20,7 @@
     "chalk": "^1.1.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.16.3",
+    "parrot-registry": "^1.0.0",
     "swagger-model-validator": "^2.1.6"
   },
   "devDependencies": {

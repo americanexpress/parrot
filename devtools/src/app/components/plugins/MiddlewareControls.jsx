@@ -1,10 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import url from 'url';
+
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import CircularProgress from 'material-ui/CircularProgress';
 
-class ScenarioSelector extends Component {
+import fetchApi from '../../utils/fetchApi';
+
+class MiddlewareControls extends Component {
   static propTypes = {
     url: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
   }
@@ -18,12 +22,7 @@ class ScenarioSelector extends Component {
 
   async componentDidMount() {
     try {
-      const resp = await fetch(this.createUrl('/scenarios'), {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-
+      const resp = await fetchApi(this.props.url, '/parrot/scenarios');
       const scenarios = await resp.json();
       const keys = Object.keys(scenarios);
 
@@ -42,7 +41,7 @@ class ScenarioSelector extends Component {
       scenario,
     }, async () => {
       try {
-        const resp = await fetch(this.createUrl('/scenario'), {
+        fetchApi(this.props.url, '/parrot/scenario', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -52,12 +51,6 @@ class ScenarioSelector extends Component {
             scenario,
           }),
         });
-
-        if (!resp.ok) {
-          this.setState({ error: resp.statusText });
-        } else if (chrome) { // Reload if we are in chrome
-          chrome.devtools.inspectedWindow.reload(null);
-        }
       } catch ({ message: error }) {
         this.setState({ error });
       }
@@ -75,7 +68,8 @@ class ScenarioSelector extends Component {
 
     return (
       <SelectField
-        floatingLabelText="Scenario"
+        style={{width: '100%'}}
+        floatingLabelText="Selected Scenario"
         value={this.state.scenario}
         onChange={this.setScenario}
       >
@@ -87,4 +81,4 @@ class ScenarioSelector extends Component {
   }
 }
 
-export default ScenarioSelector;
+export default MiddlewareControls;

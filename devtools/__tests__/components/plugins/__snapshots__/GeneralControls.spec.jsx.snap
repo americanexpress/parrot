@@ -1,0 +1,34 @@
+exports[`GeneralControls component renders 1`] = `
+<div>
+  <TextField
+    disabled={false}
+    floatingLabelFixed={false}
+    floatingLabelText="Parrot Server Host"
+    fullWidth={false}
+    multiLine={false}
+    name="Parrot Server Host"
+    onChange={[Function]}
+    rows={1}
+    textareaStyle={
+      Object {
+        "paddingLeft": 0,
+      }
+    }
+    type="text"
+    underlineShow={true}
+    value="http://localhost:8080" />
+  <FlatButton
+    disabled={false}
+    fullWidth={false}
+    icon={<NavigationRefresh />}
+    labelPosition="after"
+    labelStyle={Object {}}
+    onKeyboardFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onTouchStart={[Function]}
+    onTouchTap={[Function]}
+    primary={false}
+    secondary={false} />
+</div>
+`;

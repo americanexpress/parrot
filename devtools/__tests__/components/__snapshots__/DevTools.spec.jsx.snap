@@ -1,0 +1,38 @@
+exports[`DevTools component renders 1`] = `
+<MuiThemeProvider>
+  <Paper
+    circle={false}
+    rounded={true}
+    style={
+      Object {
+        "bottom": 10,
+        "left": 10,
+        "padding": "0 20",
+        "position": "absolute",
+        "right": 10,
+        "top": 10,
+      }
+    }
+    transitionEnabled={true}
+    zDepth={1}>
+    <styled.div>
+      <CircularProgress
+        max={100}
+        min={0}
+        mode="indeterminate"
+        size={40}
+        thickness={3.5}
+        value={0} />
+    </styled.div>
+    <styled.div>
+      <styled.h5>
+        General Parrot Settings
+      </styled.h5>
+      <GeneralControls
+        onRefresh={[Function]}
+        setUrl={[Function]}
+        url="http://localhost:3000" />
+    </styled.div>
+  </Paper>
+</MuiThemeProvider>
+`;

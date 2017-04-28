@@ -16,22 +16,25 @@ An express middleware that intercepts request/responses and creates a parrot-com
 ### Basic Example
 
 ```js
+// Set up your express app
+import express from 'express';
+const app = express();
+
+// Import the listener
 import ParrotListener from 'parrot-listener';
 
-export default (app) => {
-  const listener = new ParrotListener({
-    output: './mocks/generated/',
-    matcher: (req) => req.path.match(/api/),
-    parser: (req) => ({
-      path: req.path,
-      params: req.params,
-      query: req.query,
-    }),
-    name: 'TwoUsers',
-    listening: true,
-  });
-  listener(app);
-};
+const listener = new ParrotListener({
+  output: './mocks/generated/',
+  matcher: (req) => req.path.match(/api/),
+  parser: (req) => ({
+    path: req.path,
+    params: req.params,
+    query: req.query,
+  }),
+  name: 'TwoUsers',
+  listening: true,
+});
+listener(app);
 ```
 
 ### Controlling via API
@@ -60,26 +63,24 @@ import yargs, { argv } from 'yargs';
 
 setupCmdArgs(yargs);
 
-export default (app) => {
-  if (argv.l) {
-    if (!argv.name) {
-      console.warn('Invalid Arguments! You must provide a scenario name when using Parrot\'s --listen mode.');
-    } else {
-      const listener = new ParrotListener({
-        output: './mocks/generated/',
-        matcher: (req) => req.path.match(/api/),
-        parser: (req) => ({
-          path: req.path,
-          params: req.params,
-          query: req.query,
-        }),
-        name: argv.name,
-        listening: argv.listen,
-      });
-      listener(app);
-    }
+if (argv.l) {
+  if (!argv.name) {
+    console.warn('Invalid Arguments! You must provide a scenario name when using Parrot\'s --listen mode.');
+  } else {
+    const listener = new ParrotListener({
+      output: './mocks/generated/',
+      matcher: (req) => req.path.match(/api/),
+      parser: (req) => ({
+        path: req.path,
+        params: req.params,
+        query: req.query,
+      }),
+      name: argv.name,
+      listening: argv.listen,
+    });
+    listener(app);
   }
-};
+}
 ```
 
 

@@ -5,6 +5,7 @@ import createMiddlewareForScenario from '../src/index';
 // const log = console.log;
 global.console = {error: jest.fn()}
 jest.mock('express');
+jest.mock('parrot-registry');
 
 const routerInstance = jest.fn();
 Router.mockImplementation(() => routerInstance);

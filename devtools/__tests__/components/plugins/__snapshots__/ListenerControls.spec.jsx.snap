@@ -1,0 +1,24 @@
+exports[`ListenerControls component renders 1`] = `
+<div>
+  <TextField
+    disabled={false}
+    floatingLabelFixed={false}
+    floatingLabelText="Scenario Name"
+    fullWidth={false}
+    multiLine={false}
+    name="Scenario Name"
+    onChange={[Function]}
+    rows={1}
+    type="text"
+    underlineShow={true}
+    value="" />
+  <RaisedButton
+    disabled={true}
+    fullWidth={false}
+    label="Start Listening"
+    labelPosition="after"
+    onTouchTap={[Function]}
+    primary={true}
+    secondary={false} />
+</div>
+`;
