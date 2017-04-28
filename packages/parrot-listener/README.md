@@ -15,7 +15,7 @@ An express middleware that intercepts request/responses and creates a parrot-com
 
 ### Basic Example
 
-```js
+```javascript
 // Set up your express app
 import express from 'express';
 const app = express();
@@ -58,12 +58,12 @@ The parrot-listener middleware also exports a [yargs](http://npmjs.com/package/y
 #### Setup
 
 ```javascript
-import ParrotListener, { setupCmdArgs } from 'parrot-listener';
+import parrotListener, { setupCmdArgs } from 'parrot-listener';
 import yargs, { argv } from 'yargs';
 
 setupCmdArgs(yargs);
 
-if (argv.l) {
+if (argv.listen) {
   if (!argv.name) {
     console.warn('Invalid Arguments! You must provide a scenario name when using Parrot\'s --listen mode.');
   } else {
@@ -82,6 +82,3 @@ if (argv.l) {
   }
 }
 ```
-
-
-
