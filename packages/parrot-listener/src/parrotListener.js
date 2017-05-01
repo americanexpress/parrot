@@ -90,7 +90,8 @@ const parrotListener = ({
   return (app) => {
     app.use(bodyParser.json());
     app.get('/parrot/listen', (req, res) => {
-      res.json({ isListening, scenarioName });
+      const config = isListening ? { isListening, scenarioName } : { isListening };
+      res.json(config);
     });
 
     app.put('/parrot/listen', (req, res) => {
