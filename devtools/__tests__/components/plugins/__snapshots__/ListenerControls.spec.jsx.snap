@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`ListenerControls component renders 1`] = `
 <div>
   <TextField
@@ -11,7 +13,8 @@ exports[`ListenerControls component renders 1`] = `
     rows={1}
     type="text"
     underlineShow={true}
-    value="" />
+    value=""
+  />
   <RaisedButton
     disabled={true}
     fullWidth={false}
@@ -19,6 +22,7 @@ exports[`ListenerControls component renders 1`] = `
     labelPosition="after"
     onTouchTap={[Function]}
     primary={true}
-    secondary={false} />
+    secondary={false}
+  />
 </div>
 `;

@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`GeneralControls component renders 1`] = `
 <div>
   <TextField
@@ -16,7 +18,8 @@ exports[`GeneralControls component renders 1`] = `
     }
     type="text"
     underlineShow={true}
-    value="http://localhost:8080" />
+    value="http://localhost:8080"
+  />
   <FlatButton
     disabled={false}
     fullWidth={false}
@@ -29,6 +32,7 @@ exports[`GeneralControls component renders 1`] = `
     onTouchStart={[Function]}
     onTouchTap={[Function]}
     primary={false}
-    secondary={false} />
+    secondary={false}
+  />
 </div>
 `;

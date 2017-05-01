@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`DevTools component renders 1`] = `
 <MuiThemeProvider>
   <Paper
@@ -14,7 +16,8 @@ exports[`DevTools component renders 1`] = `
       }
     }
     transitionEnabled={true}
-    zDepth={1}>
+    zDepth={1}
+  >
     <styled.div>
       <CircularProgress
         max={100}
@@ -22,7 +25,8 @@ exports[`DevTools component renders 1`] = `
         mode="indeterminate"
         size={40}
         thickness={3.5}
-        value={0} />
+        value={0}
+      />
     </styled.div>
     <styled.div>
       <styled.h5>
@@ -31,7 +35,8 @@ exports[`DevTools component renders 1`] = `
       <GeneralControls
         onRefresh={[Function]}
         setUrl={[Function]}
-        url="http://localhost:3000" />
+        url="http://localhost:3000"
+      />
     </styled.div>
   </Paper>
 </MuiThemeProvider>
