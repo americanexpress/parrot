@@ -23,7 +23,8 @@
     "eslint-config-axp": "^2.1.0",
     "jasmine-reporters": "^2.2.0",
     "jest": "^19.0.0",
-    "lerna": "2.0.0-beta.34"
+    "lerna": "2.0.0-beta.34",
+    "react": "^15.5.4"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./jest-setup.js",
