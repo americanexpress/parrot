@@ -1,5 +1,3 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
 exports[`MiddlewareControls component renders 1`] = `
 <CircularProgress
   max={100}
@@ -7,6 +5,5 @@ exports[`MiddlewareControls component renders 1`] = `
   mode="indeterminate"
   size={40}
   thickness={3.5}
-  value={0}
-/>
+  value={0} />
 `;

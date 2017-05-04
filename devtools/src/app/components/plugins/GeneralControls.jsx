@@ -10,11 +10,11 @@ const textareaStyle = {
 };
 
 class GeneralControls extends Component {
-  static proptypes = {
+  static propTypes = {
     url: PropTypes.string.isRequired,
     setUrl: PropTypes.func.isRequired,
     onRefresh: PropTypes.func.isRequired,
-  }
+  };
 
   setUrl = (event, url) => this.props.setUrl(url);
 
@@ -29,14 +29,10 @@ class GeneralControls extends Component {
           onChange={this.setUrl}
           textareaStyle={textareaStyle}
         />
-        <FlatButton
-          icon={<RefreshIcon />}
-          onTouchTap={onRefresh}
-        />
+        <FlatButton icon={<RefreshIcon />} onTouchTap={onRefresh} />
       </div>
     );
   }
 }
-
 
 export default GeneralControls;

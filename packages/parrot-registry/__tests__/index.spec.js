@@ -8,7 +8,7 @@ describe('index', () => {
         locals: {},
         get: jest.fn(),
       };
-    })
+    });
     it('errors if app not passed', () => {
       // No app
       expect(registerMiddleware).toThrowError(/Invalid express app instance/);
@@ -16,7 +16,9 @@ describe('index', () => {
       expect(registerMiddleware.bind(this, {})).toThrowError(/Invalid express app instance/);
     });
     it('errors if name is not passed in middleware options', () => {
-      expect(registerMiddleware.bind(this, mockApp, {})).toThrowError(/You must pass a middleware name/);
+      expect(registerMiddleware.bind(this, mockApp, {})).toThrowError(
+        /You must pass a middleware name/,
+      );
     });
     it('creates a parrot locals instance', () => {
       const opts = { name: 'testMiddleware' };

@@ -5,7 +5,4 @@ import ReactDOM from 'react-dom';
 
 import DevTools from './components/DevTools';
 
-ReactDOM.render(
-  <DevTools />,
-  document.querySelector('root'),
-);
+ReactDOM.render(<DevTools />, document.querySelector('root'));

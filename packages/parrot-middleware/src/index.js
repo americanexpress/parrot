@@ -1,12 +1,12 @@
 /* eslint-disable no-param-reassign */
 import { Router } from 'express';
 import bodyParser from 'body-parser';
+import registerMiddleware from 'parrot-registry';
 
 import LogCreator from './utils/logging';
 import validateRouteConfig from './validateRouteConfig';
 import normalizeRouteConfig from './normalizeRouteConfig';
 import createRoute from './createRoute';
-import registerMiddleware from 'parrot-registry';
 
 export default function createMiddlewareForScenario({ scenarios }) {
   return (app) => {

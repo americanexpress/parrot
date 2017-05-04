@@ -1,13 +1,9 @@
 import bodyParser from 'body-parser';
-import mkdirp from 'mkdirp';
 import path from 'path';
-import promisify from 'promisify-node';
 import shortid from 'shortid';
 import registerMiddleware from 'parrot-registry';
 import writeFile from './writeFile';
 import writeScenarioFile from './writeScenarioFile';
-
-const fs = promisify('fs');
 
 const parrotListener = ({
   output = '',
@@ -21,15 +17,17 @@ const parrotListener = ({
   let scenarioName = name;
   let isListening = listening;
 
-  const startListening = (name) => {
-    scenarioName = name;
+  const startListening = (listenName) => {
+    scenarioName = listenName;
     isListening = true;
-  }
+  };
 
   const stopListening = () => {
     isListening = false;
     return writeScenarioFile(scenarioName, routes, output)
-      .then(() => { routes = []; })
+      .then(() => {
+        routes = [];
+      })
       .catch(logger);
   };
 
@@ -42,9 +40,9 @@ const parrotListener = ({
       const chunks = [];
       const oldWrite = res.write;
 
-      res.write = function (chunk) {
+      res.write = function (chunk, ...args) {
         chunks.push(chunk);
-        oldWrite.apply(res, arguments);
+        oldWrite.apply(res, [chunk, ...args]);
       };
 
       res.on('finish', () => {
@@ -68,12 +66,13 @@ const parrotListener = ({
                 });
               })
               .catch((e) => {
-                logger(`ERROR: Unable to write parrot-listener scenario file: ${e}\n`)
+                logger(`ERROR: Unable to write parrot-listener scenario file: ${e}\n`);
               });
           }
         } catch (e) {
           logger(`ERROR: Error in parrot-listener middleware: ${e.stack}`);
         }
+        return () => null;
       });
 
       const killListener = () => {
@@ -98,28 +97,25 @@ const parrotListener = ({
       if (req.body.action === 'START') {
         if (isListening === true) {
           return res.status(500).json({
-            reason: 'Already listening!'
+            reason: 'Already listening!',
           });
         } else if (!req.body.scenarioName) {
           return res.status(500).json({
-            reason: 'Missing request field: "scenarioName"'
+            reason: 'Missing request field: "scenarioName"',
           });
         }
         startListening(req.body.scenarioName);
         return res.status(200).send();
       } else if (req.body.action === 'STOP') {
-        return stopListening().then(() =>
-          res.status(200).send()
-        );
-      } else {
-        return res.status(500).json({
-          reason: 'Unknown or missing action. Valid actions are: START, STOP'
-        });
+        return stopListening().then(() => res.status(200).send());
       }
+      return res.status(500).json({
+        reason: 'Unknown or missing action. Valid actions are: START, STOP',
+      });
     });
     app.use(middleware.bind(this));
     registerMiddleware(app, { name: 'parrot-listener' });
   };
-}
+};
 
 export default parrotListener;

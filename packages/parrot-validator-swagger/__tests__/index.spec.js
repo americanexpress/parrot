@@ -1,5 +1,5 @@
-import swaggerIndex from '../src/index';
 import registerMiddleware from 'parrot-registry';
+import swaggerIndex from '../src/index';
 
 jest.mock('parrot-registry');
 jest.mock('../src/validatorMiddleware');

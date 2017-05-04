@@ -13,11 +13,9 @@ path.parse.mockImplementation(() => ({ dir: mockDir }));
 describe('writeFile', () => {
   const setupFileMock = (promiseResult, arg) => {
     const writeFileMock = jest.fn(() => Promise[promiseResult](arg));
-    promisify.mockImplementation(
-      () => ({ writeFile: writeFileMock })
-    );
+    promisify.mockImplementation(() => ({ writeFile: writeFileMock }));
     return writeFileMock;
-  }
+  };
   it('can write a file', () => {
     const writeFileMock = setupFileMock('resolve', {});
     writeFile();
@@ -26,14 +24,14 @@ describe('writeFile', () => {
 
   it('will throw on error', async () => {
     const err = Error('Something Bad');
-    const writeFileMock = setupFileMock('reject', err);
+    setupFileMock('reject', err);
     // TODO USE THIS WHEN JEST 20 is out
     // return expect(writeFile()).rejects.toEqual(err);
     expect.assertions(1);
     try {
       await writeFile();
-    } catch(err) {
-      expect(err).toEqual(err);
+    } catch (e) {
+      expect(e).toEqual(err);
     }
   });
 
@@ -44,14 +42,14 @@ describe('writeFile', () => {
 
     it('will create the output directory', async () => {
       const err = { code: 'ENOENT' };
-      const writeFileMock = setupFileMock('reject', err);
+      setupFileMock('reject', err);
       await writeFile();
       expect(mkdirp).toHaveBeenCalledWith(mockDir, expect.any(Function));
     });
 
     it('will throw an error if creating the directory fails', async () => {
       const err = { code: 'ENOENT' };
-      const writeFileMock = setupFileMock('reject', err);
+      setupFileMock('reject', err);
       await writeFile();
       expect(mkdirp).toHaveBeenCalled();
       const mkdirpCb = mkdirp.mock.calls[0][1];
@@ -62,11 +60,11 @@ describe('writeFile', () => {
     it('will attempt to write file after creating directory', async () => {
       // Fail dir write first time, then succeed
       const err = { code: 'ENOENT' };
-      const writeFileMock = jest.fn()
+      const writeFileMock = jest
+        .fn()
         .mockImplementationOnce(() => Promise.reject(err))
         .mockImplementationOnce(() => Promise.resolve({}));
-      promisify
-        .mockImplementation(() => ({ writeFile: writeFileMock }));
+      promisify.mockImplementation(() => ({ writeFile: writeFileMock }));
 
       // First time, directory write fails
       await writeFile();
@@ -79,5 +77,5 @@ describe('writeFile', () => {
       expect(writeFileMock).toHaveBeenCalledTimes(2);
       expect(mkdirp).toHaveBeenCalledTimes(1);
     });
-  })
+  });
 });

@@ -1,7 +1,7 @@
 import resolveResponse from '../src/resolveResponse';
 import LogCreator from '../src/utils/logging';
 
-jest.unmock('chalk')
+jest.unmock('chalk');
 
 describe('Spec: resolveResponse', () => {
   let logger;
@@ -18,8 +18,8 @@ describe('Spec: resolveResponse', () => {
     const mockConfig = {
       request: { ...mockRequest },
       response: {
-        resource: { success: true }
-      }
+        resource: { success: true },
+      },
     };
     const response = resolveResponse(mockConfig, { req: mockRequest }, logger);
     expect(response).toEqual(mockConfig.response.resource);
@@ -28,21 +28,21 @@ describe('Spec: resolveResponse', () => {
   it('provides a callback if resource is a function with one parameter', () => {
     const mockConfig = {
       request: {
-        path: '/api/v1/test/:id'
+        path: '/api/v1/test/:id',
       },
       response: {
-        resource: ({ params: { id } }) => ({ testId: `PMC-${id}`})
-      }
+        resource: ({ params: { id } }) => ({ testId: `PMC-${id}` }),
+      },
     };
     const mockRequest = {
       path: '/api/v1/test/25',
       params: {
-        id: 25
-      }
+        id: 25,
+      },
     };
     const response = resolveResponse(mockConfig, { req: mockRequest }, logger);
     expect(response).toEqual({
-      testId: 'PMC-25'
+      testId: 'PMC-25',
     });
   });
 
@@ -57,25 +57,25 @@ describe('Spec: resolveResponse', () => {
           res.status(statusCode).jsonp({
             accountId: req.headers.accountId,
             pmcId: `PMC-${req.params.pmcId}`,
-            error: true
+            error: true,
           });
-        }
-      }
+        },
+      },
     };
     const mockReq = {
       path: '/api/v1/test/25',
       headers: {
-        accountId: 1029
+        accountId: 1029,
       },
       params: {
-        id: 25
-      }
+        id: 25,
+      },
     };
     const mockRes = {
       jsonp: jest.fn(),
-      status: jest.fn().mockReturnThis()
+      status: jest.fn().mockReturnThis(),
     };
-    const response = resolveResponse(mockConfig, {req: mockReq, res: mockRes}, logger);
+    resolveResponse(mockConfig, { req: mockReq, res: mockRes }, logger);
     expect(mockRes.status).toHaveBeenCalledWith(statusCode);
     expect(mockRes.jsonp).toHaveBeenCalled();
   });
@@ -84,15 +84,15 @@ describe('Spec: resolveResponse', () => {
     const mockRequest = {
       path: '/api/v1/test',
       params: {},
-      method: 'get'
+      method: 'get',
     };
     const mockConfig = {
       request: {
         path: '/api/v1/test',
-        method: 'put'
-      }
+        method: 'put',
+      },
     };
-    const errorResolve = resolveResponse.bind(null, mockConfig, {req: mockRequest}, logger);
+    const errorResolve = resolveResponse.bind(null, mockConfig, { req: mockRequest }, logger);
     expect(errorResolve).toThrowError(/Not able to match request property method/);
   });
 
@@ -102,20 +102,20 @@ describe('Spec: resolveResponse', () => {
       params: {},
       headers: {
         test: 'valid',
-        other: 'valid'
+        other: 'valid',
       },
-      method: 'get'
+      method: 'get',
     };
     const mockConfig = {
       request: {
         ...mockRequest,
         headers: {
           test: 'valid',
-          other: 'invalid'
-        }
-      }
+          other: 'invalid',
+        },
+      },
     };
-    const errorResolve = resolveResponse.bind(null, mockConfig, {req: mockRequest}, logger);
+    const errorResolve = resolveResponse.bind(null, mockConfig, { req: mockRequest }, logger);
     expect(errorResolve).toThrowError(/Not able to match header other/);
   });
 });

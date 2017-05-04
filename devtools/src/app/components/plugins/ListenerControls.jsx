@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import LinearProgress from 'material-ui/LinearProgress';
 
 import fetchApi from '../../utils/fetchApi';
 
 export default class ListenerControls extends Component {
   static propTypes = {
     url: PropTypes.string.isRequired,
-  }
+  };
 
   state = {
     scenarioName: '',
     error: false,
     isListening: false,
-  }
+  };
 
   // Check if listener is currently running
   componentDidMount() {
@@ -25,13 +24,15 @@ export default class ListenerControls extends Component {
       .catch(error => this.setState({ error }));
   }
 
+  setName = (event, scenarioName) => this.setState({ scenarioName });
+
   toggleListening = () => {
     const { isListening, scenarioName } = this.state;
     fetchApi(this.props.url, '/parrot/listen', {
       method: 'PUT',
       headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         action: isListening ? 'STOP' : 'START',
@@ -40,16 +41,14 @@ export default class ListenerControls extends Component {
     })
       .then(() => this.setState({ isListening: !isListening }))
       .catch(error => this.setState({ error }));
-  }
-
-  setName = (event, scenarioName) => this.setState({ scenarioName });
+  };
 
   render() {
     const { isListening, scenarioName, error } = this.state;
-    const toggleLabel = (isListening ? 'Stop' : 'Start') + ' Listening';
+    const toggleLabel = `${isListening ? 'Stop' : 'Start'} Listening`;
     return (
       <div>
-        { error && <div><pre>{error}</pre></div> }
+        {error && <div><pre>{error}</pre></div>}
         <TextField
           name="Scenario Name"
           floatingLabelText="Scenario Name"

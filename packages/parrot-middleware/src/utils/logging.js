@@ -19,8 +19,9 @@ class LogCreator {
     this.warn = this.baseTemplate(warnTemplate);
   }
   baseTemplate(template) {
-    return message => `[Parrot] ${chalk.underline(this.path)}`
-    + ` ${chalk.dim(`(${this.scenario})`)}\n\t${template(message)}`;
+    return message =>
+      `[Parrot] ${chalk.underline(this.path)}` +
+      ` ${chalk.dim(`(${this.scenario})`)}\n\t${template(message)}`;
   }
   setScenario(scenario) {
     this.scenario = scenario;
@@ -30,6 +31,6 @@ class LogCreator {
     this.path = path;
     return this;
   }
- }
+}
 
 export default LogCreator;

@@ -11,6 +11,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _parrotRegistry = require('parrot-registry');
+
+var _parrotRegistry2 = _interopRequireDefault(_parrotRegistry);
+
 var _logging = require('./utils/logging');
 
 var _logging2 = _interopRequireDefault(_logging);
@@ -26,10 +30,6 @@ var _normalizeRouteConfig2 = _interopRequireDefault(_normalizeRouteConfig);
 var _createRoute = require('./createRoute');
 
 var _createRoute2 = _interopRequireDefault(_createRoute);
-
-var _parrotRegistry = require('parrot-registry');
-
-var _parrotRegistry2 = _interopRequireDefault(_parrotRegistry);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

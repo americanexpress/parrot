@@ -1,6 +1,6 @@
 {
   "name": "Parrot Devtools",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "manifest_version": 2,
   "description": "Devtools panel for Parrot middleware.",
   "devtools_page": "views/devtools.html",

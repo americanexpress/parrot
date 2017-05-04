@@ -9,10 +9,10 @@ export default function createRoute(router, config, validator, logger) {
   return router[method](urlParamPath, (req, res, next) => {
     let responseResource;
     try {
-      const app = {req, res};
+      const app = { req, res };
       responseResource = resolveResponse(config, app, logger);
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
       next(); // something didn't match, move on to next route
       return;
     }

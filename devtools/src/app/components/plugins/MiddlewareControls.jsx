@@ -11,7 +11,7 @@ import fetchApi from '../../utils/fetchApi';
 class MiddlewareControls extends Component {
   static propTypes = {
     url: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
-  }
+  };
 
   state = {
     loading: true,
@@ -26,7 +26,8 @@ class MiddlewareControls extends Component {
       const scenarios = await resp.json();
       const keys = Object.keys(scenarios);
 
-      this.setState({ // eslint-disable-line react/no-did-mount-set-state
+      // eslint-disable-next-line react/no-did-mount-set-state
+      this.setState({
         loading: false,
         scenarios,
         scenario: keys[0],
@@ -37,27 +38,37 @@ class MiddlewareControls extends Component {
   }
 
   setScenario = (event, key, scenario) => {
-    this.setState({
-      scenario,
-    }, async () => {
-      try {
-        fetchApi(this.props.url, '/parrot/scenario', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            scenario,
-          }),
-        });
-      } catch ({ message: error }) {
-        this.setState({ error });
-      }
-    });
-  }
+    this.setState(
+      {
+        scenario,
+      },
+      async () => {
+        try {
+          const resp = await fetchApi(this.props.url, '/parrot/scenario', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              scenario,
+            }),
+          });
 
-  createUrl = pathname => url.format({ ...url.parse(this.props.url), pathname })
+          if (!resp.ok) {
+            this.setState({ error: resp.statusText });
+          } else if (chrome) {
+            // Reload if we are in chrome
+            chrome.devtools.inspectedWindow.reload(null);
+          }
+        } catch ({ message: error }) {
+          this.setState({ error });
+        }
+      },
+    );
+  };
+
+  createUrl = pathname => url.format({ ...url.parse(this.props.url), pathname });
 
   render() {
     if (this.state.error) {
@@ -68,14 +79,14 @@ class MiddlewareControls extends Component {
 
     return (
       <SelectField
-        style={{width: '100%'}}
+        style={{ width: '100%' }}
         floatingLabelText="Selected Scenario"
         value={this.state.scenario}
         onChange={this.setScenario}
       >
-        {Object.keys(this.state.scenarios).map(scenario =>
-          <MenuItem key={scenario} value={scenario} primaryText={scenario} />,
-        )}
+        {Object.keys(this.state.scenarios).map(scenario => (
+          <MenuItem key={scenario} value={scenario} primaryText={scenario} />
+        ))}
       </SelectField>
     );
   }
