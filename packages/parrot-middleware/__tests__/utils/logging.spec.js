@@ -1,6 +1,6 @@
 import LogCreator, { loggerColors } from '../../src/utils/logging';
 
-jest.unmock('chalk')
+jest.unmock('chalk');
 const chalk = require('chalk');
 
 describe('Spec: logging utils', () => {
@@ -13,14 +13,15 @@ describe('Spec: logging utils', () => {
     const testLoggerOutput = (logType, logPrefix) => {
       const message = `Test ${logPrefix} Message`;
       const scenario = 'happyPath';
-      const path = '/test'
+      const path = '/test';
       logger.setScenario(scenario).setPath(path);
 
       const result = logger[logType](message);
-      const expected = `[Parrot] ${chalk.underline(path)}`
-      + ` ${chalk.dim(`(${scenario})`)}\n\t${loggerColors[logType](`${logPrefix}: ${message}`)}`;
+      const expected =
+        `[Parrot] ${chalk.underline(path)}` +
+        ` ${chalk.dim(`(${scenario})`)}\n\t${loggerColors[logType](`${logPrefix}: ${message}`)}`;
       return { result, expected };
-    }
+    };
 
     it('can set a path', () => {
       const path = '/test';

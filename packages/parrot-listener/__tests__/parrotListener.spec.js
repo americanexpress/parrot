@@ -1,4 +1,3 @@
-import promisify from 'promisify-node';
 import path from 'path';
 import parrotListener from '../src/parrotListener';
 import writeFile from '../src/writeFile';
@@ -6,6 +5,7 @@ import writeScenarioFile from '../src/writeScenarioFile';
 
 jest.mock('path');
 jest.mock('promisify-node');
+jest.mock('parrot-registry');
 jest.mock('../src/writeScenarioFile');
 jest.mock('../src/writeFile');
 
@@ -33,7 +33,7 @@ describe('parrotListener', () => {
     });
 
     it('can start the listener', () => {
-      listener = parrotListener({ listening: false });
+      listener = parrotListener({ isListening: false });
       listener(app);
       expect(app.get).toHaveBeenCalled();
       expect(app.put).toHaveBeenCalled();
@@ -45,20 +45,21 @@ describe('parrotListener', () => {
       const getListening = app.get.mock.calls[0][1];
       const setListening = app.put.mock.calls[0][1];
       getListening({}, res);
-      expect(res.json).toHaveBeenCalledWith(false);
+      expect(res.json).toHaveBeenCalledWith({ isListening: false });
       res.json.mockClear();
       const body = {
-        name: 'testListen',
+        scenarioName: 'testListen',
         action: 'START',
       };
       setListening({ body }, res);
       getListening({}, res);
-      expect(res.json).toHaveBeenCalledWith(true);
+      expect(res.json).toHaveBeenCalledWith({ isListening: true, scenarioName: body.scenarioName });
     });
 
     it('errors if trying to start listener when already listening', () => {
       const config = {
         listening: true,
+        name: 'test',
       };
       listener = parrotListener(config);
       listener(app);
@@ -68,7 +69,7 @@ describe('parrotListener', () => {
       };
       const setListening = app.put.mock.calls[0][1];
       const body = {
-        name: 'testListen',
+        scenarioName: 'testListen',
         action: 'START',
       };
       setListening({ body }, res);
@@ -78,7 +79,7 @@ describe('parrotListener', () => {
 
     it('errors if trying to start listener without a name defined', () => {
       const config = {
-        listening: false,
+        isListening: false,
       };
       listener = parrotListener(config);
       listener(app);
@@ -92,12 +93,12 @@ describe('parrotListener', () => {
       };
       setListening({ body }, res);
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ reason: 'Missing request field: "name"' });
+      expect(res.json).toHaveBeenCalledWith({ reason: 'Missing request field: "scenarioName"' });
     });
 
     it('errors if attempting to change listening status other than start or stop', () => {
       const config = {
-        listening: false,
+        isListening: false,
       };
       listener = parrotListener(config);
       listener(app);
@@ -115,7 +116,8 @@ describe('parrotListener', () => {
     });
 
     it('can stop the listener', () => {
-      listener = parrotListener({ listening: true, name: 'testing' });
+      const config = { listening: true, name: 'testing' };
+      listener = parrotListener(config);
       listener(app);
       expect(app.get).toHaveBeenCalled();
       expect(app.put).toHaveBeenCalled();
@@ -127,15 +129,18 @@ describe('parrotListener', () => {
       const getListening = app.get.mock.calls[0][1];
       const setListening = app.put.mock.calls[0][1];
       getListening({}, res);
-      expect(res.json).toHaveBeenCalledWith(true);
+      expect(res.json).toHaveBeenCalledWith({
+        isListening: config.listening,
+        scenarioName: config.name,
+      });
       res.json.mockClear();
       const body = {
-        name: 'testing',
+        scenarioName: 'testing',
         action: 'STOP',
       };
       setListening({ body }, res);
       getListening({}, res);
-      expect(res.json).toHaveBeenCalledWith(false);
+      expect(res.json).toHaveBeenCalledWith({ isListening: false });
     });
 
     it('errors if unable to write scenario file when listening stopped', async () => {
@@ -156,9 +161,10 @@ describe('parrotListener', () => {
       expect(config.logger).toHaveBeenCalledWith('Fail');
     });
 
-
     describe('middleware', () => {
-      const setupMiddleware = (config = { listening: true, name: 'testing', logger: jest.fn() }) => {
+      const setupMiddleware = (
+        config = { listening: true, name: 'testing', logger: jest.fn() },
+      ) => {
         listener = parrotListener(config);
         listener(app);
         return app.use.mock.calls[1][0];
@@ -242,10 +248,10 @@ describe('parrotListener', () => {
         const err = 'Unable to write file';
         writeFile.mockImplementation(() => Promise.reject(err));
         const config = {
-          listening: true,
-          name: 'test',
+          isListening: true,
+          scenarioName: 'test',
           logger: jest.fn(),
-        }
+        };
         const middleware = setupMiddleware(config);
         middleware(req, res, next);
         res.statusCode = 200;
@@ -264,16 +270,16 @@ describe('parrotListener', () => {
         const getListening = app.get.mock.calls[0][1];
 
         // Initially parrot is listening
-        getListening({}, res)
-        expect(res.json).toHaveBeenCalledWith(true);
+        getListening({}, res);
+        expect(res.json).toHaveBeenCalledWith({ isListening: true, scenarioName: 'testing' });
         res.json.mockClear();
         // Run the on-exit calback
         expect(process.on.mock.calls[0][0]).toEqual('exit');
         const killListener = process.on.mock.calls[0][1];
         killListener();
         // Check now
-        getListening({}, res)
-        expect(res.json).toHaveBeenCalledWith(false);
+        getListening({}, res);
+        expect(res.json).toHaveBeenCalledWith({ isListening: false });
         // Reset mock
         process.on = realProcessOn;
       });
@@ -281,35 +287,37 @@ describe('parrotListener', () => {
       it('does not stop listener if not running', () => {
         const realProcessOn = process.on;
         process.on = jest.fn((...args) => realProcessOn.apply(process, args));
-        const middleware = setupMiddleware({ listening: false });
+        const middleware = setupMiddleware({ isListening: false });
         middleware(req, res, next);
         const getListening = app.get.mock.calls[0][1];
 
         // Initially parrot is listening
-        getListening({}, res)
-        expect(res.json).toHaveBeenCalledWith(false);
+        getListening({}, res);
+        expect(res.json).toHaveBeenCalledWith({ isListening: false });
         res.json.mockClear();
         // Run the on-exit calback
         expect(process.on.mock.calls[0][0]).toEqual('exit');
         const killListener = process.on.mock.calls[0][1];
         killListener();
         // Check now
-        getListening({}, res)
-        expect(res.json).toHaveBeenCalledWith(false);
+        getListening({}, res);
+        expect(res.json).toHaveBeenCalledWith({ isListening: false });
         // Reset mock
         process.on = realProcessOn;
       });
 
       it('logs errors', () => {
         const logger = jest.fn();
-        writeFile.mockImplementation(() => { throw Error('Parrot failed.')});
+        writeFile.mockImplementation(() => {
+          throw Error('Parrot failed.');
+        });
         const middleware = setupMiddleware({ logger });
         res.statusCode = 200;
         middleware(req, res, next);
         const finish = res.on.mock.calls[0][1];
         finish();
         expect(logger.mock.calls[0][0]).toMatch(/ERROR: Error in parrot-listener/);
-      })
+      });
     });
   });
 });

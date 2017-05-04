@@ -28,8 +28,8 @@ describe('createRoute', () => {
       params: {},
     },
     response: {
-      resource: { success: true }
-    }
+      resource: { success: true },
+    },
   };
 
   it('adds a path to the router', () => {
@@ -47,7 +47,7 @@ describe('createRoute', () => {
 
   it('calls next if resolveResponse throws an error', () => {
     // Suppress Logging Message for test
-    const consoleSpy = spyOn(console, 'log');
+    const consoleSpy = jest.spyOn(console, 'log');
     createRoute(router, mockConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();
     const [path, callback] = router.get.mock.calls[0];
@@ -63,7 +63,7 @@ describe('createRoute', () => {
     expect(mockRes.json).not.toHaveBeenCalled();
     expect(mockNext).toHaveBeenCalled();
     // Confirm that logging was called
-    expect(consoleSpy.calls.any()).toEqual(true);
+    expect(consoleSpy).toHaveBeenCalled();
   });
 
   it('uses get as default method if not specified in config', () => {
@@ -71,7 +71,7 @@ describe('createRoute', () => {
       ...mockConfig,
       request: {
         path: '/test',
-      }
+      },
     };
     createRoute(router, simpleConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();
@@ -83,8 +83,8 @@ describe('createRoute', () => {
       ...mockConfig,
       response: {
         delay,
-        resource: { success: true }
-      }
+        resource: { success: true },
+      },
     };
     createRoute(router, mockDelayConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();
@@ -106,7 +106,7 @@ describe('createRoute', () => {
       ...mockConfig,
       response: {
         resource: 'Hello, world.',
-      }
+      },
     };
     createRoute(router, mockTextConfig, undefined, logger);
     expect(router.get).toHaveBeenCalled();

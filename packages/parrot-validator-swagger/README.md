@@ -11,11 +11,12 @@ It uses the npm package [swagger-model-validator](https://github.com/atlantishea
 
 ## Example
 
-```js
+```javascript
 const SWAGGER_URL = 'http://myapi.com/schema';
 
-app.use(swaggerValidator({
+const validator = swaggerValidator({
   swaggerModel: fetch(SWAGGER_URL).then((data) => data.json()),
   matcher: (req) => !!req.path.match(/api\/v1/),
 }));
+validator(app);
 ```

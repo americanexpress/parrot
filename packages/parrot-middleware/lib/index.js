@@ -11,6 +11,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _parrotRegistry = require('parrot-registry');
+
+var _parrotRegistry2 = _interopRequireDefault(_parrotRegistry);
+
 var _logging = require('./utils/logging');
 
 var _logging2 = _interopRequireDefault(_logging);
@@ -29,10 +33,8 @@ var _createRoute2 = _interopRequireDefault(_createRoute);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint-disable no-param-reassign */
 function createMiddlewareForScenario(_ref) {
-  var scenarios = _ref.scenarios,
-      validator = _ref.validator;
+  var scenarios = _ref.scenarios;
 
   return function (app) {
     var logger = new _logging2.default();
@@ -51,7 +53,7 @@ function createMiddlewareForScenario(_ref) {
 
     function setActiveScenario(scenarioName) {
       logger.setScenario(scenarioName);
-      createRoutesForScenario(scenarios[scenarioName], validator);
+      createRoutesForScenario(scenarios[scenarioName]);
       return scenarioName;
     }
 
@@ -62,17 +64,19 @@ function createMiddlewareForScenario(_ref) {
       router(req, res, next);
     });
 
-    app.post('/scenario', function (req, res) {
+    app.post('/parrot/scenario', function (req, res) {
       activeScenarioName = setActiveScenario(req.body.scenario);
       res.sendStatus(200);
     });
 
-    app.get('/scenario', function (req, res) {
+    app.get('/parrot/scenario', function (req, res) {
       res.json(activeScenarioName);
     });
 
-    app.get('/scenarios', function (req, res) {
+    app.get('/parrot/scenarios', function (req, res) {
       res.json(scenarios);
     });
+
+    (0, _parrotRegistry2.default)(app, { name: 'parrot-middleware' });
   };
-}
+} /* eslint-disable no-param-reassign */

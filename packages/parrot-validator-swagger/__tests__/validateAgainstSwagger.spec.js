@@ -16,10 +16,10 @@ describe('Spec: validateSwagger', () => {
         paths: {
           '/v1/path': {
             get: {
-              responses: {}
-            }
-          }
-        }
+              responses: {},
+            },
+          },
+        },
       };
     });
 
@@ -28,7 +28,7 @@ describe('Spec: validateSwagger', () => {
       const result = validateAgainstSwagger({}, error, '', 'GET', {});
       expect(result).toEqual({
         valid: false,
-        errors: error
+        errors: error,
       });
     });
 
@@ -48,24 +48,26 @@ describe('Spec: validateSwagger', () => {
       swagger.paths['/v1/path'].get.responses = {
         200: {
           schema: {
-            notEmpty: true
-          }
-        }
+            notEmpty: true,
+          },
+        },
       };
       const result = validateAgainstSwagger({}, swagger, '/v1/path', 'GET', 200);
       expect(result.valid).toEqual(false);
-      expect(result.errors.message)
-        .toMatch(/^The Swagger defined a non-empty response but the provided response was empty for path/);
+      expect(result.errors.message).toMatch(
+        /^The Swagger defined a non-empty response but the provided response was empty for path/,
+      );
     });
 
     it('should return invalid if non-empty response, empty swagger', () => {
       swagger.paths['/v1/path'].get.responses = {
-        200: {}
+        200: {},
       };
       const result = validateAgainstSwagger({ notEmpty: true }, swagger, '/v1/path', 'GET', 200);
       expect(result.valid).toEqual(false);
-      expect(result.errors.message)
-        .toMatch(/^The Swagger defined an empty response but the provided response was non-empty for path/);
+      expect(result.errors.message).toMatch(
+        /^The Swagger defined an empty response but the provided response was non-empty for path/,
+      );
     });
 
     it('should return invalid if there are validation errors', () => {
@@ -74,27 +76,35 @@ describe('Spec: validateSwagger', () => {
           schema: {
             properties: {
               someBoolean: {
-                type: 'boolean'
-              }
-            }
-          }
-        }
+                type: 'boolean',
+              },
+            },
+          },
+        },
       };
-      const result = validateAgainstSwagger({ someBoolean: 'not a boolean' }, swagger, '/v1/path', 'GET', 200);
+      const result = validateAgainstSwagger(
+        { someBoolean: 'not a boolean' },
+        swagger,
+        '/v1/path',
+        'GET',
+        200,
+      );
       expect(result.valid).toEqual(false);
-      expect(result.errors[0].message).toEqual('someBoolean (not a boolean) is not a type of boolean');
+      expect(result.errors[0].message).toEqual(
+        'someBoolean (not a boolean) is not a type of boolean',
+      );
     });
 
     it('can validate against $ref response schemas', () => {
       swagger.paths['/v1/path'].get.responses = {
         404: {
-          $ref: '#/responses/404'
-        }
+          $ref: '#/responses/404',
+        },
       };
       swagger.responses = {
         404: {
-          description: 'Not Found / Unauthorized / Forbidden'
-        }
+          description: 'Not Found / Unauthorized / Forbidden',
+        },
       };
       const result = validateAgainstSwagger({}, swagger, '/v1/path', 'GET', 404);
       expect(result.valid).toEqual(true);
@@ -102,7 +112,7 @@ describe('Spec: validateSwagger', () => {
 
     it('should return valid if there is an empty response and empty swagger', () => {
       swagger.paths['/v1/path'].get.responses = {
-        200: {}
+        200: {},
       };
       const result = validateAgainstSwagger({}, swagger, '/v1/path', 'GET', 200);
       expect(result.valid).toEqual(true);

@@ -31,24 +31,6 @@ function createRoute(router, config, validator, logger) {
       return;
     }
 
-    if (validator) {
-      try {
-        validator(responseResource, config).then(function (routeValidation) {
-          // Convert to array if passes back a single error
-          var errors = [];
-          if (routeValidation.errors) {
-            errors = Array.isArray(routeValidation.errors) ? routeValidation.errors : [routeValidation.errors];
-          }
-          console.log('The route validation found ' + errors.length + ' error(s).');
-          errors.forEach(function (err) {
-            return console.log(logger.warn(err.message));
-          });
-        });
-      } catch (err) {
-        console.log('Validator failed due to internal error: ', err);
-      }
-    }
-
     var responseMethod = (typeof responseResource === 'undefined' ? 'undefined' : _typeof(responseResource)) === 'object' ? 'json' : 'send';
 
     res.status(statusCode);

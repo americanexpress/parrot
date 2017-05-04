@@ -1,0 +1,23 @@
+{
+  "name": "parrot-registry",
+  "version": "1.0.0",
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Arick Force <Nathan.A.Force@aexp.com>",
+    "Jason Schapiro <jason.schapiro@aexp.com>"
+  ],
+  "description": "Registers express middlewares associated with Parrot",
+  "main": "src/index.js",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore --ext .js src test",
+    "test": "jest --coverage"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
+    "jest": "^19.0.2"
+  }
+}
