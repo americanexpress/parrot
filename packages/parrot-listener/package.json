@@ -21,7 +21,7 @@
     "body-parser": "^1.17.1",
     "ejs": "^2.5.6",
     "mkdirp": "^0.5.1",
-    "parrot-registry": "^1.0.0",
+    "parrot-registry": "^2.0.0",
     "postinstall-build": "^2.1.3",
     "promisify-node": "^0.4.0",
     "shortid": "^2.2.8"
