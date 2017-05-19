@@ -3,8 +3,7 @@ node_modules
 *.log
 
 # build
-# uncomment once this package is being published
-#lib
+lib
 
 # test
 test-results
