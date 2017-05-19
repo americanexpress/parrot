@@ -1,6 +1,6 @@
 {
   "name": "parrot-middleware",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Organize groups of mock HTTP request response pairs using a scenario config file",
   "main": "lib/index.js",
   "scripts": {
