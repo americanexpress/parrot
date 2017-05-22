@@ -19,6 +19,7 @@ exports[`GeneralControls component renders 1`] = `
     value="http://localhost:8080" />
   <FlatButton
     disabled={false}
+    fullWidth={false}
     icon={<NavigationRefresh />}
     labelPosition="after"
     labelStyle={Object {}}

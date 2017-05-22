@@ -99,15 +99,16 @@ class DevTools extends Component {
       );
     } else if (this.state.plugins.length > 0) {
       pluginSections = this.state.plugins
-       .map(pluginKey => pluginsConfig[pluginKey])
+       .map(pluginKey => pluginsConfig[pluginKey] || {})
        .map(({ label, component: Component }) => (
-         <div>
+         (label && Component) ?
+         (<div>
            <DevSection>
              <DevHeader>{label}</DevHeader>
              <Component url={this.state.url} />
            </DevSection>
            <Divider />
-         </div>
+         </div>) : null
        ));
     } else {
       pluginSections = (
