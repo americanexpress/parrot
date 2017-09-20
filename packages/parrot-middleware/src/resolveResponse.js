@@ -11,10 +11,10 @@ export default function resolveResponse(config, app, logger) {
   const { req, res } = app;
 
   // Match request config properties
-  Object.keys(configCopy.request).forEach((property) => {
+  Object.keys(configCopy.request).forEach(property => {
     if (property === 'headers') {
       // Match all request headers if included in request config
-      Object.keys(configCopy.request.headers).forEach((header) => {
+      Object.keys(configCopy.request.headers).forEach(header => {
         if (req.headers[header] !== configCopy.request.headers[header]) {
           throw Error(logger.info(`Not able to match header ${header}. Try next route.`));
         }
@@ -22,7 +22,7 @@ export default function resolveResponse(config, app, logger) {
       // Special case to check against paths using request params
     } else if (property === 'path') {
       let parsedPath = config.request.path;
-      Object.keys(req.params).forEach((param) => {
+      Object.keys(req.params).forEach(param => {
         parsedPath = parsedPath.replace(`:${param}`, req.params[param]);
       });
       if (!isEqual(parsedPath, req.path)) {
@@ -30,8 +30,8 @@ export default function resolveResponse(config, app, logger) {
           logger.info(
             `Not able to match parsed request property ${property}.` +
               ` Trying next route. \n\trequest: ${util.inspect(req[property])}` +
-              `\n\tconfig: ${util.inspect(configCopy.request[property])}`,
-          ),
+              `\n\tconfig: ${util.inspect(configCopy.request[property])}`
+          )
         );
       }
     } else if (!isEqual(req[property], configCopy.request[property])) {
@@ -39,8 +39,8 @@ export default function resolveResponse(config, app, logger) {
         logger.info(
           `Not able to match request property ${property}.` +
             ` Trying next route. \n\trequest: ${util.inspect(req[property])}` +
-            `\n\tconfig: ${util.inspect(configCopy.request[property])}`,
-        ),
+            `\n\tconfig: ${util.inspect(configCopy.request[property])}`
+        )
       );
     }
   });

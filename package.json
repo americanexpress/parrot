@@ -4,8 +4,8 @@
   "scripts": {
     "install": "lerna bootstrap",
     "clean": "git clean -d -X",
-    "lint": "eslint --ext js .",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint --ext js,jsx ./"
   },
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
@@ -13,32 +13,29 @@
     "Nathan Force <nathan.a.force@aexp.com>"
   ],
   "devDependencies": {
+    "amex-jest-preset": "^3.3.0",
+    "babel-cli": "^6.7.5",
+    "babel-eslint": "^7.1.1",
     "babel-jest": "^19.0.0",
     "babel-polyfill": "^6.23.0",
-    "eslint": "^3.8.1",
-    "eslint-config-axp": "^2.1.0",
-    "jasmine-reporters": "^2.2.0",
-    "jest": "^19.0.0",
-    "lerna": "2.0.0-beta.34"
+    "babel-preset-amex": "^1.0.1",
+    "babel-register": "^6.7.2",
+    "eslint": "^4.7.1",
+    "eslint-config-amex": "^6.0.0",
+    "eslint-config-prettier": "^2.2.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "jest": "^19.0.1",
+    "lerna": "2.0.0-rc.5",
+    "prettier": "^1.4.4",
+    "rimraf": "^2.2.8"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./jest-setup.js",
-    "collectCoverage": true,
+    "preset": "amex-jest-preset",
     "collectCoverageFrom": [
-      "**/*.{js,jsx}",
-      "!devtools/**",
-      "!**/node_modules/**",
-      "!**/build/**",
-      "!**/test-results/**",
-      "!packages/*/lib/**"
+      "packages/*/src/**/*.js"
     ],
-    "coverageDirectory": "./test-results/coverage",
-    "coverageReporters": [
-      "json",
-      "lcov",
-      "text",
-      "cobertura"
-    ],
-    "testPathIgnorePatterns": ["/node_modules/", "devtools/"]
+    "testPathIgnorePatterns": [
+      ".eslintrc.js"
+    ]
   }
 }

@@ -9,7 +9,8 @@ describe('Spec: validatorMiddleware', () => {
   let res;
   let next;
 
-  const mockRunValidator = async (response) => {
+  // eslint-disable-next-line arrow-parens
+  const mockRunValidator = async response => {
     response.write(Buffer.from('{ "model": "test" }'));
     const finishCb = response.on.mock.calls[0][1];
     await finishCb();
@@ -90,7 +91,7 @@ describe('Spec: validatorMiddleware', () => {
     await mockRunValidator(res);
     expect(validatorConfig.outputFn).toHaveBeenCalledWith(
       'Validator failed due to internal error: ',
-      err,
+      err
     );
   });
 

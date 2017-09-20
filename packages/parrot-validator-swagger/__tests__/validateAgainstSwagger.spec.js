@@ -55,7 +55,7 @@ describe('Spec: validateSwagger', () => {
       const result = validateAgainstSwagger({}, swagger, '/v1/path', 'GET', 200);
       expect(result.valid).toEqual(false);
       expect(result.errors.message).toMatch(
-        /^The Swagger defined a non-empty response but the provided response was empty for path/,
+        /^The Swagger defined a non-empty response but the provided response was empty for path/
       );
     });
 
@@ -66,7 +66,7 @@ describe('Spec: validateSwagger', () => {
       const result = validateAgainstSwagger({ notEmpty: true }, swagger, '/v1/path', 'GET', 200);
       expect(result.valid).toEqual(false);
       expect(result.errors.message).toMatch(
-        /^The Swagger defined an empty response but the provided response was non-empty for path/,
+        /^The Swagger defined an empty response but the provided response was non-empty for path/
       );
     });
 
@@ -87,11 +87,11 @@ describe('Spec: validateSwagger', () => {
         swagger,
         '/v1/path',
         'GET',
-        200,
+        200
       );
       expect(result.valid).toEqual(false);
       expect(result.errors[0].message).toEqual(
-        'someBoolean (not a boolean) is not a type of boolean',
+        'someBoolean (not a boolean) is not a type of boolean'
       );
     });
 

@@ -9,12 +9,12 @@ import normalizeRouteConfig from './normalizeRouteConfig';
 import createRoute from './createRoute';
 
 export default function createMiddlewareForScenario({ scenarios }) {
-  return (app) => {
+  return app => {
     const logger = new LogCreator();
     let router;
     function createRoutesForScenario(scenario, routeValidator) {
       router = Router();
-      scenario.forEach((config) => {
+      scenario.forEach(config => {
         try {
           validateRouteConfig(config);
           createRoute(router, normalizeRouteConfig(config), routeValidator, logger);

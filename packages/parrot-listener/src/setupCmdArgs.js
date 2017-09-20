@@ -15,6 +15,6 @@ const setupCmdArgs = yargs =>
      alias: 'u',
      describe: 'Overwrite your scenario if it exists',
      type: 'boolean',
-   });*/
+   }); */
 
 export default setupCmdArgs;
