@@ -43,8 +43,6 @@ describe('Spec: validatorMiddleware', () => {
     const validator = validatorMiddleware(validatorConfig);
     validator(req, res, next);
     expect(res.write).not.toEqual(originalResWrite);
-    res.write('test write');
-    expect(originalResWrite).toHaveBeenCalledWith('test write');
   });
 
   it('logs out results out validation', async () => {

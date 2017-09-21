@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ["../../../.eslintrc.js", "amex/test"],
+  extends: ['../../../.eslintrc.js', 'amex/test'],
 };

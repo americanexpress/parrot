@@ -31,12 +31,8 @@ const pluginsConfig = {
   },
 };
 
-const DevSection = styled.div`
-  padding: 20px 0;
-`;
-const DevHeader = styled.h5`
-  margin: 0;
-`;
+const DevSection = styled.div`padding: 20px 0;`;
+const DevHeader = styled.h5`margin: 0;`;
 
 const paperStyle = {
   position: 'absolute',
@@ -60,7 +56,7 @@ class DevTools extends Component {
     plugins: [],
     url:
       (window && window.localStorage && window.localStorage.getItem('parrotHostname')) ||
-        this.props.url,
+      this.props.url,
     error: false,
   };
 
@@ -96,8 +92,7 @@ class DevTools extends Component {
         <DevSection>
           <h4>Squawk! Error alert!</h4>
           <p>
-            Cannot find any Parrot plugins registered, can you check that Parrot
-            is running on that
+            Cannot find any Parrot plugins registered, can you check that Parrot is running on that
             hostname?
           </p>
         </DevSection>
@@ -105,15 +100,15 @@ class DevTools extends Component {
     } else if (this.state.plugins.length > 0) {
       pluginSections = this.state.plugins.map(pluginKey => pluginsConfig[pluginKey] || {}).map(
         ({ label, component: SectionComponent }) =>
-          label && SectionComponent
-            ? <div>
-                <DevSection>
-                  <DevHeader>{label}</DevHeader>
-                  <SectionComponent url={this.state.url} />
-                </DevSection>
-                <Divider />
-              </div>
-            : null
+          label && SectionComponent ? (
+            <div>
+              <DevSection>
+                <DevHeader>{label}</DevHeader>
+                <SectionComponent url={this.state.url} />
+              </DevSection>
+              <Divider />
+            </div>
+          ) : null
       );
     } else {
       pluginSections = (

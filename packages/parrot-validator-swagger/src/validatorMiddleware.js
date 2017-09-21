@@ -13,7 +13,6 @@ const validatorMiddleware = ({
     const originalWrite = res.write;
 
     res.write = chunk => {
-      // eslint-disable-line
       chunks.push(chunk);
       originalWrite.apply(res, arguments); // eslint-disable-line prefer-rest-params
     };

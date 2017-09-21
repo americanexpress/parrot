@@ -48,7 +48,11 @@ export default class ListenerControls extends Component {
     const toggleLabel = `${isListening ? 'Stop' : 'Start'} Listening`;
     return (
       <div>
-        {error && <div><pre>{error}</pre></div>}
+        {error && (
+          <div>
+            <pre>{error}</pre>
+          </div>
+        )}
         <TextField
           name="Scenario Name"
           floatingLabelText="Scenario Name"

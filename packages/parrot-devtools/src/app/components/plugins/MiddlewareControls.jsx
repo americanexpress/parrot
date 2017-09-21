@@ -84,9 +84,9 @@ class MiddlewareControls extends Component {
         value={this.state.scenario}
         onChange={this.setScenario}
       >
-        {Object.keys(this.state.scenarios).map(scenario =>
+        {Object.keys(this.state.scenarios).map(scenario => (
           <MenuItem key={scenario} value={scenario} primaryText={scenario} />
-        )}
+        ))}
       </SelectField>
     );
   }
