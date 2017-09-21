@@ -1,6 +1,6 @@
 # parrot-middleware
 
-## What's Parrot for?
+## What's `parrot-middleware` for?
 
 This express middleware allows developers to quickly and easily mock different API scenarios for local component development using both locally developed and commonly shared JSON objects.
 
@@ -8,7 +8,7 @@ Developers create a scenarios object that defines a set of configs for returning
 
 ## How do I use it?
 
-Import the default `createMiddlewareForScenario` function from parrot-middleware and apply it to your local development Express app along with a config object containing your scenarios object.
+Import the default `createMiddlewareForScenario` function from `parrot-middleware` and apply it to your local development Express app along with a config object containing your scenarios object.
 
 ```js
 // Set up your express app
