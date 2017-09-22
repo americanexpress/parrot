@@ -13,15 +13,18 @@ const errorTemplate = message => loggerColors.error(`Error: ${message}`);
 const warnTemplate = message => loggerColors.warn(`Warning: ${message}`);
 
 class LogCreator {
-  constructor() {
+  constructor(output) {
+    this.output = output;
     this.info = this.baseTemplate(infoTemplate);
     this.error = this.baseTemplate(errorTemplate);
     this.warn = this.baseTemplate(warnTemplate);
   }
   baseTemplate(template) {
     return message =>
-      `[Parrot] ${chalk.underline(this.path)}` +
-      ` ${chalk.dim(`(${this.scenario})`)}\n\t${template(message)}`;
+      this.output(
+        `[Parrot] ${chalk.underline(this.path)}` +
+          ` ${chalk.dim(`(${this.scenario})`)}\n\t${template(message)}`
+      );
   }
   setScenario(scenario) {
     this.scenario = scenario;
