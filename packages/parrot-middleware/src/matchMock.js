@@ -4,20 +4,16 @@ import pathToRegexp from 'path-to-regexp';
 import logger from './utils/Logger';
 
 function match(req) {
-  return request => {
-    const properties = Object.keys(request);
-    for (let index = 0; index < properties.length; index += 1) {
-      const property = properties[index];
-
+  return request =>
+    Object.keys(request).every(property => {
       if (
         (property === 'path' && !pathToRegexp(request.path).exec(req.path)) ||
         (property !== 'path' && !isEqual(req[property], request[property]))
       ) {
         return false;
       }
-    }
-    return true;
-  };
+      return true;
+    });
 }
 
 export default function matchMock(req, res, mocks) {

@@ -46,9 +46,9 @@ describe('Mock', () => {
     });
   });
 
-  it('adds status', () => {
+  it('adds statusCode', () => {
     const mock = new Mock({ response: {} });
-    mock.status('ahoy');
+    mock.statusCode('ahoy');
     expect(mock.structure).toEqual({
       response: {
         statusCode: 'ahoy',

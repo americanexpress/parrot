@@ -22,7 +22,7 @@ describe('Friendly methods', () => {
       headers: expect.any(Function),
       response: expect.any(Function),
       delay: expect.any(Function),
-      status: expect.any(Function),
+      statusCode: expect.any(Function),
     });
   });
 
@@ -34,7 +34,7 @@ describe('Friendly methods', () => {
       headers: expect.any(Function),
       response: expect.any(Function),
       delay: expect.any(Function),
-      status: expect.any(Function),
+      statusCode: expect.any(Function),
     });
   });
 
@@ -49,7 +49,7 @@ describe('Friendly methods', () => {
       headers: expect.any(Function),
       response: expect.any(Function),
       delay: expect.any(Function),
-      status: expect.any(Function),
+      statusCode: expect.any(Function),
     });
   });
 });

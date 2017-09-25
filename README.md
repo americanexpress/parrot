@@ -20,7 +20,7 @@ const scenarios = describe('Ship Log', () => {
   it('should show an error', () => {
     get('/ship_log')
       .response(require('./mocks/error.json'))
-      .status(500);
+      .statusCode(500);
   });
 });
 

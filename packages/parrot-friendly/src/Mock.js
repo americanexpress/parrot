@@ -23,7 +23,7 @@ export default class Mock {
     return this;
   };
 
-  status = value => {
+  statusCode = value => {
     this.structure.response.statusCode = value;
     return this;
   };
