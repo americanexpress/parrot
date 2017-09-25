@@ -1,44 +1,36 @@
-/* eslint-disable no-param-reassign */
-import { Router } from 'express';
 import bodyParser from 'body-parser';
 import registerMiddleware from 'parrot-registry';
+import logger from './utils/Logger';
+import matchMock from './matchMock';
+import validateScenarios from './validateScenarios';
+import normalizeScenarios from './normalizeScenarios';
+import resolveResponse from './resolveResponse';
 
-import LogCreator from './utils/logging';
-import validateRouteConfig from './validateRouteConfig';
-import normalizeRouteConfig from './normalizeRouteConfig';
-import createRoute from './createRoute';
+export default function createMiddleware({ scenarios }) {
+  validateScenarios(scenarios);
+  const normalizedScenarios = normalizeScenarios(scenarios);
+  let [activeScenarioName] = Object.keys(normalizedScenarios);
+  logger.setScenario(activeScenarioName);
 
-export default function createMiddlewareForScenario({ scenarios }) {
   return app => {
-    const logger = new LogCreator();
-    let router;
-    function createRoutesForScenario(scenario, routeValidator) {
-      router = Router();
-      scenario.forEach(config => {
-        try {
-          validateRouteConfig(config);
-          createRoute(router, normalizeRouteConfig(config), routeValidator, logger);
-        } catch (e) {
-          console.error(e.message);
-        }
-      });
-    }
-
-    function setActiveScenario(scenarioName) {
-      logger.setScenario(scenarioName);
-      createRoutesForScenario(scenarios[scenarioName]);
-      return scenarioName;
-    }
-
-    let activeScenarioName = setActiveScenario(Object.keys(scenarios)[0]);
-
     app.use(bodyParser.json());
-    app.use((req, res, next) => {
-      router(req, res, next);
+
+    app.all('*', (req, res, next) => {
+      const mock = matchMock(req, res, normalizedScenarios[activeScenarioName]);
+
+      if (!mock) {
+        if (!res.headersSent) {
+          next();
+        }
+        return;
+      }
+
+      resolveResponse(req, res, mock);
     });
 
     app.post('/parrot/scenario', (req, res) => {
-      activeScenarioName = setActiveScenario(req.body.scenario);
+      activeScenarioName = req.body.scenario;
+      logger.setScenario(activeScenarioName);
       res.sendStatus(200);
     });
 
@@ -47,7 +39,7 @@ export default function createMiddlewareForScenario({ scenarios }) {
     });
 
     app.get('/parrot/scenarios', (req, res) => {
-      res.json(scenarios);
+      res.json(normalizedScenarios);
     });
 
     registerMiddleware(app, { name: 'parrot-middleware' });

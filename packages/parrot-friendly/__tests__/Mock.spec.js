@@ -2,50 +2,34 @@ import Mock from '../src/Mock';
 
 describe('Mock', () => {
   it('creates initial mock structure', () => {
-    const mock = new Mock('GET', 'ahoy');
-    expect(mock.structure).toEqual({
-      request: {
-        path: 'ahoy',
-        method: 'GET',
-      },
-      response: {},
-    });
+    const mock = new Mock('ahoy');
+    expect(mock.structure).toEqual('ahoy');
   });
 
   it('adds query', () => {
-    const mock = new Mock('GET', 'ahoy');
+    const mock = new Mock({ request: {} });
     mock.query('ahoy');
     expect(mock.structure).toEqual({
       request: {
-        path: 'ahoy',
-        method: 'GET',
         query: 'ahoy',
       },
-      response: {},
     });
   });
 
   it('adds headers', () => {
-    const mock = new Mock('GET', 'ahoy');
+    const mock = new Mock({ request: {} });
     mock.headers('ahoy');
     expect(mock.structure).toEqual({
       request: {
-        path: 'ahoy',
-        method: 'GET',
         headers: 'ahoy',
       },
-      response: {},
     });
   });
 
   it('adds resource', () => {
-    const mock = new Mock('GET', 'ahoy');
+    const mock = new Mock({ response: {} });
     mock.response('ahoy');
     expect(mock.structure).toEqual({
-      request: {
-        path: 'ahoy',
-        method: 'GET',
-      },
       response: {
         resource: 'ahoy',
       },
@@ -53,29 +37,21 @@ describe('Mock', () => {
   });
 
   it('adds delay', () => {
-    const mock = new Mock('GET', 'ahoy');
+    const mock = new Mock({ response: {} });
     mock.delay('ahoy');
     expect(mock.structure).toEqual({
-      request: {
-        path: 'ahoy',
-        method: 'GET',
-      },
       response: {
         delay: 'ahoy',
       },
     });
   });
 
-  it('adds status', () => {
-    const mock = new Mock('GET', 'ahoy');
-    mock.status('ahoy');
+  it('adds statusCode', () => {
+    const mock = new Mock({ response: {} });
+    mock.statusCode('ahoy');
     expect(mock.structure).toEqual({
-      request: {
-        path: 'ahoy',
-        method: 'GET',
-      },
       response: {
-        status: 'ahoy',
+        statusCode: 'ahoy',
       },
     });
   });

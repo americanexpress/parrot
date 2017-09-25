@@ -37,7 +37,7 @@ ShallowWrapper {
         </styled.div>
         <styled.div>
             <styled.h5>
-                General Parrot Settings
+                Parrot Settings
             </styled.h5>
             <GeneralControls
                 onRefresh={[Function]}
@@ -77,7 +77,7 @@ ShallowWrapper {
             </styled.div>
             <styled.div>
                   <styled.h5>
-                        General Parrot Settings
+                        Parrot Settings
                   </styled.h5>
                   <GeneralControls
                         onRefresh={[Function]}
@@ -160,7 +160,7 @@ ShallowWrapper {
                     </styled.div>
                     <styled.div>
                               <styled.h5>
-                                        General Parrot Settings
+                                        Parrot Settings
                               </styled.h5>
                               <GeneralControls
                                         onRefresh={[Function]}
@@ -199,7 +199,7 @@ ShallowWrapper {
                     </styled.div>
                     <styled.div>
                               <styled.h5>
-                                        General Parrot Settings
+                                        Parrot Settings
                               </styled.h5>
                               <GeneralControls
                                         onRefresh={[Function]}

@@ -1,9 +1,6 @@
 export default class Mock {
-  constructor(method, path) {
-    this.structure = {
-      request: { path, method },
-      response: {},
-    };
+  constructor(structure) {
+    this.structure = structure;
   }
 
   query = value => {
@@ -26,8 +23,8 @@ export default class Mock {
     return this;
   };
 
-  status = value => {
-    this.structure.response.status = value;
+  statusCode = value => {
+    this.structure.response.statusCode = value;
     return this;
   };
 }

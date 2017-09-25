@@ -37,10 +37,28 @@ Returns a scenarios object based on the `scenarioDefinitions` declared.
 
 ### `it(description, mockDefinitions)`
 
+Adds a scenario with key `description` to the scenarios object.
+
 #### Arugments
 
 * `description` (_String_): Scenario description that will be used as a key to identify the scenario.  Must be unique to a scenarios object.
 * `mockDefinitions`: (_Function_): Function that will define mock objects when invoked.
+
+### `mock(mockDefinition)`
+
+Creates a mock for a HTTP request where `mockDefinition` is the entire mock object.  This can be used in place of chaining methods such as `query` and `delay`, or to provide custom mock handling with a function.
+
+#### Arguments
+
+* `mockDefinition` (_Object_ or _Function_): Mock object with `request` and `response` keys or mock function.
+
+### `request(requestDefinition)` 
+
+Creates a mock for a HTTP request where `requestDefinition` is the entire request object.  Can be used in place of chaining request methods such as `query` or to provide a custom matching function.
+
+#### Arguments
+
+* `requestDefinition` (_Object_ or _Function_): Request object to be matched against or request function returning true for a match and false for a miss.
 
 ### `METHOD(path)`
 
@@ -70,7 +88,7 @@ Responds with the `resource` provided.
 
 Delays the response for `amount` of milliseconds.
 
-##### `.status(code)`
+##### `.statusCode(code)`
 
 Responds with a `code` status code.
 

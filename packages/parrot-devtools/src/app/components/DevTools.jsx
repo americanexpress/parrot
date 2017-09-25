@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
-import Divider from 'material-ui/Divider';
 
 // Plugin Settings Components
 import ListenerControls from './plugins/ListenerControls';
@@ -31,7 +30,7 @@ const pluginsConfig = {
   },
 };
 
-const DevSection = styled.div`padding: 20px 0;`;
+const DevSection = styled.div`padding-top: 20px;`;
 const DevHeader = styled.h5`margin: 0;`;
 
 const paperStyle = {
@@ -106,7 +105,6 @@ class DevTools extends Component {
                 <DevHeader>{label}</DevHeader>
                 <SectionComponent url={this.state.url} />
               </DevSection>
-              <Divider />
             </div>
           ) : null
       );
@@ -124,7 +122,7 @@ class DevTools extends Component {
           {pluginSections}
           {/* General Settings are always shown */}
           <DevSection>
-            <DevHeader>General Parrot Settings</DevHeader>
+            <DevHeader>Parrot Settings</DevHeader>
             <GeneralControls
               url={this.state.url}
               setUrl={this.setUrl}
