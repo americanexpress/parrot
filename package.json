@@ -31,7 +31,11 @@
   },
   "jest": {
     "preset": "amex-jest-preset",
-    "collectCoverageFrom": ["packages/*/src/**/*.js"],
-    "testPathIgnorePatterns": [".eslintrc.js"]
+    "collectCoverageFrom": [
+      "packages/*/src/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      ".eslintrc.js"
+    ]
   }
 }
