@@ -18,7 +18,7 @@ const scenarioTemplatePath = '/dir/scenario.ejs';
 const scenarioFileNamePath = '/otherDir/myScenarioName.js';
 ejs.render.mockImplementation(() => 'some string');
 
-describe.only('mockScenarioFile', () => {
+describe('mockScenarioFile', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     path.join

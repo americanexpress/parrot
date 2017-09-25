@@ -1,6 +1,6 @@
 # parrot-middleware
 
-## What's Parrot for?
+## What's `parrot-middleware` for?
 
 This express middleware allows developers to quickly and easily mock different API scenarios for local component development using both locally developed and commonly shared JSON objects.
 
@@ -8,7 +8,7 @@ Developers create a scenarios object that defines a set of configs for returning
 
 ## How do I use it?
 
-Import the default `createMiddlewareForScenario` function from parrot-middleware and apply it to your local development Express app along with a config object containing your scenarios object.
+Import the default `createMiddleware` function from `parrot-middleware` and apply it to your local development Express app along with a config object containing your scenarios object.
 
 ```js
 // Set up your express app
@@ -206,7 +206,7 @@ In the current version, querystrings must be explicitly defined for all params (
 
 The main purpose of this middleware is to make UI component development faster and easier, while handling most common API scenarios.
 
-**No solution is perfect, and we welcome suggestions and contributions from the Amex Developer community. **
+** No solution is perfect, and we welcome suggestions and contributions from the Amex Developer community. **
 
 If you found a feature lacking or some part of this middleware was a bottleneck in your local development, please let us know - or even better, [fork it](https://stash.aexp.com/stash/users/jcros8/repos/axp-mock-middleware?fork) and make this project even better!
 

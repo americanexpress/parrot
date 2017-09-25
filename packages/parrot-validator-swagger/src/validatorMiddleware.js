@@ -12,7 +12,7 @@ const validatorMiddleware = ({
     const chunks = [];
     const originalWrite = res.write;
 
-    res.write = function (chunk) { // eslint-disable-line
+    res.write = chunk => {
       chunks.push(chunk);
       originalWrite.apply(res, arguments); // eslint-disable-line prefer-rest-params
     };
@@ -21,18 +21,24 @@ const validatorMiddleware = ({
       const body = Buffer.concat(chunks).toString('utf8');
 
       // Allows handling for swagger schema as either promise or object
-      return Promise.resolve(swaggerModel).then((resolvedModel) => {
-        const parsedBody = JSON.parse(body);
-        const urlParamPath = req.path;
-        const method = req.method ? req.method.toLowerCase() : 'get';
-        const statusCode = res.statusCode || 200;
-        const routeValidation = validateAgainstSwagger(
-          parsedBody, resolvedModel, urlParamPath, method, statusCode,
-        );
-        logValidation(routeValidation, outputFn);
-      }).catch((err) => {
-        outputFn('Validator failed due to internal error: ', err);
-      });
+      return Promise.resolve(swaggerModel)
+        .then(resolvedModel => {
+          const parsedBody = JSON.parse(body);
+          const urlParamPath = req.path;
+          const method = req.method ? req.method.toLowerCase() : 'get';
+          const statusCode = res.statusCode || 200;
+          const routeValidation = validateAgainstSwagger(
+            parsedBody,
+            resolvedModel,
+            urlParamPath,
+            method,
+            statusCode
+          );
+          logValidation(routeValidation, outputFn);
+        })
+        .catch(err => {
+          outputFn('Validator failed due to internal error: ', err);
+        });
     });
   }
   next();

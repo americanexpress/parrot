@@ -5,8 +5,13 @@ export function translateUrlParams(path) {
   return path.replace(new RegExp(/(\/:)\w+/, 'g'), match => `/{${match.slice(2)}}`);
 }
 
-export default function
-  validateAgainstSwagger(responseBody, swaggerModel, path, method, responseCode) {
+export default function validateAgainstSwagger(
+  responseBody,
+  swaggerModel,
+  path,
+  method,
+  responseCode
+) {
   // If we were not able to load the Swagger model
   if (swaggerModel instanceof Error) {
     return {
@@ -31,7 +36,9 @@ export default function
   if (!responseObj) {
     return {
       valid: false,
-      errors: Error(`The response code ${responseCode} is not defined in the Swagger for path: ${path}`),
+      errors: Error(
+        `The response code ${responseCode} is not defined in the Swagger for path: ${path}`
+      ),
     };
   }
 
@@ -44,14 +51,18 @@ export default function
   if (!model && !isEmpty(responseBody)) {
     return {
       valid: false,
-      errors: Error('The Swagger defined an empty response but the provided'
-        + ` response was non-empty for path: ${path}`),
+      errors: Error(
+        'The Swagger defined an empty response but the provided' +
+          ` response was non-empty for path: ${path}`
+      ),
     };
   } else if (model && isEmpty(responseBody)) {
     return {
       valid: false,
-      errors: Error('The Swagger defined a non-empty response but the provided'
-        + ` response was empty for path: ${path}`),
+      errors: Error(
+        'The Swagger defined a non-empty response but the provided' +
+          ` response was empty for path: ${path}`
+      ),
     };
   } else if (!model && isEmpty(responseBody)) {
     return {
@@ -61,8 +72,13 @@ export default function
 
   // Validate the response against the model
   // The library returns an object with properties that match our validation
-  const results = new SwaggerValidator().validate(responseBody, model,
-    swaggerModel.definitions, true, true);
+  const results = new SwaggerValidator().validate(
+    responseBody,
+    model,
+    swaggerModel.definitions,
+    true,
+    true
+  );
 
   return results;
 }

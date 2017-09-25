@@ -1,0 +1,5 @@
+test-results
+**/node_modules/**
+**/dist/**
+**/lib/**
+!**/*.eslintrc.js

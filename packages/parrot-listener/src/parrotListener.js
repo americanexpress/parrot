@@ -17,7 +17,7 @@ const parrotListener = ({
   let scenarioName = name;
   let isListening = listening;
 
-  const startListening = (listenName) => {
+  const startListening = listenName => {
     scenarioName = listenName;
     isListening = true;
   };
@@ -40,7 +40,7 @@ const parrotListener = ({
       const chunks = [];
       const oldWrite = res.write;
 
-      res.write = function (chunk, ...args) {
+      res.write = (chunk, ...args) => {
         chunks.push(chunk);
         oldWrite.apply(res, [chunk, ...args]);
       };
@@ -65,7 +65,7 @@ const parrotListener = ({
                   response: `./${scenarioName}/${filename}`,
                 });
               })
-              .catch((e) => {
+              .catch(e => {
                 logger(`ERROR: Unable to write parrot-listener scenario file: ${e}\n`);
               });
           }
@@ -86,7 +86,7 @@ const parrotListener = ({
     next();
   };
 
-  return (app) => {
+  return app => {
     app.use(bodyParser.json());
     app.get('/parrot/listen', (req, res) => {
       const config = isListening ? { isListening, scenarioName } : { isListening };

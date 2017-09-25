@@ -1,122 +1,143 @@
-import { Router } from 'express';
-import createMiddlewareForScenario from '../src/index';
+import createMiddleware from '../src';
+import matchMock from '../src/matchMock';
+import resolveResponse from '../src/resolveResponse';
 
-// Uncomment for debugging
-// const log = console.log;
-global.console = { error: jest.fn() };
+global.console.error = jest.fn();
 jest.mock('express');
 jest.mock('parrot-registry');
+jest.mock('../src/matchMock');
+jest.mock('../src/resolveResponse');
 
-const routerInstance = jest.fn();
-Router.mockImplementation(() => routerInstance);
-
-const scenarioFixture = {
+const scenarios = {
   happy: [
     {
-      request: '/test',
+      request: {
+        path: '/test',
+        method: 'GET',
+      },
       response: {
         resource: {
           success: true,
           message: 'You are a winner!',
         },
+        statusCode: 200,
       },
     },
   ],
   sad: [
     {
-      request: '/test',
+      request: {
+        path: '/test',
+        method: 'GET',
+      },
       response: {
         resource: {
           success: false,
           message: 'You failed.',
         },
+        statusCode: 200,
       },
     },
   ],
 };
 
-describe('Spec: Index', () => {
-  describe('createMiddlewareForScenario', () => {
-    let app;
-    beforeEach(() => {
-      app = {
-        use: jest.fn(),
-        get: jest.fn(),
-        post: jest.fn(),
-      };
-      routerInstance.mockClear();
-    });
-    it('returns a curried function', () => {
-      expect(createMiddlewareForScenario({})).toEqual(expect.any(Function));
-    });
+describe('createMiddleware', () => {
+  let app;
+  beforeEach(() => {
+    app = {
+      use: jest.fn(),
+      get: jest.fn(),
+      post: jest.fn(),
+      all: jest.fn(),
+    };
+  });
 
-    it('logs an error if unable to create a scenario route', () => {
-      const invalidConfig = {
-        bad: [
-          {
-            response: {},
-          },
-        ],
-      };
-      createMiddlewareForScenario({ scenarios: invalidConfig })(app);
-      expect(console.error).toHaveBeenCalled();
-      expect(console.error.mock.calls[0][0]).toMatch(/^Your route config must be/);
-    });
+  it('returns a curried function', () => {
+    expect(createMiddleware({ scenarios })).toEqual(expect.any(Function));
+  });
 
-    it('applies routes to an express app', () => {
-      createMiddlewareForScenario({ scenarios: scenarioFixture })(app);
-      expect(app.use).toHaveBeenCalled();
-      expect(app.get).toHaveBeenCalled();
-      expect(app.post).toHaveBeenCalled();
-    });
+  it('applies routes to an express app', () => {
+    createMiddleware({ scenarios })(app);
+    expect(app.use).toHaveBeenCalled();
+    expect(app.get).toHaveBeenCalled();
+    expect(app.post).toHaveBeenCalled();
+    expect(app.all).toHaveBeenCalled();
+  });
 
-    it('applies internally created routes to an express router', () => {
-      createMiddlewareForScenario({ scenarios: scenarioFixture })(app);
-      const routerCallback = app.use.mock.calls[1][0];
-      const params = ['req', 'res', 'next'];
-      routerCallback(...params);
-      expect(routerInstance.mock.calls[0]).toEqual(params);
-    });
+  it('resolves a mock', () => {
+    matchMock.mockReturnValueOnce(true);
+    resolveResponse.mockClear();
+    createMiddleware({ scenarios })(app);
 
-    it('can get the default active scenario', () => {
-      createMiddlewareForScenario({ scenarios: scenarioFixture })(app);
-      const getScenario = app.get.mock.calls[0][1];
-      const defaultScenario = Object.keys(scenarioFixture)[0];
-      const mockRes = {
-        json: jest.fn(),
-      };
-      getScenario(null, mockRes);
-      expect(mockRes.json).toHaveBeenCalledWith(defaultScenario);
-    });
+    const [[, mockCall]] = app.all.mock.calls;
+    const next = jest.fn();
+    mockCall(null, null, next);
+    expect(next).not.toHaveBeenCalled();
+    expect(resolveResponse).toHaveBeenCalled();
+  });
 
-    it('can change the active scenario', () => {
-      createMiddlewareForScenario({ scenarios: scenarioFixture })(app);
-      const getScenario = app.get.mock.calls[0][1];
-      const setScenario = app.post.mock.calls[0][1];
-      const newScenario = Object.keys(scenarioFixture)[1];
-      const mockReq = {
-        body: {
-          scenario: newScenario,
-        },
-      };
-      const mockRes = {
-        json: jest.fn(),
-        sendStatus: jest.fn(),
-      };
-      setScenario(mockReq, mockRes);
-      expect(mockRes.sendStatus).toHaveBeenCalledWith(200);
-      getScenario(null, mockRes);
-      expect(mockRes.json).toHaveBeenCalledWith(newScenario);
-    });
+  it('resolves a mock function', () => {
+    matchMock.mockReturnValueOnce(false);
+    resolveResponse.mockClear();
+    createMiddleware({ scenarios })(app);
 
-    it('can output the scenarios config', () => {
-      createMiddlewareForScenario({ scenarios: scenarioFixture })(app);
-      const getScenarios = app.get.mock.calls[1][1];
-      const mockRes = {
-        json: jest.fn(),
-      };
-      getScenarios(null, mockRes);
-      expect(mockRes.json).toHaveBeenCalledWith(scenarioFixture);
-    });
+    const [[, mockCall]] = app.all.mock.calls;
+    const next = jest.fn();
+    mockCall(null, { headersSent: true }, next);
+    expect(next).not.toHaveBeenCalled();
+    expect(resolveResponse).not.toHaveBeenCalled();
+  });
+
+  it('does not resolve a mock function', () => {
+    matchMock.mockReturnValueOnce(false);
+    resolveResponse.mockClear();
+    createMiddleware({ scenarios })(app);
+
+    const [[, mockCall]] = app.all.mock.calls;
+    const next = jest.fn();
+    mockCall(null, { headersSent: false }, next);
+    expect(next).toHaveBeenCalled();
+    expect(resolveResponse).not.toHaveBeenCalled();
+  });
+
+  it('gets the active scenario', () => {
+    createMiddleware({ scenarios })(app);
+    const [[, getScenario]] = app.get.mock.calls;
+    const [defaultScenario] = Object.keys(scenarios);
+    const mockRes = {
+      json: jest.fn(),
+    };
+    getScenario(null, mockRes);
+    expect(mockRes.json).toHaveBeenCalledWith(defaultScenario);
+  });
+
+  it('changes the active scenario', () => {
+    createMiddleware({ scenarios })(app);
+    const [[, getScenario]] = app.get.mock.calls;
+    const [[, setScenario]] = app.post.mock.calls;
+    const [, newScenario] = Object.keys(scenarios);
+    const mockReq = {
+      body: {
+        scenario: newScenario,
+      },
+    };
+    const mockRes = {
+      json: jest.fn(),
+      sendStatus: jest.fn(),
+    };
+    setScenario(mockReq, mockRes);
+    expect(mockRes.sendStatus).toHaveBeenCalledWith(200);
+    getScenario(null, mockRes);
+    expect(mockRes.json).toHaveBeenCalledWith(newScenario);
+  });
+
+  it('gets all scenarios', () => {
+    createMiddleware({ scenarios })(app);
+    const [, [, getScenarios]] = app.get.mock.calls;
+    const mockRes = {
+      json: jest.fn(),
+    };
+    getScenarios(null, mockRes);
+    expect(mockRes.json).toHaveBeenCalledWith(scenarios);
   });
 });

@@ -163,7 +163,7 @@ describe('parrotListener', () => {
 
     describe('middleware', () => {
       const setupMiddleware = (
-        config = { listening: true, name: 'testing', logger: jest.fn() },
+        config = { listening: true, name: 'testing', logger: jest.fn() }
       ) => {
         listener = parrotListener(config);
         listener(app);
@@ -240,8 +240,9 @@ describe('parrotListener', () => {
 
         // Call finish
         const finish = res.on.mock.calls[0][1];
-        finish();
+        const noop = finish();
         expect(writeFile).not.toHaveBeenCalled();
+        expect(noop()).toBe(null);
       });
 
       it('errors if unable to write json file on response finish', async () => {

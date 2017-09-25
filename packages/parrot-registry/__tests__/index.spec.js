@@ -17,8 +17,16 @@ describe('index', () => {
     });
     it('errors if name is not passed in middleware options', () => {
       expect(registerMiddleware.bind(this, mockApp, {})).toThrowError(
-        /You must pass a middleware name/,
+        /You must pass a middleware name/
       );
+    });
+    it('does nothing if registry exists', () => {
+      const registry = {
+        push: () => null,
+      };
+      const app = { ...mockApp, locals: { parrot: { registry } } };
+      registerMiddleware(app, { name: 'squawk' });
+      expect(app.locals.parrot.registry).toBe(registry);
     });
     it('creates a parrot locals instance', () => {
       const opts = { name: 'testMiddleware' };
