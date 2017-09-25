@@ -67,6 +67,7 @@ ShallowWrapper {
       "_currentElement": <ListenerControls
         url="http://localhost:8080"
 />,
+      "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": ListenerControls {
@@ -125,6 +126,7 @@ ShallowWrapper {
                     secondary={false}
           />
 </div>,
+        "_debugID": 2,
         "_renderedOutput": <div>
           <TextField
                     disabled={false}
@@ -154,6 +156,7 @@ ShallowWrapper {
       "_rootNodeID": 0,
       "_topLevelWrapper": null,
       "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
     },
     "getRenderOutput": [Function],
     "render": [Function],

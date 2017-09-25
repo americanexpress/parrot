@@ -1,29 +1,29 @@
 import getParams from './utils/getParams';
 
-export default function resolveResponse(req, res, mock) {
-  const { resource, statusCode, delay } = mock.response;
+export default function resolveResponse(
+  req,
+  res,
+  { request: { path }, response: { resource, statusCode, delay } }
+) {
   let response = resource;
 
-  if (mock.request.path) {
-    req.params = getParams(req.path, mock.request.path);
+  if (path) {
+    req.params = getParams(req.path, path);
   }
 
   if (typeof resource === 'function') {
     if (resource.length === 2) {
       resource(req, res);
-    } else {
-      response = resource(req);
+      return;
     }
+    response = resource(req);
   }
 
+  const sendMethod = typeof response === 'object' ? 'json' : 'send';
   res.status(statusCode);
-  const method = typeof response === 'object' ? 'json' : 'send';
-
   if (delay) {
-    setTimeout(() => {
-      res[method](response);
-    }, mock.response.delay);
+    setTimeout(() => res[sendMethod](response), delay);
   } else {
-    res[method](response);
+    res[sendMethod](response);
   }
 }

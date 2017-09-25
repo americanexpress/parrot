@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import registerMiddleware from 'parrot-registry';
-import LogCreator from './utils/logging';
+import logger from './utils/Logger';
 import matchMock from './matchMock';
 import validateScenarios from './validateScenarios';
 import normalizeScenarios from './normalizeScenarios';
@@ -8,18 +8,20 @@ import resolveResponse from './resolveResponse';
 
 export default function createMiddleware({ scenarios }) {
   validateScenarios(scenarios);
-  const logger = new LogCreator(console);
   const normalizedScenarios = normalizeScenarios(scenarios);
   let [activeScenarioName] = Object.keys(normalizedScenarios);
+  logger.setScenario(activeScenarioName);
 
   return app => {
     app.use(bodyParser.json());
 
     app.all('*', (req, res, next) => {
-      const mock = matchMock(req, res, normalizedScenarios[activeScenarioName], logger);
+      const mock = matchMock(req, res, normalizedScenarios[activeScenarioName]);
 
       if (!mock) {
-        next();
+        if (!res.headersSent) {
+          next();
+        }
         return;
       }
 

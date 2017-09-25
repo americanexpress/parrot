@@ -1,6 +1,6 @@
 # Parrot
 
-Parrot allows developers to quickly and easily mock different API scenarios during local web development using both self-contained and commonly shared JSON objects.
+Parrot allows developers to quickly and easily mock different API scenarios during local web development.
 
 ## Getting Started
 
@@ -24,7 +24,6 @@ const scenarios = describe('Ship Log', () => {
   });
 });
 
-// import this function wherever your app is available
+// import this function wherever your app is defined
 export default app => createMiddleware({ scenarios })(app);
 ```
-

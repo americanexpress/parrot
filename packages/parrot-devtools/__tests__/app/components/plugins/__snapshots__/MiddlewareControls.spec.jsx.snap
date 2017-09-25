@@ -35,6 +35,7 @@ ShallowWrapper {
       "_currentElement": <MiddlewareControls
         url="http://localhost:8080"
 />,
+      "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": MiddlewareControls {
@@ -78,6 +79,7 @@ ShallowWrapper {
           thickness={3.5}
           value={0}
 />,
+        "_debugID": 2,
         "_renderedOutput": <CircularProgress
           max={100}
           min={0}
@@ -91,6 +93,7 @@ ShallowWrapper {
       "_rootNodeID": 0,
       "_topLevelWrapper": null,
       "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
     },
     "getRenderOutput": [Function],
     "render": [Function],

@@ -1,121 +1,93 @@
 import resolveResponse from '../src/resolveResponse';
-import LogCreator from '../src/utils/logging';
 
-jest.unmock('chalk');
+jest.useFakeTimers();
 
-describe('Spec: resolveResponse', () => {
-  let logger;
+describe('resolveResponse', () => {
+  let res;
   beforeEach(() => {
-    logger = new LogCreator();
+    res = {
+      status: jest.fn(),
+      json: jest.fn(),
+      send: jest.fn(),
+    };
   });
 
-  it('can match a config to a request', () => {
-    const mockRequest = {
-      path: '/api/v1/test',
-      method: 'get',
-      params: {},
-    };
-    const mockConfig = {
-      request: { ...mockRequest },
-      response: {
-        resource: { success: true },
-      },
-    };
-    const response = resolveResponse(mockConfig, { req: mockRequest }, logger);
-    expect(response).toEqual(mockConfig.response.resource);
-  });
-
-  it('provides a callback if resource is a function with one parameter', () => {
-    const mockConfig = {
+  it('sets params', () => {
+    const mock = {
       request: {
-        path: '/api/v1/test/:id',
+        path: '/:ahoy',
       },
       response: {
-        resource: ({ params: { id } }) => ({ testId: `PMC-${id}` }),
+        resource: jest.fn(req => req),
       },
     };
-    const mockRequest = {
-      path: '/api/v1/test/25',
-      params: {
-        id: 25,
-      },
-    };
-    const response = resolveResponse(mockConfig, { req: mockRequest }, logger);
-    expect(response).toEqual({
-      testId: 'PMC-25',
+    resolveResponse({ path: '/squawk' }, res, mock);
+    expect(mock.response.resource).toHaveBeenCalledWith({
+      path: '/squawk',
+      params: { ahoy: 'squawk' },
     });
   });
 
-  it('provides express req and res if resource is a function with two parameters', () => {
-    const statusCode = 400;
-    const mockConfig = {
-      request: {
-        path: '/api/v1/test/:id',
-      },
+  it('does not set params', () => {
+    const mock = {
+      request: {},
       response: {
-        resource: (req, res) => {
-          res.status(statusCode).jsonp({
-            accountId: req.headers.accountId,
-            pmcId: `PMC-${req.params.pmcId}`,
-            error: true,
-          });
+        resource: jest.fn(req => req),
+      },
+    };
+    resolveResponse({}, res, mock);
+    expect(mock.response.resource).toHaveBeenCalledWith({});
+  });
+
+  it('calls resource and responds', () => {
+    const mock = {
+      request: {},
+      response: {
+        resource: (req, response) => `${req}${response}`,
+      },
+    };
+    resolveResponse({}, res, mock);
+    expect(res.status).not.toHaveBeenCalled();
+  });
+
+  it('sends resource object', () => {
+    const mock = {
+      request: {},
+      response: {
+        resource: {
+          ahoy: 'squawk',
         },
       },
     };
-    const mockReq = {
-      path: '/api/v1/test/25',
-      headers: {
-        accountId: 1029,
-      },
-      params: {
-        id: 25,
-      },
-    };
-    const mockRes = {
-      jsonp: jest.fn(),
-      status: jest.fn().mockReturnThis(),
-    };
-    resolveResponse(mockConfig, { req: mockReq, res: mockRes }, logger);
-    expect(mockRes.status).toHaveBeenCalledWith(statusCode);
-    expect(mockRes.jsonp).toHaveBeenCalled();
+    resolveResponse({}, res, mock);
+    expect(res.json).toHaveBeenCalledWith({
+      ahoy: 'squawk',
+    });
   });
 
-  it('throws an error if config does not match', () => {
-    const mockRequest = {
-      path: '/api/v1/test',
-      params: {},
-      method: 'get',
-    };
-    const mockConfig = {
-      request: {
-        path: '/api/v1/test',
-        method: 'put',
+  it('sends resource', () => {
+    const mock = {
+      request: {},
+      response: {
+        resource: 'squawk',
       },
     };
-    const errorResolve = resolveResponse.bind(null, mockConfig, { req: mockRequest }, logger);
-    expect(errorResolve).toThrowError(/Not able to match request property method/);
+    resolveResponse({}, res, mock);
+    expect(res.send).toHaveBeenCalledWith('squawk');
   });
 
-  it('matches headers only if all headers match', () => {
-    const mockRequest = {
-      path: '/api/v1/test',
-      params: {},
-      headers: {
-        test: 'valid',
-        other: 'valid',
-      },
-      method: 'get',
-    };
-    const mockConfig = {
-      request: {
-        ...mockRequest,
-        headers: {
-          test: 'valid',
-          other: 'invalid',
-        },
+  it('sends delays', () => {
+    const mock = {
+      request: {},
+      response: {
+        resource: 'squawk',
+        delay: 500,
       },
     };
-    const errorResolve = resolveResponse.bind(null, mockConfig, { req: mockRequest }, logger);
-    expect(errorResolve).toThrowError(/Not able to match header other/);
+    resolveResponse({}, res, mock);
+    expect(setTimeout.mock.calls.length).toBe(1);
+    expect(setTimeout.mock.calls[0][1]).toBe(500);
+    jest.runAllTimers();
+    expect(res.send).toHaveBeenCalledWith('squawk');
   });
 });

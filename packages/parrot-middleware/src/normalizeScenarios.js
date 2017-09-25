@@ -3,27 +3,26 @@ export default function normalizeScenarios(scenarios) {
     (acc, scenarioName) => ({
       ...acc,
       [scenarioName]: scenarios[scenarioName].map(
-        scenario =>
-          typeof scenario === 'function'
-            ? scenario
+        mock =>
+          typeof mock === 'function'
+            ? mock
             : {
                 request:
-                  typeof scenario.request === 'string'
+                  typeof mock.request === 'string'
                     ? {
-                        path: scenario.request,
+                        path: mock.request,
                         method: 'GET',
                       }
-                    : scenario.request,
+                    : mock.request,
                 response:
-                  typeof scenario.response !== 'object' ||
-                  typeof scenario.response.resource === 'undefined'
+                  typeof mock.response !== 'object' || typeof mock.response.resource === 'undefined'
                     ? {
-                        resource: scenario.response,
+                        resource: mock.response,
                         statusCode: 200,
                       }
                     : {
-                        ...scenario.response,
-                        statusCode: scenario.response.statusCode || 200,
+                        ...mock.response,
+                        statusCode: mock.response.statusCode || 200,
                       },
               }
       ),

@@ -37,7 +37,7 @@ ShallowWrapper {
         </styled.div>
         <styled.div>
             <styled.h5>
-                General Parrot Settings
+                Parrot Settings
             </styled.h5>
             <GeneralControls
                 onRefresh={[Function]}
@@ -77,7 +77,7 @@ ShallowWrapper {
             </styled.div>
             <styled.div>
                   <styled.h5>
-                        General Parrot Settings
+                        Parrot Settings
                   </styled.h5>
                   <GeneralControls
                         onRefresh={[Function]}
@@ -97,6 +97,7 @@ ShallowWrapper {
       "_currentElement": <DevTools
         url="http://localhost:3000"
 />,
+      "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": DevTools {
@@ -160,7 +161,7 @@ ShallowWrapper {
                     </styled.div>
                     <styled.div>
                               <styled.h5>
-                                        General Parrot Settings
+                                        Parrot Settings
                               </styled.h5>
                               <GeneralControls
                                         onRefresh={[Function]}
@@ -170,6 +171,7 @@ ShallowWrapper {
                     </styled.div>
           </Paper>
 </MuiThemeProvider>,
+        "_debugID": 2,
         "_renderedOutput": <MuiThemeProvider>
           <Paper
                     circle={false}
@@ -199,7 +201,7 @@ ShallowWrapper {
                     </styled.div>
                     <styled.div>
                               <styled.h5>
-                                        General Parrot Settings
+                                        Parrot Settings
                               </styled.h5>
                               <GeneralControls
                                         onRefresh={[Function]}
@@ -214,6 +216,7 @@ ShallowWrapper {
       "_rootNodeID": 0,
       "_topLevelWrapper": null,
       "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
     },
     "getRenderOutput": [Function],
     "render": [Function],
