@@ -12,13 +12,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
-    "postinstall": "postinstall-build lib \"npm run build\"",
     "build": "babel src --out-dir lib --copy-files",
-    "lint": "eslint --ignore-path .gitignore --ext .js src test",
-    "test": "jest --coverage"
-  },
-  "dependencies": {
-    "postinstall-build": "^2.1.3"
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
