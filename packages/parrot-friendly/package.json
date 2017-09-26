@@ -1,0 +1,32 @@
+{
+  "name": "parrot-friendly",
+  "version": "2.1.0",
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Arick Force <Nathan.A.Force@aexp.com>",
+    "Jason Schapiro <jason.schapiro@aexp.com>"
+  ],
+  "description": "A friendlier syntax for writing scenarios.",
+  "main": "lib/index.js",
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib --copy-files",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.2",
+    "babel-jest": "^19.0.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
+    "jest": "^19.0.2",
+    "rimraf": "^2.2.8"
+  }
+}

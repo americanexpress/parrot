@@ -1,0 +1,4 @@
+{
+  "presets": ["amex"],
+  "plugins": ["transform-runtime"]
+}

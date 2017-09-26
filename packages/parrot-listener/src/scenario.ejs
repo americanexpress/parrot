@@ -1,0 +1,7 @@
+export default {
+  <%- name %>: [<% routes.forEach(function(route) { %>{
+      request: <%- JSON.stringify(route.request) %>,
+      response: require('<%- route.response %>')
+    },
+  <% }); %>]
+};
