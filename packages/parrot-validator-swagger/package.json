@@ -1,6 +1,6 @@
 {
   "name": "parrot-validator-swagger",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Validate Mock Scenario Objects against a swagger schema",
   "main": "lib/index.js",
   "contributors": [
@@ -11,15 +11,14 @@
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
-    "postinstall": "postinstall-build lib 'npm run build'",
-    "build": "babel src --out-dir lib --copy-files"
+    "build": "babel src --out-dir lib --copy-files",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "chalk": "^1.1.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.16.3",
-    "parrot-registry": "^2.0.0",
-    "postinstall-build": "^2.1.3",
+    "parrot-registry": "^2.1.0",
     "swagger-model-validator": "^2.1.6"
   },
   "devDependencies": {

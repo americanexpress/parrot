@@ -2,7 +2,7 @@
   "name": "parrot",
   "version": "2.0.1",
   "scripts": {
-    "install": "lerna bootstrap",
+    "postinstall": "lerna bootstrap",
     "clean": "git clean -d -X",
     "test": "jest",
     "lint": "eslint --ext js,jsx ./"
@@ -25,7 +25,7 @@
     "eslint-config-prettier": "^2.2.0",
     "eslint-plugin-prettier": "^2.1.2",
     "jest": "^19.0.1",
-    "lerna": "^2.2.0",
+    "lerna": "2.1.2",
     "prettier": "^1.4.4",
     "rimraf": "^2.2.8"
   },
