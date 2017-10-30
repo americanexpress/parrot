@@ -6,13 +6,13 @@ import logger from './utils/Logger';
 function match(req) {
   return request =>
     Object.keys(request).every(property => {
-      if (
-        (property === 'path' && !pathToRegexp(request.path).exec(req.path)) ||
-        (property !== 'path' && !isEqual(req[property], request[property]))
-      ) {
-        return false;
+      if (property === 'path') {
+        return pathToRegexp(request.path).exec(req.path);
+      } else if (property === 'headers') {
+        return Object.keys(request.headers).every(key => request.headers[key] === req.headers[key]);
       }
-      return true;
+
+      return isEqual(req[property], request[property]);
     });
 }
 

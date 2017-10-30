@@ -24,14 +24,14 @@ describe('matchMock', () => {
   });
 
   it('does not match mock object', () => {
-    const scenario = [{ request: { path: '/squawk', headers: 'ahoy' } }];
-    const req = { path: '/squawk', headers: 'matey' };
+    const scenario = [{ request: { path: '/squawk', headers: 'ahoy', 'Keep-Alive': 'timeout=5' } }];
+    const req = { path: '/squawk', headers: 'matey', 'Keep-Alive': 'timeout=5' };
     expect(matchMock(req, {}, scenario)).toBe(undefined);
   });
 
   it('matches mock object', () => {
-    const scenario = [{ request: { path: '/squawk', headers: 'ahoy' } }];
-    const req = { path: '/squawk', headers: 'ahoy' };
+    const scenario = [{ request: { path: '/squawk', headers: 'ahoy', 'Keep-Alive': 'timeout=5' } }];
+    const req = { path: '/squawk', headers: 'ahoy', 'Keep-Alive': 'timeout=5' };
     expect(matchMock(req, {}, scenario)).toEqual(scenario[0]);
   });
 });
