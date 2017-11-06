@@ -10,6 +10,41 @@ ShallowWrapper {
   "length": 1,
   "node": <div>
     <TextField
+      disabled={false}
+      floatingLabelFixed={false}
+      floatingLabelText="Parrot Server Host"
+      fullWidth={false}
+      multiLine={false}
+      name="Parrot Server Host"
+      onChange={[Function]}
+      rows={1}
+      textareaStyle={
+        Object {
+          "paddingLeft": 0,
+        }
+      }
+      type="text"
+      underlineShow={true}
+      value="http://localhost:8080"
+    />
+    <FlatButton
+      disabled={false}
+      fullWidth={false}
+      icon={<NavigationRefresh />}
+      labelPosition="after"
+      labelStyle={Object {}}
+      onKeyboardFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+      onTouchTap={[Function]}
+      primary={false}
+      secondary={false}
+    />
+  </div>,
+  "nodes": Array [
+    <div>
+      <TextField
         disabled={false}
         floatingLabelFixed={false}
         floatingLabelText="Parrot Server Host"
@@ -19,15 +54,15 @@ ShallowWrapper {
         onChange={[Function]}
         rows={1}
         textareaStyle={
-            Object {
-                "paddingLeft": 0,
-              }
+          Object {
+            "paddingLeft": 0,
+          }
         }
         type="text"
         underlineShow={true}
         value="http://localhost:8080"
-    />
-    <FlatButton
+      />
+      <FlatButton
         disabled={false}
         fullWidth={false}
         icon={<NavigationRefresh />}
@@ -40,43 +75,8 @@ ShallowWrapper {
         onTouchTap={[Function]}
         primary={false}
         secondary={false}
-    />
-</div>,
-  "nodes": Array [
-    <div>
-      <TextField
-            disabled={false}
-            floatingLabelFixed={false}
-            floatingLabelText="Parrot Server Host"
-            fullWidth={false}
-            multiLine={false}
-            name="Parrot Server Host"
-            onChange={[Function]}
-            rows={1}
-            textareaStyle={
-                  Object {
-                        "paddingLeft": 0,
-                      }
-            }
-            type="text"
-            underlineShow={true}
-            value="http://localhost:8080"
       />
-      <FlatButton
-            disabled={false}
-            fullWidth={false}
-            icon={<NavigationRefresh />}
-            labelPosition="after"
-            labelStyle={Object {}}
-            onKeyboardFocus={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            onTouchTap={[Function]}
-            primary={false}
-            secondary={false}
-      />
-</div>,
+    </div>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -88,7 +88,7 @@ ShallowWrapper {
         onRefresh={[Function]}
         setUrl={[Function]}
         url="http://localhost:8080"
-/>,
+      />,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": GeneralControls {
@@ -122,72 +122,72 @@ ShallowWrapper {
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <div>
           <TextField
-                    disabled={false}
-                    floatingLabelFixed={false}
-                    floatingLabelText="Parrot Server Host"
-                    fullWidth={false}
-                    multiLine={false}
-                    name="Parrot Server Host"
-                    onChange={[Function]}
-                    rows={1}
-                    textareaStyle={
-                              Object {
-                                        "paddingLeft": 0,
-                                      }
-                    }
-                    type="text"
-                    underlineShow={true}
-                    value="http://localhost:8080"
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Parrot Server Host"
+            fullWidth={false}
+            multiLine={false}
+            name="Parrot Server Host"
+            onChange={[Function]}
+            rows={1}
+            textareaStyle={
+              Object {
+                "paddingLeft": 0,
+              }
+            }
+            type="text"
+            underlineShow={true}
+            value="http://localhost:8080"
           />
           <FlatButton
-                    disabled={false}
-                    fullWidth={false}
-                    icon={<NavigationRefresh />}
-                    labelPosition="after"
-                    labelStyle={Object {}}
-                    onKeyboardFocus={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onTouchStart={[Function]}
-                    onTouchTap={[Function]}
-                    primary={false}
-                    secondary={false}
+            disabled={false}
+            fullWidth={false}
+            icon={<NavigationRefresh />}
+            labelPosition="after"
+            labelStyle={Object {}}
+            onKeyboardFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            onTouchTap={[Function]}
+            primary={false}
+            secondary={false}
           />
-</div>,
+        </div>,
         "_renderedOutput": <div>
           <TextField
-                    disabled={false}
-                    floatingLabelFixed={false}
-                    floatingLabelText="Parrot Server Host"
-                    fullWidth={false}
-                    multiLine={false}
-                    name="Parrot Server Host"
-                    onChange={[Function]}
-                    rows={1}
-                    textareaStyle={
-                              Object {
-                                        "paddingLeft": 0,
-                                      }
-                    }
-                    type="text"
-                    underlineShow={true}
-                    value="http://localhost:8080"
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Parrot Server Host"
+            fullWidth={false}
+            multiLine={false}
+            name="Parrot Server Host"
+            onChange={[Function]}
+            rows={1}
+            textareaStyle={
+              Object {
+                "paddingLeft": 0,
+              }
+            }
+            type="text"
+            underlineShow={true}
+            value="http://localhost:8080"
           />
           <FlatButton
-                    disabled={false}
-                    fullWidth={false}
-                    icon={<NavigationRefresh />}
-                    labelPosition="after"
-                    labelStyle={Object {}}
-                    onKeyboardFocus={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    onTouchStart={[Function]}
-                    onTouchTap={[Function]}
-                    primary={false}
-                    secondary={false}
+            disabled={false}
+            fullWidth={false}
+            icon={<NavigationRefresh />}
+            labelPosition="after"
+            labelStyle={Object {}}
+            onKeyboardFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            onTouchTap={[Function]}
+            primary={false}
+            secondary={false}
           />
-</div>,
+        </div>,
       },
       "_renderedNodeType": 0,
       "_rootNodeID": 0,
@@ -202,6 +202,6 @@ ShallowWrapper {
     onRefresh={[Function]}
     setUrl={[Function]}
     url="http://localhost:8080"
-/>,
+  />,
 }
 `;

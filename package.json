@@ -16,7 +16,6 @@
     "amex-jest-preset": "^3.3.0",
     "babel-cli": "^6.7.5",
     "babel-eslint": "^7.1.1",
-    "babel-jest": "^19.0.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-amex": "^1.0.1",
     "babel-register": "^6.7.2",
@@ -24,8 +23,8 @@
     "eslint-config-amex": "^6.0.0",
     "eslint-config-prettier": "^2.2.0",
     "eslint-plugin-prettier": "^2.1.2",
-    "jest": "^19.0.1",
-    "lerna": "2.1.2",
+    "jest": "^21.0.0",
+    "lerna": "^2.4.0",
     "prettier": "^1.4.4",
     "rimraf": "^2.2.8"
   },
