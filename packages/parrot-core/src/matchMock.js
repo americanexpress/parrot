@@ -1,18 +1,18 @@
-import util from 'util';
+import inspect from 'util-inspect';
 import isEqual from 'lodash/isEqual';
 import pathToRegexp from 'path-to-regexp';
-import logger from './utils/Logger';
+import logger from './utils/logger';
 
 function match(req) {
   return request =>
     Object.keys(request).every(property => {
-      if (property === 'path') {
-        return pathToRegexp(request.path).exec(req.path);
-      } else if (property === 'headers') {
-        return Object.keys(request.headers).every(key => request.headers[key] === req.headers[key]);
+      if (
+        (property === 'path' && !pathToRegexp(request.path).exec(req.path)) ||
+        (property !== 'path' && !isEqual(req[property], request[property]))
+      ) {
+        return false;
       }
-
-      return isEqual(req[property], request[property]);
+      return true;
     });
 }
 
@@ -32,8 +32,7 @@ export default function matchMock(req, res, mocks) {
       break;
     } else if (typeof mock.request === 'object' && match(req)(mock.request)) {
       logger.info(
-        `Matched request object: ${util.inspect(mock.request, {
-          colors: true,
+        `Matched request object: ${inspect(mock.request, {
           breakLength: Infinity,
         })}`,
         req.path

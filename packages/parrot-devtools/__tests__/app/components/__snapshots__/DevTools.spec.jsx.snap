@@ -10,83 +10,83 @@ ShallowWrapper {
   "length": 1,
   "node": <MuiThemeProvider>
     <Paper
-        circle={false}
-        rounded={true}
-        style={
-            Object {
-                "bottom": 10,
-                "left": 10,
-                "padding": "0 20",
-                "position": "absolute",
-                "right": 10,
-                "top": 10,
-              }
+      circle={false}
+      rounded={true}
+      style={
+        Object {
+          "bottom": 10,
+          "left": 10,
+          "padding": "0 20",
+          "position": "absolute",
+          "right": 10,
+          "top": 10,
         }
-        transitionEnabled={true}
-        zDepth={1}
+      }
+      transitionEnabled={true}
+      zDepth={1}
     >
-        <styled.div>
-            <CircularProgress
-                max={100}
-                min={0}
-                mode="indeterminate"
-                size={40}
-                thickness={3.5}
-                value={0}
-            />
-        </styled.div>
-        <styled.div>
-            <styled.h5>
-                Parrot Settings
-            </styled.h5>
-            <GeneralControls
-                onRefresh={[Function]}
-                setUrl={[Function]}
-                url="http://localhost:3000"
-            />
-        </styled.div>
+      <styled.div>
+        <CircularProgress
+          max={100}
+          min={0}
+          mode="indeterminate"
+          size={40}
+          thickness={3.5}
+          value={0}
+        />
+      </styled.div>
+      <styled.div>
+        <styled.h5>
+          Parrot Settings
+        </styled.h5>
+        <GeneralControls
+          onRefresh={[Function]}
+          setUrl={[Function]}
+          url="http://localhost:3000"
+        />
+      </styled.div>
     </Paper>
-</MuiThemeProvider>,
+  </MuiThemeProvider>,
   "nodes": Array [
     <MuiThemeProvider>
       <Paper
-            circle={false}
-            rounded={true}
-            style={
-                  Object {
-                        "bottom": 10,
-                        "left": 10,
-                        "padding": "0 20",
-                        "position": "absolute",
-                        "right": 10,
-                        "top": 10,
-                      }
-            }
-            transitionEnabled={true}
-            zDepth={1}
+        circle={false}
+        rounded={true}
+        style={
+          Object {
+            "bottom": 10,
+            "left": 10,
+            "padding": "0 20",
+            "position": "absolute",
+            "right": 10,
+            "top": 10,
+          }
+        }
+        transitionEnabled={true}
+        zDepth={1}
       >
-            <styled.div>
-                  <CircularProgress
-                        max={100}
-                        min={0}
-                        mode="indeterminate"
-                        size={40}
-                        thickness={3.5}
-                        value={0}
-                  />
-            </styled.div>
-            <styled.div>
-                  <styled.h5>
-                        Parrot Settings
-                  </styled.h5>
-                  <GeneralControls
-                        onRefresh={[Function]}
-                        setUrl={[Function]}
-                        url="http://localhost:3000"
-                  />
-            </styled.div>
+        <styled.div>
+          <CircularProgress
+            max={100}
+            min={0}
+            mode="indeterminate"
+            size={40}
+            thickness={3.5}
+            value={0}
+          />
+        </styled.div>
+        <styled.div>
+          <styled.h5>
+            Parrot Settings
+          </styled.h5>
+          <GeneralControls
+            onRefresh={[Function]}
+            setUrl={[Function]}
+            url="http://localhost:3000"
+          />
+        </styled.div>
       </Paper>
-</MuiThemeProvider>,
+    </MuiThemeProvider>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -96,7 +96,7 @@ ShallowWrapper {
       "_context": Object {},
       "_currentElement": <DevTools
         url="http://localhost:3000"
-/>,
+      />,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": DevTools {
@@ -133,82 +133,82 @@ ShallowWrapper {
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <MuiThemeProvider>
           <Paper
-                    circle={false}
-                    rounded={true}
-                    style={
-                              Object {
-                                        "bottom": 10,
-                                        "left": 10,
-                                        "padding": "0 20",
-                                        "position": "absolute",
-                                        "right": 10,
-                                        "top": 10,
-                                      }
-                    }
-                    transitionEnabled={true}
-                    zDepth={1}
+            circle={false}
+            rounded={true}
+            style={
+              Object {
+                "bottom": 10,
+                "left": 10,
+                "padding": "0 20",
+                "position": "absolute",
+                "right": 10,
+                "top": 10,
+              }
+            }
+            transitionEnabled={true}
+            zDepth={1}
           >
-                    <styled.div>
-                              <CircularProgress
-                                        max={100}
-                                        min={0}
-                                        mode="indeterminate"
-                                        size={40}
-                                        thickness={3.5}
-                                        value={0}
-                              />
-                    </styled.div>
-                    <styled.div>
-                              <styled.h5>
-                                        Parrot Settings
-                              </styled.h5>
-                              <GeneralControls
-                                        onRefresh={[Function]}
-                                        setUrl={[Function]}
-                                        url="http://localhost:3000"
-                              />
-                    </styled.div>
+            <styled.div>
+              <CircularProgress
+                max={100}
+                min={0}
+                mode="indeterminate"
+                size={40}
+                thickness={3.5}
+                value={0}
+              />
+            </styled.div>
+            <styled.div>
+              <styled.h5>
+                Parrot Settings
+              </styled.h5>
+              <GeneralControls
+                onRefresh={[Function]}
+                setUrl={[Function]}
+                url="http://localhost:3000"
+              />
+            </styled.div>
           </Paper>
-</MuiThemeProvider>,
+        </MuiThemeProvider>,
         "_renderedOutput": <MuiThemeProvider>
           <Paper
-                    circle={false}
-                    rounded={true}
-                    style={
-                              Object {
-                                        "bottom": 10,
-                                        "left": 10,
-                                        "padding": "0 20",
-                                        "position": "absolute",
-                                        "right": 10,
-                                        "top": 10,
-                                      }
-                    }
-                    transitionEnabled={true}
-                    zDepth={1}
+            circle={false}
+            rounded={true}
+            style={
+              Object {
+                "bottom": 10,
+                "left": 10,
+                "padding": "0 20",
+                "position": "absolute",
+                "right": 10,
+                "top": 10,
+              }
+            }
+            transitionEnabled={true}
+            zDepth={1}
           >
-                    <styled.div>
-                              <CircularProgress
-                                        max={100}
-                                        min={0}
-                                        mode="indeterminate"
-                                        size={40}
-                                        thickness={3.5}
-                                        value={0}
-                              />
-                    </styled.div>
-                    <styled.div>
-                              <styled.h5>
-                                        Parrot Settings
-                              </styled.h5>
-                              <GeneralControls
-                                        onRefresh={[Function]}
-                                        setUrl={[Function]}
-                                        url="http://localhost:3000"
-                              />
-                    </styled.div>
+            <styled.div>
+              <CircularProgress
+                max={100}
+                min={0}
+                mode="indeterminate"
+                size={40}
+                thickness={3.5}
+                value={0}
+              />
+            </styled.div>
+            <styled.div>
+              <styled.h5>
+                Parrot Settings
+              </styled.h5>
+              <GeneralControls
+                onRefresh={[Function]}
+                setUrl={[Function]}
+                url="http://localhost:3000"
+              />
+            </styled.div>
           </Paper>
-</MuiThemeProvider>,
+        </MuiThemeProvider>,
       },
       "_renderedNodeType": 1,
       "_rootNodeID": 0,
@@ -221,6 +221,6 @@ ShallowWrapper {
   "root": [Circular],
   "unrendered": <DevTools
     url="http://localhost:3000"
-/>,
+  />,
 }
 `;

@@ -1,7 +1,6 @@
-import matchMock from '../src/matchMock';
-import logger from '../src/utils/Logger';
+import { matchMock, logger } from '../src';
 
-jest.mock('../src/utils/Logger', () => ({
+jest.mock('../src/utils/logger', () => ({
   info: jest.fn(),
 }));
 
@@ -24,14 +23,14 @@ describe('matchMock', () => {
   });
 
   it('does not match mock object', () => {
-    const scenario = [{ request: { path: '/squawk', headers: 'ahoy', 'Keep-Alive': 'timeout=5' } }];
-    const req = { path: '/squawk', headers: 'matey', 'Keep-Alive': 'timeout=5' };
+    const scenario = [{ request: { path: '/squawk', headers: 'ahoy' } }];
+    const req = { path: '/squawk', headers: 'matey' };
     expect(matchMock(req, {}, scenario)).toBe(undefined);
   });
 
   it('matches mock object', () => {
-    const scenario = [{ request: { path: '/squawk', headers: 'ahoy', 'Keep-Alive': 'timeout=5' } }];
-    const req = { path: '/squawk', headers: 'ahoy', 'Keep-Alive': 'timeout=5' };
+    const scenario = [{ request: { path: '/squawk', headers: 'ahoy' } }];
+    const req = { path: '/squawk', headers: 'ahoy' };
     expect(matchMock(req, {}, scenario)).toEqual(scenario[0]);
   });
 });

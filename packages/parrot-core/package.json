@@ -1,12 +1,12 @@
 {
-  "name": "parrot-friendly",
+  "name": "parrot-fetch",
   "version": "2.1.2",
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Nathan Arick Force <Nathan.A.Force@aexp.com>",
     "Jason Schapiro <jason.schapiro@aexp.com>"
   ],
-  "description": "A friendlier syntax for writing scenarios.",
+  "description": "A fetch mocking implementation of parrot.",
   "main": "lib/index.js",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
@@ -14,6 +14,12 @@
     "prebuild": "npm run clean",
     "build": "babel src --out-dir lib --copy-files",
     "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "lodash": "^4.16.3",
+    "path-to-regexp": "^2.0.0",
+    "util-inspect": "^0.1.8"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
