@@ -10,6 +10,31 @@ ShallowWrapper {
   "length": 1,
   "node": <div>
     <TextField
+      disabled={false}
+      floatingLabelFixed={false}
+      floatingLabelText="Scenario Name"
+      fullWidth={false}
+      multiLine={false}
+      name="Scenario Name"
+      onChange={[Function]}
+      rows={1}
+      type="text"
+      underlineShow={true}
+      value=""
+    />
+    <RaisedButton
+      disabled={true}
+      fullWidth={false}
+      label="Start Listening"
+      labelPosition="after"
+      onTouchTap={[Function]}
+      primary={true}
+      secondary={false}
+    />
+  </div>,
+  "nodes": Array [
+    <div>
+      <TextField
         disabled={false}
         floatingLabelFixed={false}
         floatingLabelText="Scenario Name"
@@ -21,8 +46,8 @@ ShallowWrapper {
         type="text"
         underlineShow={true}
         value=""
-    />
-    <RaisedButton
+      />
+      <RaisedButton
         disabled={true}
         fullWidth={false}
         label="Start Listening"
@@ -30,33 +55,8 @@ ShallowWrapper {
         onTouchTap={[Function]}
         primary={true}
         secondary={false}
-    />
-</div>,
-  "nodes": Array [
-    <div>
-      <TextField
-            disabled={false}
-            floatingLabelFixed={false}
-            floatingLabelText="Scenario Name"
-            fullWidth={false}
-            multiLine={false}
-            name="Scenario Name"
-            onChange={[Function]}
-            rows={1}
-            type="text"
-            underlineShow={true}
-            value=""
       />
-      <RaisedButton
-            disabled={true}
-            fullWidth={false}
-            label="Start Listening"
-            labelPosition="after"
-            onTouchTap={[Function]}
-            primary={true}
-            secondary={false}
-      />
-</div>,
+    </div>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -66,7 +66,7 @@ ShallowWrapper {
       "_context": Object {},
       "_currentElement": <ListenerControls
         url="http://localhost:8080"
-/>,
+      />,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": ListenerControls {
@@ -103,52 +103,52 @@ ShallowWrapper {
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <div>
           <TextField
-                    disabled={false}
-                    floatingLabelFixed={false}
-                    floatingLabelText="Scenario Name"
-                    fullWidth={false}
-                    multiLine={false}
-                    name="Scenario Name"
-                    onChange={[Function]}
-                    rows={1}
-                    type="text"
-                    underlineShow={true}
-                    value=""
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Scenario Name"
+            fullWidth={false}
+            multiLine={false}
+            name="Scenario Name"
+            onChange={[Function]}
+            rows={1}
+            type="text"
+            underlineShow={true}
+            value=""
           />
           <RaisedButton
-                    disabled={true}
-                    fullWidth={false}
-                    label="Start Listening"
-                    labelPosition="after"
-                    onTouchTap={[Function]}
-                    primary={true}
-                    secondary={false}
+            disabled={true}
+            fullWidth={false}
+            label="Start Listening"
+            labelPosition="after"
+            onTouchTap={[Function]}
+            primary={true}
+            secondary={false}
           />
-</div>,
+        </div>,
         "_renderedOutput": <div>
           <TextField
-                    disabled={false}
-                    floatingLabelFixed={false}
-                    floatingLabelText="Scenario Name"
-                    fullWidth={false}
-                    multiLine={false}
-                    name="Scenario Name"
-                    onChange={[Function]}
-                    rows={1}
-                    type="text"
-                    underlineShow={true}
-                    value=""
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Scenario Name"
+            fullWidth={false}
+            multiLine={false}
+            name="Scenario Name"
+            onChange={[Function]}
+            rows={1}
+            type="text"
+            underlineShow={true}
+            value=""
           />
           <RaisedButton
-                    disabled={true}
-                    fullWidth={false}
-                    label="Start Listening"
-                    labelPosition="after"
-                    onTouchTap={[Function]}
-                    primary={true}
-                    secondary={false}
+            disabled={true}
+            fullWidth={false}
+            label="Start Listening"
+            labelPosition="after"
+            onTouchTap={[Function]}
+            primary={true}
+            secondary={false}
           />
-</div>,
+        </div>,
       },
       "_renderedNodeType": 0,
       "_rootNodeID": 0,
@@ -161,6 +161,6 @@ ShallowWrapper {
   "root": [Circular],
   "unrendered": <ListenerControls
     url="http://localhost:8080"
-/>,
+  />,
 }
 `;
