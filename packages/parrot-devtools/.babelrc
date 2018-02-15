@@ -1,4 +1,4 @@
 {
   "presets": ["amex"],
-  "plugins": ["transform-runtime"]
+  "plugins": [["transform-runtime", { "polyfill": false }]]
 }
