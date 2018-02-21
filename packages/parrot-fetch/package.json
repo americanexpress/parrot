@@ -1,0 +1,31 @@
+{
+  "name": "parrot-fetch",
+  "version": "3.0.0",
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Force <nathan.a.force@aexp.com>",
+    "Jason Schapiro"
+  ],
+  "description": "A Fetch mocking implementation of Parrot.",
+  "files": [
+    "lib"
+  ],
+  "main": "lib",
+  "license": "Apache-2.0",
+  "repository": "americanexpress/parrot",
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib --copy-files",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.0.0",
+    "parrot-core": "^3.0.0",
+    "url-parse": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "rimraf": "^2.2.8"
+  }
+}
