@@ -1,6 +1,7 @@
 {
-  "name": "create-react-app",
+  "name": "parrot-example-server",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "start:client": "cd client && npm run start",
     "start:server": "babel-node server.js",
