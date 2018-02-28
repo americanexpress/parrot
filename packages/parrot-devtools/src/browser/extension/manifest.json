@@ -1,0 +1,16 @@
+{
+  "name": "Parrot Devtools",
+  "version": "3.0.0",
+  "manifest_version": 2,
+  "description": "Devtools for Parrot",
+  "devtools_page": "views/devtools.html",
+  "background": {
+    "scripts": ["background.bundle.js"]
+  },
+  "permissions": ["tabs", "http://localhost/*"],
+  "icons": {
+    "16": "assets/img/parrot_16x.png",
+    "48": "assets/img/parrot_48x.png",
+    "128": "assets/img/parrot_128x.png"
+  }
+}

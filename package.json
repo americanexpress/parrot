@@ -1,0 +1,57 @@
+{
+  "name": "parrot",
+  "version": "3.0.0",
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "clean": "git clean -d -X",
+    "test": "jest",
+    "lint": "eslint --ext js,jsx ./"
+  },
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Force <nathan.a.force@aexp.com>",
+    "Jason Schapiro"
+  ],
+  "devDependencies": {
+    "amex-jest-preset-react": "^4.0.0",
+    "babel-cli": "^6.7.5",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-amex": "^1.1.0",
+    "babel-register": "^6.7.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
+    "eslint": "^3.0.0",
+    "eslint-config-amex": "^6.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "identity-obj-proxy": "^3.0.0",
+    "isomorphic-fetch": "^2.2.1",
+    "jest": "^21.0.0",
+    "lerna": "2.1.2",
+    "prettier": "^1.10.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "rimraf": "^2.2.8",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "license": "Apache-2.0",
+  "repository": "americanexpress/parrot",
+  "jest": {
+    "preset": "amex-jest-preset-react",
+    "collectCoverageFrom": [
+      "packages/*/src/**/*.{js,jsx}"
+    ],
+    "moduleNameMapper": {
+      "\\.png": "identity-obj-proxy"
+    },
+    "setupFiles": [
+      "./jest-setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      ".eslintrc.js"
+    ]
+  }
+}

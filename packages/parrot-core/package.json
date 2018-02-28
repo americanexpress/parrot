@@ -1,0 +1,33 @@
+{
+  "name": "parrot-core",
+  "version": "3.0.0",
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Force <nathan.a.force@aexp.com>",
+    "Jason Schapiro"
+  ],
+  "description": "Common Parrot functionality.",
+  "files": [
+    "lib"
+  ],
+  "main": "lib",
+  "license": "Apache-2.0",
+  "repository": "americanexpress/parrot",
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib --copy-files",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.0.0",
+    "chalk": "^1.1.3",
+    "lodash": "^4.16.3",
+    "path-to-regexp": "^2.0.0",
+    "util-inspect": "^0.1.8"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "rimraf": "^2.2.8"
+  }
+}

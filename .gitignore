@@ -1,0 +1,8 @@
+.DS_store
+node_modules
+test-results
+.jest-cache
+**/*.log
+**/node_modules
+**/dist
+**/lib

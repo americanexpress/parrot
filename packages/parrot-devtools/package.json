@@ -1,0 +1,43 @@
+{
+  "name": "parrot-devtools",
+  "version": "3.0.0",
+  "private": true,
+  "contributors": [
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Force <nathan.a.force@aexp.com>",
+    "Jason Schapiro",
+    "Zach Ripka"
+  ],
+  "description": "Devtools for switching Parrot scenarios.",
+  "scripts": {
+    "start": "chokidar 'src/**' -c 'npm run build' --initial",
+    "clean": "rimraf build && rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "npm run bundle",
+    "bundle": "webpack -p && npm run pack:extension && npm run pack:base",
+    "pack:extension": "node scripts/pack-extension.js",
+    "pack:base": "node scripts/pack-base.js"
+  },
+  "license": "Apache-2.0",
+  "repository": "americanexpress/parrot",
+  "dependencies": {
+    "babel-runtime": "^6.0.0",
+    "prop-types": "^15.5.8",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "styled-components": "^1.4.6"
+  },
+  "devDependencies": {
+    "archiver": "^2.1.1",
+    "babel-cli": "^6.7.5",
+    "babel-loader": "^7.1.2",
+    "chokidar-cli": "^1.2.0",
+    "fs-extra": "^2.1.2",
+    "import-glob-loader": "^1.1.0",
+    "rimraf": "^2.2.8",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
+  }
+}

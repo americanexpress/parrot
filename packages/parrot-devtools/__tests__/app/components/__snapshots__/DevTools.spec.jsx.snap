@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DevTools component renders selector 1`] = `
+<styled.div
+  className="pad-1 dls-accent-white-01-bg"
+>
+  <styled.div
+    className="display-none"
+  >
+    <Connect(Settings) />
+  </styled.div>
+  <styled.div
+    className=""
+  >
+    <Connect(Middleware)
+      render={[Function]}
+    />
+  </styled.div>
+  <styled.div
+    className="pad-1-t flex flex-align-center flex-justify-between"
+  >
+    <styled.img
+      src={null}
+    />
+    <button
+      className="btn-icon btn-inline btn-tertiary dls-icon-setting"
+      onClick={[Function]}
+      title="Show settings"
+    />
+  </styled.div>
+</styled.div>
+`;
+
+exports[`DevTools component renders selector 2`] = `
+<styled.div>
+  <div
+    className="progress-circle progress-indeterminate margin-auto"
+  />
+</styled.div>
+`;
+
+exports[`DevTools component renders settings 1`] = `
+<styled.div
+  className="pad-1 dls-accent-white-01-bg"
+>
+  <styled.div
+    className="display-none"
+  >
+    <Connect(Settings) />
+  </styled.div>
+  <styled.div
+    className=""
+  >
+    <Connect(Middleware)
+      render={[Function]}
+    />
+  </styled.div>
+  <styled.div
+    className="pad-1-t flex flex-align-center flex-justify-between"
+  >
+    <styled.img
+      src={null}
+    />
+    <button
+      className="btn-icon btn-inline btn-tertiary dls-icon-setting"
+      onClick={[Function]}
+      title="Show settings"
+    />
+  </styled.div>
+</styled.div>
+`;

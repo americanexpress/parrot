@@ -1,0 +1,16 @@
+{
+  "name": "parrot-example-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start:client": "cd client && npm run start",
+    "start:server": "babel-node server.js",
+    "start": "concurrently --kill-others-on-fail 'npm run start:client' 'npm run start:server'"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "babel-cli": "^6.26.0",
+    "concurrently": "^3.5.1",
+    "parrot-middleware": "^3.0.0"
+  }
+}
