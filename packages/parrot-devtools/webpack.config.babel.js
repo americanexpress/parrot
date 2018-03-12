@@ -2,9 +2,9 @@ import path from 'path';
 
 module.exports = {
   entry: {
-    'chrome/devtool-panel': ['./src/browser/extension/devtool-panel.jsx'],
-    'chrome/devtools': ['./src/browser/extension/devtools.js'],
-    'chrome/background': ['./src/browser/extension/background.js'],
+    'extension/devtool-panel': ['./src/browser/extension/devtool-panel.js'],
+    'extension/devtools': ['./src/browser/extension/devtools.js'],
+    'extension/background': ['./src/browser/extension/background.js'],
     'base/devtools': ['./src/app/index.js'],
   },
   output: {
@@ -12,7 +12,7 @@ module.exports = {
     filename: '[name].bundle.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.scss'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
@@ -20,11 +20,28 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        options: {
+          babelrc: false,
+          presets: [
+            [
+              'env',
+              {
+                targets: {
+                  browsers: ['last 2 versions', 'IE 10'],
+                  node: '4.4.7',
+                },
+                modules: false,
+              },
+            ],
+            'react',
+            'stage-0',
+          ],
+          plugins: ['transform-runtime'],
+        },
       },
       {
-        test: /\.s?css$/,
-        loader: 'style-loader!css-loader!sass-loader!import-glob-loader',
-        exclude: /node_modules/,
+        test: /\.png$/,
+        loader: 'url-loader?mimetype=image/png',
       },
     ],
   },

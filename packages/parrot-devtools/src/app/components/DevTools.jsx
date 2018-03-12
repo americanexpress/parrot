@@ -1,136 +1,56 @@
+/*
+ * Copyright (c) 2018 American Express Travel Related Services Company, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import styled from 'styled-components';
-
-// Material UI Components
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
-import CircularProgress from 'material-ui/CircularProgress';
-
-// Plugin Settings Components
-import ListenerControls from './plugins/ListenerControls';
-import GeneralControls from './plugins/GeneralControls';
-import MiddlewareControls from './plugins/MiddlewareControls';
-
-import fetchApi from '../utils/fetchApi';
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
-
-const pluginsConfig = {
-  'parrot-middleware': {
-    component: MiddlewareControls,
-    label: 'Middleware Settings',
-  },
-  'parrot-listener': {
-    component: ListenerControls,
-    label: 'Listener Settings',
-  },
-};
-
-const DevSection = styled.div`padding-top: 20px;`;
-const DevHeader = styled.h5`margin: 0;`;
-
-const paperStyle = {
-  position: 'absolute',
-  padding: '0 20',
-  top: 10,
-  bottom: 10,
-  left: 10,
-  right: 10,
-};
+import parrotLogo from '../../assets/img/parrot_128x.png';
+import { Container, Content, Navigation, Logo } from './styled';
+import Settings from './Settings';
+import Middleware from './Middleware';
+import ScenarioSelector from './ScenarioSelector';
 
 class DevTools extends Component {
-  static propTypes = {
-    url: PropTypes.string,
-  };
-
-  static defaultProps = {
-    url: 'http://localhost:3000',
-  };
-
   state = {
-    plugins: [],
-    url:
-      (window && window.localStorage && window.localStorage.getItem('parrotHostname')) ||
-      this.props.url,
-    error: false,
+    showSettings: false,
   };
 
-  componentDidMount() {
-    this.loadSections().catch(error => this.setState({ error }));
-  }
-
-  setUrl = url => {
-    this.setState({ url });
-    if (window && window.localStorage) {
-      window.localStorage.setItem('parrotHostname', url);
-    }
-  };
-
-  loadSections = async () => {
-    // Empty cache
-    this.setState({ error: false, plugins: [] });
-    try {
-      const resp = await fetchApi(this.state.url, '/parrot/registry');
-      const registry = await resp.json();
-      if (registry && registry.middlewares) {
-        this.setState({ plugins: registry.middlewares });
-      }
-    } catch (error) {
-      this.setState({ error });
-    }
-  };
+  toggleSettings = () => this.setState(({ showSettings }) => ({ showSettings: !showSettings }));
 
   render() {
-    let pluginSections;
-    if (this.state.error) {
-      pluginSections = (
-        <DevSection>
-          <h4>Squawk! Error alert!</h4>
-          <p>
-            Cannot find any Parrot plugins registered, can you check that Parrot is running on that
-            hostname?
-          </p>
-        </DevSection>
-      );
-    } else if (this.state.plugins.length > 0) {
-      pluginSections = this.state.plugins.map(pluginKey => pluginsConfig[pluginKey] || {}).map(
-        ({ label, component: SectionComponent }) =>
-          label && SectionComponent ? (
-            <div>
-              <DevSection>
-                <DevHeader>{label}</DevHeader>
-                <SectionComponent url={this.state.url} />
-              </DevSection>
-            </div>
-          ) : null
-      );
-    } else {
-      pluginSections = (
-        <DevSection>
-          <CircularProgress />
-        </DevSection>
-      );
-    }
+    const { showSettings } = this.state;
 
     return (
-      <MuiThemeProvider>
-        <Paper style={paperStyle}>
-          {pluginSections}
-          {/* General Settings are always shown */}
-          <DevSection>
-            <DevHeader>Parrot Settings</DevHeader>
-            <GeneralControls
-              url={this.state.url}
-              setUrl={this.setUrl}
-              onRefresh={this.loadSections}
-            />
-          </DevSection>
-        </Paper>
-      </MuiThemeProvider>
+      <Container className="pad-1 dls-accent-white-01-bg">
+        <Content className={showSettings ? '' : 'display-none'}>
+          <Settings />
+        </Content>
+        <Content className={showSettings ? 'display-none' : ''}>
+          <Middleware
+            render={(data, loading) => <ScenarioSelector data={data} loading={loading} />}
+          />
+        </Content>
+        <Navigation className="pad-1-t flex flex-align-center flex-justify-between">
+          <Logo src={parrotLogo} />
+          <button
+            onClick={this.toggleSettings}
+            className={`btn-icon btn-inline ${
+              showSettings ? 'btn-primary' : 'btn-tertiary'
+            } dls-icon-setting`}
+            title={showSettings ? 'Hide settings' : 'Show settings'}
+          />
+        </Navigation>
+      </Container>
     );
   }
 }

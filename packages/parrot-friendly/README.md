@@ -1,6 +1,6 @@
 # parrot-friendly
 
-`parrot-friendly` is a utility library that allows you to write your [Parrot scenarios](https://stash.aexp.com/stash/projects/ONE/repos/parrot/browse/packages/parrot-middleware#example-scenarios-object) using a more declarative syntax.  Based on the behavior driven development (BDD) syntax of libraries such as [Jasmine](https://jasmine.github.io/) and [Mocha](https://mochajs.org/), `parrot-friendly` provides `describe`, `it`, and other methods to construct your scenarios object.
+parrot-friendly is a helper library that allows you to write [scenarios](https://github.com/americanexpress/parrot/blob/master/SCENARIOS.md) using a more declarative syntax.  Based on the behavior driven development (BDD) syntax of libraries such as [Jasmine](https://jasmine.github.io/) and [Mocha](https://mochajs.org/), parrot-friendly provides `describe`, `it`, and other methods to construct your scenarios object.
 
 ## Example
 
@@ -15,9 +15,7 @@ const scenarios = describe('Ship Log', () => {
   });
 
   it('should show an error', () => {
-    get('/ship_log')
-      .response(require('./mocks/error.json'))
-      .status(500);
+    get('/ship_log').status(500);
   });
 });
 
@@ -88,7 +86,16 @@ Responds with the `resource` provided.
 
 Delays the response for `amount` of milliseconds.
 
-##### `.statusCode(code)`
+##### `.status(code)`
 
 Responds with a `code` status code.
 
+### `graphql(path, schema, mocks)`
+
+Creates a mock for your GraphQL endpoint.
+
+#### Arguments
+
+* `path` (*String*): Path of your GraphQL endpoint.
+* `schema` (*String*): GraphQL schema string.
+* `mocks` (*Object*): Object describing your [mocking logic](https://www.apollographql.com/docs/graphql-tools/mocking.html#Customizing-mocks) that is passed to [graphql-tools](https://github.com/apollographql/graphql-tools) `mockServer`.

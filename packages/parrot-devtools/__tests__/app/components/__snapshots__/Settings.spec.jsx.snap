@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Settings should render 1`] = `
+<styled.div>
+  <div
+    className="pad-1"
+  >
+    <h1
+      className="heading-5 pad-b"
+    >
+      Settings
+    </h1>
+    <div
+      className="form-group"
+    >
+      <label
+        htmlFor="url"
+      >
+        Middleware URL
+      </label>
+      <input
+        className="form-control"
+        defaultValue="squawk"
+        id="url"
+        onBlur={[Function]}
+      />
+    </div>
+  </div>
+</styled.div>
+`;

@@ -1,94 +1,91 @@
-# parrot-friendly
+# parrot-core
 
-`parrot-friendly` is a utility library that allows you to write your [Parrot scenarios](https://stash.aexp.com/stash/projects/ONE/repos/parrot/browse/packages/parrot-middleware#example-scenarios-object) using a more declarative syntax.  Based on the behavior driven development (BDD) syntax of libraries such as [Jasmine](https://jasmine.github.io/) and [Mocha](https://mochajs.org/), `parrot-friendly` provides `describe`, `it`, and other methods to construct your scenarios object.
+parrot-core abstracts the matching, logging, and resolving functionality of Parrot away from each implementation.  [parrot-middleware](https://github.com/americanexpress/parrot/blob/master/packages/parrot-middleware) and [parrot-fetch](https://github.com/americanexpress/parrot/blob/master/packages/parrot-fetch) use parrot-core and any new implementations could extend parrot-core in a similar way.
 
-## Example
+## Example Implementation
 
 ```js
-import { describe, it, get } from 'parrot-friendly';
+import Parrot from 'parrot-core';
 
-const scenarios = describe('Ship Log', () => {
-  it('should display the ship log', () => {
-    get('/ship_log')
-      .response(require('./mocks/shipLog.json'))
-      .delay(1200);
-  });
+class ParrotNew extends Parrot {
+  constructor(scenarios) {
+    super(scenarios);
+    // any constructor logic that is needed
+  }
 
-  it('should show an error', () => {
-    get('/ship_log')
-      .response(require('./mocks/error.json'))
-      .status(500);
-  });
-});
+  normalizeRequest = (request) => {
+    // conform incoming requests to match the scenarios structure
+  }
 
-export default scenarios;
+  resolver = (request) => (response) => {
+    // resolve the matched response to the implementation platform
+  }
+}
+
+export default ParrotNew;
 ```
 
-## API
+## Access Methods
 
-### `describe(description, scenarioDefinitions)`
+parrot-core also defines several methods that can be used to interact with the scenarios that are passed in.
 
-Returns a scenarios object based on the `scenarioDefinitions` declared.
+### `getActiveScenario()`
 
-#### Arguments
+Returns the name of the currently active scenario.
 
-* `description` (_String_): Scenarios object description.  Currently this is not used internally but supported to provide a more common API.
-* `scenarioDefinitions` (_Function_): Function that will define scenarios when invoked.
+### `setActiveScenario(name)`
 
-### `it(description, mockDefinitions)`
-
-Adds a scenario with key `description` to the scenarios object.
-
-#### Arugments
-
-* `description` (_String_): Scenario description that will be used as a key to identify the scenario.  Must be unique to a scenarios object.
-* `mockDefinitions`: (_Function_): Function that will define mock objects when invoked.
-
-### `mock(mockDefinition)`
-
-Creates a mock for a HTTP request where `mockDefinition` is the entire mock object.  This can be used in place of chaining methods such as `query` and `delay`, or to provide custom mock handling with a function.
+Sets the currently active scenario.
 
 #### Arguments
 
-* `mockDefinition` (_Object_ or _Function_): Mock object with `request` and `response` keys or mock function.
+* `name` (_String_): Scenario name.
 
-### `request(requestDefinition)` 
+### `getScenarios()`
 
-Creates a mock for a HTTP request where `requestDefinition` is the entire request object.  Can be used in place of chaining request methods such as `query` or to provide a custom matching function.
+Returns an array of scenario objects.
 
-#### Arguments
+### `setScenarios(scenarios)`
 
-* `requestDefinition` (_Object_ or _Function_): Request object to be matched against or request function returning true for a match and false for a miss.
-
-### `METHOD(path)`
-
-Creates a mock for a HTTP request where METHOD is one of `get`, `head`, `post`, `put`, `del`, `connect`, `options`, `patch`.
-
-`del` is used in place of `delete` as `delete` is a JavaScript reserved word.
+Sets `scenarios` as the array of available scenarios.
 
 #### Arguments
 
-* `path` (_String_): Path matcher string. May include route params.
+* `scenarios` (*Array* or *Object*): Scenarios descriptor.
 
-#### Methods
+### `getScenario(name)`
 
-##### `.query(query)`
+Returns the scenario object with matching `name`.
 
-Matches against the `query` object provided.
+#### Arguments
 
-##### `.headers(headers)`
+* `name` (*String*): Scenario name.
 
-Matches against the `headers` object provided
+### `setScenario(name, mocks)`
 
-##### `.response(resource)`
+Sets the mocks for scenario with matching `name`.
 
-Responds with the `resource` provided.
+#### Arguments
 
-##### `.delay(amount)`
+* `name` (*String*): Scenario name.
+* `mocks` (*Array*): Array of mock objects.
 
-Delays the response for `amount` of milliseconds.
+### `getMock(name, index)`
 
-##### `.statusCode(code)`
+Returns the mock at `index` for scenario with matching `name`.
 
-Responds with a `code` status code.
+#### Arguments
+
+* `name` (*String*): Scenario name.
+* `index` (*Number*): Mock index.
+
+### `setMock(name, index, mock)`
+
+Sets the mock at `index` for scenario with matching `name`.
+
+#### Arguments
+
+* `name` (*String*): Scenario name.
+* `index` (*Number*): Mock index.
+* `mock` (*Object*): Mock object.
 

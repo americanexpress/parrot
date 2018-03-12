@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScenarioSelector should render error 1`] = `
+<styled.div>
+  <div
+    className="alert alert-warn alert-dialog alert-lg"
+    role="alert"
+  >
+    <span
+      className="alert-icon dls-icon-warning icon-lg"
+    />
+    <h1
+      className="heading-4 alert-header"
+    >
+      Failed to Load Scenarios
+    </h1>
+    <p
+      className="alert-subtitle"
+    >
+      Try 
+      <a
+        onClick={[Function]}
+      >
+        refreshing
+      </a>
+       or updating the middleware URL in settings.
+    </p>
+  </div>
+</styled.div>
+`;
+
+exports[`ScenarioSelector should render loading 1`] = `
+<styled.div>
+  <div
+    className="progress-circle progress-indeterminate margin-auto"
+  />
+</styled.div>
+`;
+
+exports[`ScenarioSelector should render scenarios 1`] = `
+<styled.div
+  className="border"
+>
+  <ul
+    className="nav-menu"
+  >
+    <li
+      className="nav-item"
+      key="squawk"
+    >
+      <a
+        aria-selected={true}
+        className="nav-link fluid"
+        onClick={[Function]}
+      >
+        squawk
+      </a>
+    </li>
+  </ul>
+</styled.div>
+`;

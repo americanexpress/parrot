@@ -1,13 +1,12 @@
+/* eslint no-console: 'off' */
 import chalk from 'chalk';
 
-// Logging colors
 export const loggerColors = {
   info: chalk.white,
   warn: chalk.yellow,
   error: chalk.red,
 };
 
-// Logging templates
 const infoTemplate = message => loggerColors.info(`Info: ${message}`);
 const errorTemplate = message => loggerColors.error(`Error: ${message}`);
 const warnTemplate = message => loggerColors.warn(`Warning: ${message}`);
