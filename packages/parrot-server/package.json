@@ -1,0 +1,31 @@
+{
+  "name": "parrot-server",
+  "version": "3.0.0",
+  "contributors": [
+    "Andres Escobar <andres.escobar@aexp.com>",
+    "Jack Cross <jack.cross1@aexp.com>",
+    "Nathan Force <nathan.a.force@aexp.com>",
+    "Jason Schapiro"
+  ],
+  "description": "CLI to get a parrot server up and running",
+  "files": [
+    "src",
+    "bin"
+  ],
+  "license": "Apache-2.0",
+  "repository": "americanexpress/parrot",
+  "bin": {
+    "parrot-server": "./bin/parrot-server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "parrot-middleware": "^3.0.0",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.1.1",
+    "pretty-format": "^22.4.0",
+    "supertest": "^3.0.0",
+    "wait-port": "^0.2.2"
+  }
+}
