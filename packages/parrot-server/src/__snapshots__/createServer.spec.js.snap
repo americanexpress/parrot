@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createServer uses parrot middleware 1`] = `
+"Array [
+  Object {
+    \\"mocks\\": Array [
+      Object {
+        \\"request\\": Object {
+          \\"method\\": \\"GET\\",
+          \\"path\\": \\"/ship_log\\",
+        },
+        \\"response\\": Object {
+          \\"body\\": Array [
+            Object {
+              \\"captain\\": \\"Captain Hook\\",
+              \\"name\\": \\"The Jolly Roger\\",
+            },
+          ],
+          \\"status\\": 200,
+        },
+      },
+    ],
+    \\"name\\": \\"has one ship\\",
+  },
+  Object {
+    \\"mocks\\": Array [
+      Object {
+        \\"request\\": Object {
+          \\"method\\": \\"GET\\",
+          \\"path\\": \\"/ship_log\\",
+        },
+        \\"response\\": Object {
+          \\"body\\": Array [
+            Object {
+              \\"captain\\": \\"Captain Hook\\",
+              \\"name\\": \\"The Jolly Roger\\",
+            },
+            Object {
+              \\"captain\\": \\"Jack Sparrow\\",
+              \\"name\\": \\"The Black Pearl\\",
+            },
+            Object {
+              \\"captain\\": \\"Davy Jones\\",
+              \\"name\\": \\"Flying Dutchman\\",
+            },
+            Object {
+              \\"captain\\": \\"Captain Ron\\",
+              \\"name\\": \\"The Wanderer\\",
+            },
+          ],
+          \\"status\\": 200,
+        },
+      },
+    ],
+    \\"name\\": \\"has more ships\\",
+  },
+  Object {
+    \\"mocks\\": Array [
+      Object {
+        \\"request\\": Object {
+          \\"method\\": \\"GET\\",
+          \\"path\\": \\"/ship_log\\",
+        },
+        \\"response\\": Object {
+          \\"status\\": 500,
+        },
+      },
+    ],
+    \\"name\\": \\"has a server error\\",
+  },
+]"
+`;
