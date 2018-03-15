@@ -32,8 +32,8 @@ class ParrotFetch extends Parrot {
     };
   };
 
-  resolver = (input, init) => (response = {}) => {
-    if (!response.body) {
+  resolver = (input, init) => response => {
+    if (!response) {
       return this.contextFetch(input, init);
     }
     const { body, status } = response;

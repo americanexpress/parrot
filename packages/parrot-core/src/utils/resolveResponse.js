@@ -19,21 +19,22 @@ export default async function resolveResponse(normalizedRequest, platformRequest
     return resolver();
   }
 
-  const { request: { path } = {}, response: { body, status, delay } } = mock;
-  const response = { status };
+  const { request: { path } = {}, response } = mock;
+  const { body, status, delay } = await response;
+  const resolvedResponse = { status };
 
   const requestWithParams = path
     ? { ...normalizedRequest, params: getParams(normalizedRequest.path, path) }
     : normalizedRequest;
 
   if (typeof body === 'function') {
-    response.body = await body(requestWithParams, ...platformRequest);
+    resolvedResponse.body = await body(requestWithParams, ...platformRequest);
   } else {
-    response.body = await body;
+    resolvedResponse.body = await body;
   }
 
   if (delay) {
-    return new Promise(resolve => setTimeout(() => resolve(resolver(response)), delay));
+    return new Promise(resolve => setTimeout(() => resolve(resolver(resolvedResponse)), delay));
   }
-  return Promise.resolve(resolver(response));
+  return Promise.resolve(resolver(resolvedResponse));
 }

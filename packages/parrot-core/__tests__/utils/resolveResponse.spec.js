@@ -21,8 +21,9 @@ describe('resolveResponse', () => {
   });
 
   it('handles undefined mock', () => {
-    resolveResponse({}, {}, undefined, resolver);
-    expect(resolver).toHaveBeenCalled();
+    resolveResponse({}, {}, undefined, resolver).then(() => {
+      expect(resolver).toHaveBeenCalled();
+    });
   });
 
   it('handles mock without request', () => {
@@ -45,10 +46,11 @@ describe('resolveResponse', () => {
         body: jest.fn(req => req),
       },
     };
-    resolveResponse({ path: '/squawk' }, {}, mock, resolver);
-    expect(mock.response.body).toHaveBeenCalledWith({
-      path: '/squawk',
-      params: { ahoy: 'squawk' },
+    return resolveResponse({ path: '/squawk' }, {}, mock, resolver).then(() => {
+      expect(mock.response.body).toHaveBeenCalledWith({
+        path: '/squawk',
+        params: { ahoy: 'squawk' },
+      });
     });
   });
 
@@ -59,8 +61,9 @@ describe('resolveResponse', () => {
         body: jest.fn(req => req),
       },
     };
-    resolveResponse({}, {}, mock, resolver);
-    expect(mock.response.body).toHaveBeenCalledWith({});
+    resolveResponse({}, {}, mock, resolver).then(() => {
+      expect(mock.response.body).toHaveBeenCalledWith({});
+    });
   });
 
   it('delays resolving response', () => {
