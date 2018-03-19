@@ -72,14 +72,15 @@ app.listen(3000);
 
 Parrot is divided into several packages that can be used together depending on your use case.
 
-| Name                                                         | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **[parrot-core](https://github.com/americanexpress/parrot/blob/master/packages/parrot-core)** | Core Parrot functionality that can be extended to new use cases |
-| **[parrot-devtools](https://github.com/americanexpress/parrot/blob/master/packages/parrot-devtools)** | Devtools that allow you to switch between Parrot scenarios   |
-| **[parrot-fetch](https://github.com/americanexpress/parrot/blob/master/packages/parrot-fetch)** | Fetch mocking implementation of Parrot                       |
-| **[parrot-friendly](https://github.com/americanexpress/parrot/blob/master/packages/parrot-friendly)** | Helper library to write your scenarios in BDD style          |
-| **[parrot-graphql](https://github.com/americanexpress/parrot/blob/master/packages/parrot-graphql)** | Helper library to add GraphQL mocks to your scenarios        |
-| **[parrot-middleware](https://github.com/americanexpress/parrot/blob/master/packages/parrot-middleware)** | Express middleware implementation of Parrot                  |
+| Name                                                                                                      | Description                                                     |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **[parrot-core](https://github.com/americanexpress/parrot/blob/master/packages/parrot-core)**             | Core Parrot functionality that can be extended to new use cases |
+| **[parrot-devtools](https://github.com/americanexpress/parrot/blob/master/packages/parrot-devtools)**     | Devtools that allow you to switch between Parrot scenarios      |
+| **[parrot-fetch](https://github.com/americanexpress/parrot/blob/master/packages/parrot-fetch)**           | Fetch mocking implementation of Parrot                          |
+| **[parrot-friendly](https://github.com/americanexpress/parrot/blob/master/packages/parrot-friendly)**     | Helper library to write your scenarios in BDD style             |
+| **[parrot-graphql](https://github.com/americanexpress/parrot/blob/master/packages/parrot-graphql)**       | Helper library to add GraphQL mocks to your scenarios           |
+| **[parrot-middleware](https://github.com/americanexpress/parrot/blob/master/packages/parrot-middleware)** | Express middleware implementation of Parrot                     |
+| **[parrot-server](https://github.com/americanexpress/parrot/blob/master/packages/parrot-server)**         | CLI to get a parrot server up and running                       |
 
 ## Contributing
 We welcome Your interest in the American Express Open Source Community on Github.
