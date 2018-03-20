@@ -1,6 +1,6 @@
 {
   "name": "parrot-server",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "contributors": [
     "Andres Escobar <andres.escobar@aexp.com>",
     "Jack Cross <jack.cross1@aexp.com>",
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "express": "^4.16.2",
-    "parrot-middleware": "^3.0.0",
+    "parrot-middleware": "^3.1.0",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
