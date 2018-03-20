@@ -17,17 +17,17 @@ import Parrot from 'parrot-core';
 class ParrotMiddleware extends Parrot {
   normalizeRequest = req => req;
 
-  resolver = (req, res, next) => (response = {}) => {
-    const { body, status } = response;
-
-    if (typeof body === 'undefined' && typeof status === 'undefined') {
-      if (!res.headersSent) {
-        next();
-      }
+  resolver = (req, res, next) => response => {
+    if (res.headersSent) {
+      return;
+    } else if (!response) {
+      next();
       return;
     }
 
+    const { body, status } = response;
     res.status(status);
+
     if (typeof body === 'object') {
       res.json(body);
     } else if (typeof body === 'undefined') {
