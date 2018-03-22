@@ -28,11 +28,11 @@ const argv = require('yargs')
     demandOption: true,
   }).argv;
 
-const startServer = (options) => {
+const startServer = options => {
   const { portNumber, pathToScenarios } = options;
   const app = createServer(pathToScenarios);
 
-  app.listen(portNumber, (error) => {
+  app.listen(portNumber, error => {
     if (error) {
       throw new Error(error);
     }

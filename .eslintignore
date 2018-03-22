@@ -5,4 +5,3 @@ examples
 **/lib/**
 **/parrot-devtools/**
 **/parrot-devtools-extension/**
-!**/*.eslintrc.js
