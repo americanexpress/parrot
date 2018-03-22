@@ -5,7 +5,12 @@
     "postinstall": "lerna bootstrap",
     "clean": "git clean -d -X",
     "test": "jest",
-    "lint": "eslint --ext js,jsx ./"
+    "pretest": "npm run lint",
+    "lint": "eslint --ext js,jsx ./",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,css,md}": ["prettier --write", "git add"]
   },
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
@@ -26,11 +31,12 @@
     "eslint": "^3.0.0",
     "eslint-config-amex": "^6.0.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^21.0.0",
     "lerna": "2.1.2",
+    "lint-staged": "^7.0.0",
     "prettier": "^1.10.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -41,17 +47,10 @@
   "repository": "americanexpress/parrot",
   "jest": {
     "preset": "amex-jest-preset-react",
-    "collectCoverageFrom": [
-      "packages/*/src/**/*.{js,jsx}"
-    ],
+    "collectCoverageFrom": ["packages/*/src/**/*.{js,jsx}"],
     "moduleNameMapper": {
       "\\.png": "identity-obj-proxy"
     },
-    "setupFiles": [
-      "./jest-setup.js"
-    ],
-    "testPathIgnorePatterns": [
-      ".eslintrc.js"
-    ]
+    "setupFiles": ["./jest-setup.js"]
   }
 }
