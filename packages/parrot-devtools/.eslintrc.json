@@ -1,0 +1,6 @@
+{
+  "extends": ["amex", "prettier", "prettier/react"],
+  "env": {
+    "webextensions": true
+  }
+}
