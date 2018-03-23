@@ -12,30 +12,29 @@
  * the License.
  */
 
+/* eslint-disable global-require */
 import request from 'supertest';
 import prettyFormat from 'pretty-format';
 
 describe('createServer', () => {
   beforeEach(() => {
-    jest
-      .resetModules()
-      .clearAllMocks();
+    jest.resetModules().clearAllMocks();
   });
 
   it('can resolve scenarios file from relative path', () => {
-    const createServer = require('./createServer');
+    const createServer = require('../bin/utils/createServer');
 
     expect(() => createServer('./packages/parrot-server/__fixtures__/scenarios.js')).not.toThrow();
   });
 
   it('can resolve scenarios file from absolute path', () => {
-    const createServer = require('./createServer');
+    const createServer = require('../bin/utils/createServer');
 
     expect(() => createServer(require.resolve('../__fixtures__/scenarios.js'))).not.toThrow();
   });
 
   it('uses parrot middleware', async () => {
-    const createServer = require('./createServer');
+    const createServer = require('../bin/utils/createServer');
 
     const app = createServer(require.resolve('../__fixtures__/scenarios.js'));
     const response = await request(app).get('/parrot/scenarios');
@@ -47,7 +46,7 @@ describe('createServer', () => {
   it('returns an express application', () => {
     const mockExpressApp = { use: jest.fn() };
     jest.doMock('express', () => () => mockExpressApp);
-    const createServer = require('./createServer');
+    const createServer = require('../bin/utils/createServer');
 
     const app = createServer(require.resolve('../__fixtures__/scenarios.js'));
     expect(app).toEqual(mockExpressApp);
