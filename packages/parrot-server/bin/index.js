@@ -14,7 +14,7 @@
  * the License.
  */
 
-const createServer = require('../src/createServer');
+const createServer = require('./utils/createServer');
 
 const argv = require('yargs')
   .option('port', {
