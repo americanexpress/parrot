@@ -14,7 +14,7 @@
 
 import fetch from 'node-fetch';
 import waitPort from 'wait-port';
-import { spawn } from 'child_process';
+import { spawn, spawnSync } from 'child_process';
 
 const runningParrotServerProcesses = [];
 
@@ -23,12 +23,16 @@ jest.setTimeout(10000);
 const executeParrotServerCommand = async parrotServerArgs => {
   const { portNumber, pathToScenarios } = parrotServerArgs;
 
-  const args = [require.resolve('./parrot-server.js'), '--scenarios', pathToScenarios];
+  const args = [require.resolve('../bin/index.js'), '--scenarios', pathToScenarios];
   if (portNumber) {
     args.push('--port', portNumber);
   }
-  const parrotServerProcess = spawn('node', [require.resolve('./parrot-server.js'), ...args]);
+  const parrotServerProcess = spawn('node', args);
 
+  /* eslint-disable no-console */
+  parrotServerProcess.stdout.on('data', data => console.log(data.toString()));
+  parrotServerProcess.stderr.on('data', data => console.error(data.toString()));
+  /* eslint-enable */
   let isParrotUp;
   try {
     isParrotUp = await waitPort({ port: portNumber || 3001, timeout: 5000, output: 'silent' });
@@ -39,6 +43,7 @@ const executeParrotServerCommand = async parrotServerArgs => {
     runningParrotServerProcesses.push(parrotServerProcess);
     return parrotServerProcess;
   }
+
   throw new Error('parrot-server did not start up within 5 seconds');
 };
 
@@ -63,19 +68,23 @@ it('starts server on given port', async () => {
   expect(response.status).toBe(200);
 });
 
-it('exits with status 1 if something goes wrong while starting the server', async (done) => {
+it('exits with status 1 if something goes wrong while starting the server', () => {
   expect.assertions(1);
 
-  const args = {
-    pathToScenarios: '../__fixtures__/not-a-valid-scenarios-file.js',
-  };
+  const args = [
+    require.resolve('../bin/index.js'),
+    '--scenarios',
+    '../__fixtures__/not-a-valid-scenarios-file.js',
+  ];
 
-  const parrotServerProcess = await executeParrotServerCommand(args);
+  const parrotServerProcess = spawnSync('node', args, { timeout: 5000 });
 
-  parrotServerProcess.on('exit', (code) => {
-    expect(code).toBe(1);
-    done();
-  });
+  /* eslint-disable no-console */
+  console.log(parrotServerProcess.stderr.toString());
+  console.log(parrotServerProcess.stdout.toString());
+  /* eslint-enable */
+
+  expect(parrotServerProcess.status).toBe(1);
 });
 
 afterAll(() => {
