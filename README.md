@@ -1,6 +1,6 @@
 # ![parrot-banner](assets/parrot-banner.png)Parrot
 
-Parrot is a set of tools that allow you to create HTTP mocks and organize them into scenarios in order to develop your app against different sets of data.  We have implemented all of Parrot's functionality in JavaScript, but [scenarios](https://github.com/americanexpress/parrot/blob/master/SCENARIOS.md) are a general specification that can be implemented in any language.
+Parrot is a set of tools that allow you to create HTTP mocks and organize them into scenarios in order to develop your app against different sets of data. We have implemented all of Parrot's functionality in JavaScript, but [scenarios](https://github.com/americanexpress/parrot/blob/master/SCENARIOS.md) are a general specification that can be implemented in any language.
 
 ## Getting Started
 
@@ -68,6 +68,26 @@ app.listen(3000);
 
 ![parrot-devtools](assets/parrot-devtools.gif)
 
+#### Example API requests
+
+Fetch current scenario.
+
+```sh
+$ curl 'http://localhost:3002/parrot/scenario'
+```
+
+Fetch all scenarios.
+
+```sh
+$ curl 'http://localhost:3002/parrot/scenarios'
+```
+
+Setting parrot to a new scenario.
+
+```sh
+$ curl -X POST -H "Content-Type: application/json" -d '{ "scenario": "[scenario name here]" }'  'http://localhost:3002/parrot/scenario'
+```
+
 ## Packages
 
 Parrot is divided into several packages that can be used together depending on your use case.
@@ -83,6 +103,7 @@ Parrot is divided into several packages that can be used together depending on y
 | **[parrot-server](https://github.com/americanexpress/parrot/blob/master/packages/parrot-server)**         | CLI to get a parrot server up and running                       |
 
 ## Contributing
+
 We welcome Your interest in the American Express Open Source Community on Github.
 Any Contributor to any Open Source Project managed by the American Express Open
 Source Community must accept and sign an Agreement indicating agreement to the
@@ -91,8 +112,10 @@ and to recipients of software distributed by American Express, You reserve all
 right, title, and interest, if any, in and to Your Contributions. Please [fill out the Agreement](https://cla-assistant.io/americanexpress/parrot).
 
 ## License
+
 Any contributions made under this project will be governed by the [Apache License 2.0](./LICENSE.md).
 
 ## Code of Conduct
+
 This project adheres to the [American Express Community Guidelines](./CODE_OF_CONDUCT.md).
 By participating, you are expected to honor these guidelines.
