@@ -44,12 +44,12 @@ exports[`DevTools component renders settings 1`] = `
   className="pad-1 dls-accent-white-01-bg"
 >
   <styled.div
-    className="display-none"
+    className=""
   >
     <Connect(Settings) />
   </styled.div>
   <styled.div
-    className=""
+    className="display-none"
   >
     <Connect(Middleware)
       render={[Function]}
@@ -62,9 +62,9 @@ exports[`DevTools component renders settings 1`] = `
       src={null}
     />
     <button
-      className="btn-icon btn-inline btn-tertiary dls-icon-setting"
+      className="btn-icon btn-inline btn-primary dls-icon-setting"
       onClick={[Function]}
-      title="Show settings"
+      title="Hide settings"
     />
   </styled.div>
 </styled.div>
