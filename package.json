@@ -12,6 +12,10 @@
   "lint-staged": {
     "*.{js,jsx,json,css,md}": ["prettier --write", "git add"]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/americanexpress/parrot.git"
+  },
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Nathan Force <nathan.a.force@aexp.com>",
@@ -44,7 +48,6 @@
     "whatwg-fetch": "^2.0.3"
   },
   "license": "Apache-2.0",
-  "repository": "americanexpress/parrot",
   "jest": {
     "preset": "amex-jest-preset-react",
     "collectCoverageFrom": ["packages/*/src/**/*.{js,jsx}"],
