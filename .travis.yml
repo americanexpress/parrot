@@ -6,3 +6,11 @@ node_js:
   - "12"
 after_success:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+deploy:
+  on:
+    tags: true
+    branch: master
+  provider: npm
+  email: open-source-ops@aexp.com
+  api_key:
+    secure: fA9L5e4ORy55ydo5EBa+XZnhmIWutTAa+ukowlpy1JNnaTB06Q81+9hvlVLShEnRz9HLjZKevLTFUAxLTFeA6CZ7Ibjm7iH5wwANaVPxl3xnAwnrYqameYr74Yft0+z9g5ThQgDRpb/JsbRf/fpo/HDJrlbKU0DP2jeOrxFX5PqkKpYhcIPA4Soz+a5rl/1aYyaACxm/aEvGS3Bj8tK0+ksrHm/P64mkuna++s35LpMl72EeXqydyzURsctNXGWtV1LgAd+Po9RLP+uXe5TiplArczXQ+34VSJIae3zLx8GCEFWl8Vdjdz/A0Npl8D+3HrgzlXn9uR8ciQlgGiNqIMEOWEAGfcnvZuSW8Bs3x2rkBNSXqWp9mITniyzxkS8mtIRGftfbgc63UM568xz7E2Gc6BL2BxId9FtAgsLZCg6i2d7MgP1Rz41GAUaI5TLcpwS+Jn2vNG7Yu9yU/P6+G8PXhAmzifS0F38UfDfmMQ5hCSkw2z1R81Yv064kaiHb9xCOrE6uRGx93POgVCk1G0VkSu/IJ3qfMlZZdPvhd7aIhcdNujS65OIam2db44GUYxKIfJT3ZPmf19no3ZwekANyk8evswoOi37xf1DrytIGk0vT9dIp9DISg+xVqugy+vMCn3W73VciEJ/9sobOAaEQdgKwYqCFAatqxug/jzQ=
