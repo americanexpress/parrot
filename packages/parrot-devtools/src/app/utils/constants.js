@@ -12,5 +12,5 @@
  * the License.
  */
 
-export const DEFAULT_MIDDLEWARE_URL = 'http://localhost:3000';
+export const DEFAULT_MIDDLEWARE_URL = 'http://localhost:3002';
 export const PARROT_STATE = 'PARROT_STATE';
