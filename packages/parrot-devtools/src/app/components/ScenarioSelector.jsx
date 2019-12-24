@@ -35,6 +35,7 @@ const ScenarioSelector = ({
           <span className="alert-icon dls-icon-warning icon-lg" />
           <h1 className="heading-4 alert-header">Failed to Load Scenarios</h1>
           <p className="alert-subtitle">
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
             Try <a onClick={loadScenarios}>refreshing</a> or updating the middleware URL in
             settings.
           </p>
@@ -48,6 +49,7 @@ const ScenarioSelector = ({
       <ul className="nav-menu">
         {scenarios.map(({ name }) => (
           <li className="nav-item" key={name}>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
             <a
               onClick={() => setScenario(name)}
               className="nav-link fluid"

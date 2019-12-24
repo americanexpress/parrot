@@ -12,7 +12,7 @@
  * the License.
  */
 
-export normalizeScenarios from './normalizeScenarios';
-export matchMock from './matchMock';
-export resolveResponse from './resolveResponse';
-export logger from './logger';
+export { default as normalizeScenarios } from './normalizeScenarios';
+export { default as matchMock } from './matchMock';
+export { default as resolveResponse } from './resolveResponse';
+export { default as logger } from './logger';

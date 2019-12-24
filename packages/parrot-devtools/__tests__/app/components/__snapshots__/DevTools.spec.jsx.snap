@@ -26,6 +26,7 @@ exports[`DevTools component renders selector 1`] = `
       className="btn-icon btn-inline btn-tertiary dls-icon-setting"
       onClick={[Function]}
       title="Show settings"
+      type="button"
     />
   </styled.div>
 </styled.div>
@@ -65,6 +66,7 @@ exports[`DevTools component renders settings 1`] = `
       className="btn-icon btn-inline btn-primary dls-icon-setting"
       onClick={[Function]}
       title="Hide settings"
+      type="button"
     />
   </styled.div>
 </styled.div>

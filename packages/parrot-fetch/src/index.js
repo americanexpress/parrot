@@ -15,7 +15,7 @@
 import ParrotFetch from './ParrotFetch';
 
 /* istanbul ignore next */
-const context = typeof global === 'undefined' ? self : global;
+const context = typeof global === 'undefined' ? self : global; // eslint-disable-line no-restricted-globals
 const contextFetch = context.fetch.bind(context);
 export const PARROT_STATE = 'PARROT_STATE';
 

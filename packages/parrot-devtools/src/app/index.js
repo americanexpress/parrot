@@ -12,6 +12,7 @@
  * the License.
  */
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -22,6 +23,7 @@ import { createLocalStorageStore } from './utils';
 const store = createLocalStorageStore();
 
 ReactDOM.render(
+  // eslint-disable-next-line react/jsx-filename-extension
   <Provider store={store}>
     <DevTools />
   </Provider>,

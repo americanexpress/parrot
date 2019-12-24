@@ -13,7 +13,7 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
 import parrotLogo from '../../assets/img/parrot_128x.png';
 import { Container, Content, Navigation, Logo } from './styled';
 import Settings from './Settings';
@@ -21,6 +21,7 @@ import Middleware from './Middleware';
 import ScenarioSelector from './ScenarioSelector';
 
 class DevTools extends Component {
+  // eslint-disable-next-line react/state-in-constructor
   state = {
     showSettings: false,
   };
@@ -42,7 +43,9 @@ class DevTools extends Component {
         </Content>
         <Navigation className="pad-1-t flex flex-align-center flex-justify-between">
           <Logo src={parrotLogo} />
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
           <button
+            type="button"
             onClick={this.toggleSettings}
             className={`btn-icon btn-inline ${
               showSettings ? 'btn-primary' : 'btn-tertiary'

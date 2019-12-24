@@ -14,9 +14,11 @@
  * the License.
  */
 
+const yargs = require('yargs');
+
 const createServer = require('./utils/createServer');
 
-const argv = require('yargs')
+yargs
   .option('port', {
     alias: 'p',
     describe: 'port to start your parrot server on',
@@ -26,7 +28,7 @@ const argv = require('yargs')
     alias: 's',
     describe: 'path to your scenarios file',
     demandOption: true,
-  }).argv;
+  });
 
 const startServer = options => {
   const { portNumber, pathToScenarios } = options;
@@ -41,6 +43,7 @@ const startServer = options => {
 };
 
 const execute = () => {
+  const { argv } = yargs;
   try {
     startServer({ portNumber: argv.port, pathToScenarios: argv.scenarios });
   } catch (error) {

@@ -14,6 +14,7 @@
 
 import getParams from './getParams';
 
+// eslint-disable-next-line max-params
 export default async function resolveResponse(normalizedRequest, platformRequest, mock, resolver) {
   if (!mock) {
     return resolver();
@@ -28,7 +29,7 @@ export default async function resolveResponse(normalizedRequest, platformRequest
     : normalizedRequest;
 
   if (typeof body === 'function') {
-    resolvedResponse.body = await body(requestWithParams, ...platformRequest);
+    resolvedResponse.body = await body(requestWithParams, ...[].concat(platformRequest));
   } else {
     resolvedResponse.body = await body;
   }

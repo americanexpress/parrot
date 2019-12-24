@@ -12,4 +12,4 @@
  * the License.
  */
 
-export default from './Parrot';
+export { default } from './Parrot';

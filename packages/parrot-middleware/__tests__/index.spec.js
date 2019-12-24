@@ -35,10 +35,15 @@ jest.mock(
   () =>
     class Mock {
       static getActiveScenario = jest.fn();
+
       static setActiveScenario = jest.fn();
+
       static getScenarios = jest.fn();
+
       getActiveScenario = Mock.getActiveScenario;
+
       setActiveScenario = Mock.setActiveScenario;
+
       getScenarios = Mock.getScenarios;
     }
 );
