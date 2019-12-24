@@ -26,6 +26,7 @@ jest.mock('../src/utils', () => ({
 
 class ParrotTest extends Parrot {
   normalizeRequest = jest.fn();
+
   resolver = jest.fn();
 }
 

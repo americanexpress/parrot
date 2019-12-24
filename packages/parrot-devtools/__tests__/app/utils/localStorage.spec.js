@@ -12,25 +12,26 @@
  * the License.
  */
 
-import { getLocalStorage, setLocalStorage } from '../../../src/app/utils';
-import { PARROT_STATE } from '../../../src/app/utils';
-
-global.localStorage = {
-  setItem: jest.fn(),
-  getItem: jest.fn(() => JSON.stringify({ parrot: 'squawk' })),
-};
+import { getLocalStorage, setLocalStorage, PARROT_STATE } from '../../../src/app/utils';
 
 describe('localStorage', () => {
+  const { localStorage } = global;
+
   it('gets serialized value from localStorage', () => {
+    localStorage.getItem.mockImplementationOnce(() =>
+      JSON.stringify({
+        parrot: 'squawk',
+      })
+    );
     const value = getLocalStorage();
-    expect(global.localStorage.getItem).toHaveBeenCalledWith(PARROT_STATE);
+    expect(localStorage.getItem).toHaveBeenCalledWith(PARROT_STATE);
     expect(value).toMatchObject({ parrot: 'squawk' });
   });
 
   it('gets undefined if key not in localStorage', () => {
-    global.localStorage.getItem = jest.fn(() => null);
+    localStorage.getItem.mockImplementationOnce(() => null);
     const value = getLocalStorage();
-    expect(global.localStorage.getItem).toHaveBeenCalledWith(PARROT_STATE);
+    expect(localStorage.getItem).toHaveBeenCalledWith(PARROT_STATE);
     expect(value).toBeUndefined();
   });
 
@@ -38,6 +39,6 @@ describe('localStorage', () => {
     const value = { parrot: 'squawk' };
     const serlialzed = JSON.stringify(value);
     setLocalStorage(value);
-    expect(global.localStorage.setItem).toHaveBeenCalledWith(PARROT_STATE, serlialzed);
+    expect(localStorage.setItem).toHaveBeenCalledWith(PARROT_STATE, serlialzed);
   });
 });

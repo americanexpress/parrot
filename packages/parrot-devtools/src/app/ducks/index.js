@@ -12,7 +12,7 @@
  * the License.
  */
 
-import { DEFAULT_MIDDLEWARE_URL } from '../utils';
+import { DEFAULT_MIDDLEWARE_URL } from '../utils/constants';
 
 export const SET_URL = 'SET_URL';
 

@@ -23,6 +23,7 @@ const Settings = ({ url, setUrl }) => (
     <div className="pad-1">
       <h1 className="heading-5 pad-b">Settings</h1>
       <div className="form-group">
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor="url">Middleware URL</label>
         <input
           onBlur={({ target: { value } }) => setUrl(value)}

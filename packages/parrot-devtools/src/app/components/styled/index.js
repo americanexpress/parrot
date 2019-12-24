@@ -12,9 +12,9 @@
  * the License.
  */
 
-export Container from './Container';
-export Content from './Content';
-export Grid from './Grid';
-export Logo from './Logo';
-export Navigation from './Navigation';
-export Scrollable from './Scrollable';
+export { default as Container } from './Container';
+export { default as Content } from './Content';
+export { default as Grid } from './Grid';
+export { default as Logo } from './Logo';
+export { default as Navigation } from './Navigation';
+export { default as Scrollable } from './Scrollable';

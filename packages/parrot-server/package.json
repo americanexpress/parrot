@@ -8,7 +8,9 @@
     "Jason Schapiro"
   ],
   "description": "CLI to get a parrot server up and running",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "license": "Apache-2.0",
   "repository": "americanexpress/parrot",
   "bin": {
@@ -21,14 +23,16 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "babel-runtime": "^6.0.0",
     "express": "^4.16.2",
     "parrot-middleware": "^3.1.0",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
     "node-fetch": "^2.1.1",
     "pretty-format": "^22.4.0",
+    "rimraf": "^3.0.0",
     "supertest": "^3.0.0",
     "wait-port": "^0.2.2"
   }

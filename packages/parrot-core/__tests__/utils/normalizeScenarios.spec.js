@@ -27,7 +27,14 @@ describe('normalizeScenarios', () => {
         ],
       },
     ];
-    const { default: [{ request: { path }, response: { body } }] } = normalizeScenarios(scenarios);
+    const {
+      default: [
+        {
+          request: { path },
+          response: { body },
+        },
+      ],
+    } = normalizeScenarios(scenarios);
     expect(path).toEqual(scenarios[0].mocks[0].request);
     expect(body).toEqual(scenarios[0].mocks[0].response);
   });
@@ -44,7 +51,14 @@ describe('normalizeScenarios', () => {
         },
       ],
     };
-    const { default: [{ request: { path }, response: { body } }] } = normalizeScenarios(scenarios);
+    const {
+      default: [
+        {
+          request: { path },
+          response: { body },
+        },
+      ],
+    } = normalizeScenarios(scenarios);
     expect(path).toEqual(scenarios.default[0].request);
     expect(body).toEqual(scenarios.default[0].response.body);
   });
@@ -64,7 +78,9 @@ describe('normalizeScenarios', () => {
         },
       ],
     };
-    const { default: [{ request, response }] } = normalizeScenarios(scenarios);
+    const {
+      default: [{ request, response }],
+    } = normalizeScenarios(scenarios);
     expect(request).toEqual(scenarios.default[0].request);
     expect(response).toEqual({ ...scenarios.default[0].response, status: 200 });
   });

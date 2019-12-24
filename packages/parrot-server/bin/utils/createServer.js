@@ -14,7 +14,7 @@
 
 const path = require('path');
 const express = require('express');
-const parrot = require('parrot-middleware');
+const parrot = require('parrot-middleware').default;
 
 const createServer = pathToScenarios => {
   const absolutePathToScenarios = path.isAbsolute(pathToScenarios)

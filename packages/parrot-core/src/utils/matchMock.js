@@ -22,7 +22,8 @@ function match(normalizedRequest) {
     Object.keys(request).every(property => {
       if (property === 'path') {
         return pathToRegexp(request.path).exec(normalizedRequest.path);
-      } else if (property === 'headers') {
+      }
+      if (property === 'headers') {
         return Object.keys(request.headers).every(
           key => request.headers[key] === normalizedRequest.headers[key]
         );
@@ -37,7 +38,11 @@ export default function matchMock(normalizedRequest, platformRequest, mocks) {
   for (let index = 0; index < mocks.length; index += 1) {
     const mock = mocks[index];
     if (typeof mock === 'function') {
-      const response = mock(normalizedRequest, match(normalizedRequest), ...platformRequest);
+      const response = mock(
+        normalizedRequest,
+        match(normalizedRequest),
+        ...[].concat(platformRequest)
+      );
       if (response) {
         matchedMock = { response };
         logger.info('Matched mock function.', normalizedRequest.path);

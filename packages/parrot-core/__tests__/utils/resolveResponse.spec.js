@@ -47,10 +47,13 @@ describe('resolveResponse', () => {
       },
     };
     return resolveResponse({ path: '/squawk' }, {}, mock, resolver).then(() => {
-      expect(mock.response.body).toHaveBeenCalledWith({
-        path: '/squawk',
-        params: { ahoy: 'squawk' },
-      });
+      expect(mock.response.body).toHaveBeenCalledWith(
+        {
+          path: '/squawk',
+          params: { ahoy: 'squawk' },
+        },
+        {}
+      );
     });
   });
 
@@ -61,8 +64,8 @@ describe('resolveResponse', () => {
         body: jest.fn(req => req),
       },
     };
-    resolveResponse({}, {}, mock, resolver).then(() => {
-      expect(mock.response.body).toHaveBeenCalledWith({});
+    return resolveResponse({}, {}, mock, resolver).then(() => {
+      expect(mock.response.body).toHaveBeenCalledWith({}, {});
     });
   });
 

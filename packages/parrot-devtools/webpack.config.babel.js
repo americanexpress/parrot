@@ -36,7 +36,6 @@ module.exports = {
             'react',
             'stage-0',
           ],
-          plugins: ['transform-runtime'],
         },
       },
       {

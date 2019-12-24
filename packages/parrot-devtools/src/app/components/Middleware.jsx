@@ -17,15 +17,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Middleware extends Component {
+  // eslint-disable-next-line react/state-in-constructor
   state = {
     loading: true,
   };
 
+  // eslint-disable-next-line react/no-deprecated
   componentWillMount() {
+    // eslint-disable-next-line react/destructuring-assignment
     this.loadScenarios(this.props.url);
   }
 
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps({ url: nextUrl }) {
+    // eslint-disable-next-line react/destructuring-assignment
     if (this.props.url !== nextUrl) {
       this.loadScenarios(nextUrl);
     }

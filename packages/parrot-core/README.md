@@ -1,6 +1,6 @@
 # parrot-core
 
-parrot-core abstracts the matching, logging, and resolving functionality of Parrot away from each implementation.  [parrot-middleware](https://github.com/americanexpress/parrot/blob/master/packages/parrot-middleware) and [parrot-fetch](https://github.com/americanexpress/parrot/blob/master/packages/parrot-fetch) use parrot-core and any new implementations could extend parrot-core in a similar way.
+parrot-core abstracts the matching, logging, and resolving functionality of Parrot away from each implementation. [parrot-middleware](https://github.com/americanexpress/parrot/blob/master/packages/parrot-middleware) and [parrot-fetch](https://github.com/americanexpress/parrot/blob/master/packages/parrot-fetch) use parrot-core and any new implementations could extend parrot-core in a similar way.
 
 ## Example Implementation
 
@@ -13,13 +13,13 @@ class ParrotNew extends Parrot {
     // any constructor logic that is needed
   }
 
-  normalizeRequest = (request) => {
+  normalizeRequest = request => {
     // conform incoming requests to match the scenarios structure
-  }
+  };
 
-  resolver = (request) => (response) => {
+  resolver = request => response => {
     // resolve the matched response to the implementation platform
-  }
+  };
 }
 
 export default ParrotNew;
@@ -39,7 +39,7 @@ Sets the currently active scenario.
 
 #### Arguments
 
-* `name` (_String_): Scenario name.
+- `name` (_String_): Scenario name.
 
 ### `getScenarios()`
 
@@ -51,7 +51,7 @@ Sets `scenarios` as the array of available scenarios.
 
 #### Arguments
 
-* `scenarios` (*Array* or *Object*): Scenarios descriptor.
+- `scenarios` (_Array_ or _Object_): Scenarios descriptor.
 
 ### `getScenario(name)`
 
@@ -59,7 +59,7 @@ Returns the scenario object with matching `name`.
 
 #### Arguments
 
-* `name` (*String*): Scenario name.
+- `name` (_String_): Scenario name.
 
 ### `setScenario(name, mocks)`
 
@@ -67,8 +67,8 @@ Sets the mocks for scenario with matching `name`.
 
 #### Arguments
 
-* `name` (*String*): Scenario name.
-* `mocks` (*Array*): Array of mock objects.
+- `name` (_String_): Scenario name.
+- `mocks` (_Array_): Array of mock objects.
 
 ### `getMock(name, index)`
 
@@ -76,8 +76,8 @@ Returns the mock at `index` for scenario with matching `name`.
 
 #### Arguments
 
-* `name` (*String*): Scenario name.
-* `index` (*Number*): Mock index.
+- `name` (_String_): Scenario name.
+- `index` (_Number_): Mock index.
 
 ### `setMock(name, index, mock)`
 
@@ -85,7 +85,6 @@ Sets the mock at `index` for scenario with matching `name`.
 
 #### Arguments
 
-* `name` (*String*): Scenario name.
-* `index` (*Number*): Mock index.
-* `mock` (*Object*): Mock object.
-
+- `name` (_String_): Scenario name.
+- `index` (_Number_): Mock index.
+- `mock` (_Object_): Mock object.

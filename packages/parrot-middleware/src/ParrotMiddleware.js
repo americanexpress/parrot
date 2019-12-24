@@ -20,7 +20,8 @@ class ParrotMiddleware extends Parrot {
   resolver = (req, res, next) => response => {
     if (res.headersSent) {
       return;
-    } else if (!response) {
+    }
+    if (!response) {
       next();
       return;
     }

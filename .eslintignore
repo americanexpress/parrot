@@ -3,5 +3,3 @@ examples
 **/node_modules/**
 **/dist/**
 **/lib/**
-**/parrot-devtools/**
-**/parrot-devtools-extension/**
