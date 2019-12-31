@@ -14,12 +14,5 @@
  * permissions and limitations under the License.
  */
 
-const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
-};
-global.localStorage = localStorageMock;
-// eslint-disable-next-line no-underscore-dangle
-global._localStorage = localStorageMock;
+export { default as useDevTools } from './useDevTools';
+export { default as useScenarios } from './useScenarios';

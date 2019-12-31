@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ScenarioSelector should render error 1`] = `
+exports[`Scenarios ScenariosMiddleware should inform the user of failure 1`] = `
 <styled.div>
   <div
     className="alert alert-warn alert-dialog alert-lg"
@@ -17,19 +17,23 @@ exports[`ScenarioSelector should render error 1`] = `
     <p
       className="alert-subtitle"
     >
-      Try 
-      <a
-        onClick={[Function]}
+      <span>
+        Try 
+      </span>
+      <button
+        type="button"
       >
         refreshing
-      </a>
-       or updating the middleware URL in settings.
+      </button>
+      <span>
+         or updating the middleware URL in settings.
+      </span>
     </p>
   </div>
 </styled.div>
 `;
 
-exports[`ScenarioSelector should render loading 1`] = `
+exports[`Scenarios ScenariosMiddleware should loading state 1`] = `
 <styled.div>
   <div
     className="progress-circle progress-indeterminate margin-auto"
@@ -37,7 +41,7 @@ exports[`ScenarioSelector should render loading 1`] = `
 </styled.div>
 `;
 
-exports[`ScenarioSelector should render scenarios 1`] = `
+exports[`Scenarios ScenariosMiddleware should render scenarios middleware component 1`] = `
 <styled.div
   className="border"
 >
@@ -46,15 +50,16 @@ exports[`ScenarioSelector should render scenarios 1`] = `
   >
     <li
       className="nav-item"
-      key="squawk"
+      key="api-fetch"
     >
-      <a
-        aria-selected={true}
+      <button
+        aria-pressed={true}
         className="nav-link fluid"
         onClick={[Function]}
+        type="button"
       >
-        squawk
-      </a>
+        api-fetch
+      </button>
     </li>
   </ul>
 </styled.div>

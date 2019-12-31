@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DevTools component renders selector 1`] = `
+exports[`DevTools component hides settings when false 1`] = `
 <styled.div
   className="pad-1 dls-accent-white-01-bg"
 >
@@ -12,9 +12,7 @@ exports[`DevTools component renders selector 1`] = `
   <styled.div
     className=""
   >
-    <Connect(Middleware)
-      render={[Function]}
-    />
+    <Connect(ScenariosMiddleware) />
   </styled.div>
   <styled.div
     className="pad-1-t flex flex-align-center flex-justify-between"
@@ -24,7 +22,6 @@ exports[`DevTools component renders selector 1`] = `
     />
     <button
       className="btn-icon btn-inline btn-tertiary dls-icon-setting"
-      onClick={[Function]}
       title="Show settings"
       type="button"
     />
@@ -32,15 +29,7 @@ exports[`DevTools component renders selector 1`] = `
 </styled.div>
 `;
 
-exports[`DevTools component renders selector 2`] = `
-<styled.div>
-  <div
-    className="progress-circle progress-indeterminate margin-auto"
-  />
-</styled.div>
-`;
-
-exports[`DevTools component renders settings 1`] = `
+exports[`DevTools component renders selector when true 1`] = `
 <styled.div
   className="pad-1 dls-accent-white-01-bg"
 >
@@ -52,9 +41,7 @@ exports[`DevTools component renders settings 1`] = `
   <styled.div
     className="display-none"
   >
-    <Connect(Middleware)
-      render={[Function]}
-    />
+    <Connect(ScenariosMiddleware) />
   </styled.div>
   <styled.div
     className="pad-1-t flex flex-align-center flex-justify-between"
@@ -64,7 +51,6 @@ exports[`DevTools component renders settings 1`] = `
     />
     <button
       className="btn-icon btn-inline btn-primary dls-icon-setting"
-      onClick={[Function]}
       title="Hide settings"
       type="button"
     />

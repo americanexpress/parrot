@@ -19,6 +19,9 @@ module.exports = {
   collectCoverageFrom: ['packages/*/src/**/*.{js,jsx}'],
   moduleNameMapper: {
     '\\.png': 'identity-obj-proxy',
+    react$: '<rootDir>/node_modules/react',
+    'react-dom$': '<rootDir>/node_modules/react-dom',
+    'react-test-renderer$': '<rootDir>/node_modules/react-test-renderer',
   },
   setupFiles: ['./jest.setup.js', './packages/parrot-core/jest.setup.js'],
 };

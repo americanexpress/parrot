@@ -1,18 +1,16 @@
 {
-  "private": true,
   "name": "parrot",
   "version": "4.0.0",
   "license": "Apache-2.0",
-  "repository": "americanexpress/parrot",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/americanexpress/parrot.git"
+  },
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Nathan Force <nathan.a.force@aexp.com>",
     "Jason Schapiro"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/americanexpress/parrot.git"
-  },
   "scripts": {
     "postinstall": "lerna bootstrap",
     "clean": "git clean -d -X",
@@ -26,6 +24,7 @@
     "@babel/polyfill": "^7.7.0",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@testing-library/react-hooks": "^3.2.1",
     "amex-jest-preset-react": "^5.0.2",
     "babel-jest": "^24.9.0",
     "babel-preset-amex": "^3.3.0",

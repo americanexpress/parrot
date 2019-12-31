@@ -14,12 +14,13 @@
  * permissions and limitations under the License.
  */
 
-const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
-};
-global.localStorage = localStorageMock;
-// eslint-disable-next-line no-underscore-dangle
-global._localStorage = localStorageMock;
+import React from 'react';
+
+export default function useDevTools() {
+  const [showSettings, setShowSettings] = React.useState(false);
+
+  return {
+    showSettings,
+    toggleSettings: () => setShowSettings(state => !state),
+  };
+}

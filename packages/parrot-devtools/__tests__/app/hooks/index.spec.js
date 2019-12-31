@@ -14,12 +14,10 @@
  * permissions and limitations under the License.
  */
 
-const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
-};
-global.localStorage = localStorageMock;
-// eslint-disable-next-line no-underscore-dangle
-global._localStorage = localStorageMock;
+import * as hooks from '../../../src/app/hooks';
+
+describe('hooks', () => {
+  it('should consistently export hooks', () => {
+    expect(Object.entries(hooks)).toMatchSnapshot();
+  });
+});

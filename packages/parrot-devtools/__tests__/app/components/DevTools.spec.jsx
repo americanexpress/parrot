@@ -14,24 +14,42 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
+
 import DevTools from '../../../src/app/components/DevTools';
-import Middleware from '../../../src/app/components/Middleware';
+import useDevTools from '../../../src/app/hooks/useDevTools';
+
+jest.mock('../../../src/app/hooks/useDevTools');
 
 describe('DevTools component', () => {
-  it('renders selector', () => {
+  it('renders selector when true', () => {
+    expect.assertions(1);
+
+    useDevTools.mockImplementationOnce(() => ({ showSettings: true }));
+
     const rendered = shallow(<DevTools />);
-    const selector = rendered
-      .find(Middleware)
-      .props()
-      .render({ setScenario: () => null, loadScenarios: () => null }, true);
-    const renderedSelector = shallow(selector);
+
     expect(rendered).toMatchSnapshot();
-    expect(renderedSelector).toMatchSnapshot();
   });
 
-  it('renders settings', () => {
+  it('hides settings when false', () => {
+    expect.assertions(1);
+
+    useDevTools.mockImplementationOnce(() => ({ showSettings: false }));
+
     const rendered = shallow(<DevTools />);
-    rendered.instance().toggleSettings();
+
     expect(rendered).toMatchSnapshot();
+  });
+
+  it('calls toggleSettings when button is clicked', () => {
+    expect.assertions(1);
+
+    const toggleSettings = jest.fn();
+    useDevTools.mockImplementationOnce(() => ({ showSettings: false, toggleSettings }));
+
+    const rendered = shallow(<DevTools />);
+    rendered.find('button').simulate('click');
+
+    expect(toggleSettings).toHaveBeenCalledTimes(1);
   });
 });
