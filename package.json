@@ -1,6 +1,6 @@
 {
   "name": "parrot",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "scripts": {
     "postinstall": "lerna bootstrap",
     "clean": "git clean -d -X",
