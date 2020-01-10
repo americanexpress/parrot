@@ -16,8 +16,7 @@
     "clean": "git clean -d -X",
     "test": "jest",
     "pretest": "npm run lint",
-    "lint": "eslint --ext js,jsx ./",
-    "precommit": "lint-staged"
+    "lint": "eslint --ext js,jsx,md ./"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
