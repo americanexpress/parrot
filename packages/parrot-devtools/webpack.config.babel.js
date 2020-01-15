@@ -14,7 +14,7 @@
  * permissions and limitations under the License.
  */
 
-import path from 'path';
+const path = require('path');
 
 module.exports = {
   entry: {
@@ -36,23 +36,6 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        options: {
-          babelrc: false,
-          presets: [
-            [
-              'env',
-              {
-                targets: {
-                  browsers: ['last 2 versions', 'IE 10'],
-                  node: '4.4.7',
-                },
-                modules: false,
-              },
-            ],
-            'react',
-            'stage-0',
-          ],
-        },
       },
       {
         test: /\.png$/,
