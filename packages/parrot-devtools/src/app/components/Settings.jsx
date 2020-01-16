@@ -23,13 +23,16 @@ const Settings = ({ url, setUrl }) => (
     <div className="pad-1">
       <h1 className="heading-5 pad-b">Settings</h1>
       <div className="form-group">
-        <label htmlFor="url">Middleware URL</label>
-        <input
-          onBlur={({ target: { value } }) => setUrl(value)}
-          defaultValue={url}
-          id="url"
-          className="form-control"
-        />
+        <label htmlFor="url">
+          <span>Middleware URL</span>
+
+          <input
+            id="url"
+            onBlur={({ target: { value } }) => setUrl(value)}
+            defaultValue={url}
+            className="form-control"
+          />
+        </label>
       </div>
     </div>
   </Scrollable>

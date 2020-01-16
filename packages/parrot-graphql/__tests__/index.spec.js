@@ -23,23 +23,23 @@ jest.mock('graphql-tools', () => ({
 describe('parrot-graphql', () => {
   it('matches a GET request', () => {
     const match = jest.fn(() => true);
-    const request = graphql().request;
+    const { request } = graphql();
     expect(request({ method: 'GET' }, match)).toBe(true);
   });
 
   it('matches a POST request', () => {
     const match = jest.fn(() => true);
-    const request = graphql().request;
+    const { request } = graphql();
     expect(request({ method: 'POST' }, match)).toBe(true);
   });
 
   it('gets query from query string', () => {
-    const body = graphql().response.body;
+    const { body } = graphql().response;
     expect(body({ method: 'GET', query: { query: 'squawk' } })).toBe('squawk');
   });
 
   it('gets query from body', () => {
-    const body = graphql().response.body;
+    const { body } = graphql().response;
     expect(body({ method: 'POST', body: { query: 'squawk' } })).toBe('squawk');
   });
 });

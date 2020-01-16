@@ -1,3 +1,27 @@
 {
-  "extends": ["amex", "prettier"]
+  "root": true,
+  "extends": ["amex", "plugin:prettier/recommended", "prettier/react"],
+  "overrides": [
+    {
+      "files": ["**/__tests__/**", "**/__mocks__/**", "*.spec.{js,jsx}", "jest.setup.js"],
+      "extends": ["amex/test", "plugin:prettier/recommended", "prettier/react"],
+      "rules": {
+        "import/no-extraneous-dependencies": 0,
+        "no-restricted-globals": 0
+      }
+    },
+    {
+      "files": ["*.md"],
+      "rules": {
+        "no-useless-constructor": 0,
+        "global-require": 0
+      }
+    },
+    {
+      "files": ["packages/parrot-devtools/**"],
+      "env": {
+        "webextensions": true
+      }
+    }
+  ]
 }

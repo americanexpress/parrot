@@ -15,29 +15,35 @@
 import { resolveResponse } from '../../src/utils';
 
 describe('resolveResponse', () => {
+  expect.assertions(1);
+
   let resolver;
   beforeEach(() => {
     resolver = jest.fn();
   });
 
-  it('handles undefined mock', () => {
-    resolveResponse({}, {}, undefined, resolver).then(() => {
-      expect(resolver).toHaveBeenCalled();
-    });
+  it('handles undefined mock', async () => {
+    resolveResponse({}, {}, undefined, resolver);
+
+    expect(resolver).toHaveBeenCalled();
   });
 
-  it('handles mock without request', () => {
+  it('handles mock without request', async () => {
+    expect.assertions(1);
+
     const mock = {
       response: {
         body: 'squawk',
       },
     };
-    return resolveResponse({}, {}, mock, resolver).then(() => {
-      expect(resolver).toHaveBeenCalledWith({ body: 'squawk' });
-    });
+    await resolveResponse({}, {}, mock, resolver);
+
+    expect(resolver).toHaveBeenCalledWith({ body: 'squawk' });
   });
 
-  it('sets params', () => {
+  it('sets params', async () => {
+    expect.assertions(1);
+
     const mock = {
       request: {
         path: '/:ahoy',
@@ -46,27 +52,36 @@ describe('resolveResponse', () => {
         body: jest.fn(req => req),
       },
     };
-    return resolveResponse({ path: '/squawk' }, {}, mock, resolver).then(() => {
-      expect(mock.response.body).toHaveBeenCalledWith({
+    await resolveResponse({ path: '/squawk' }, {}, mock, resolver);
+
+    expect(mock.response.body).toHaveBeenCalledWith(
+      {
         path: '/squawk',
-        params: { ahoy: 'squawk' },
-      });
-    });
+        params: {
+          ahoy: 'squawk',
+        },
+      },
+      {}
+    );
   });
 
-  it('does not set params', () => {
+  it('does not set params', async () => {
+    expect.assertions(1);
+
     const mock = {
       request: {},
       response: {
         body: jest.fn(req => req),
       },
     };
-    resolveResponse({}, {}, mock, resolver).then(() => {
-      expect(mock.response.body).toHaveBeenCalledWith({});
-    });
+    await resolveResponse({}, {}, mock, resolver);
+
+    expect(mock.response.body).toHaveBeenCalledWith({}, {});
   });
 
-  it('delays resolving response', () => {
+  it('delays resolving response', async () => {
+    expect.assertions(1);
+
     global.setTimeout = jest.fn(fn => fn());
     const mock = {
       request: {},
@@ -75,8 +90,8 @@ describe('resolveResponse', () => {
         delay: 1234,
       },
     };
-    return resolveResponse({}, {}, mock, resolver).then(() => {
-      expect(global.setTimeout).toHaveBeenCalledWith(expect.any(Function), 1234);
-    });
+    await resolveResponse({}, {}, mock, resolver);
+
+    expect(global.setTimeout).toHaveBeenCalledWith(expect.any(Function), 1234);
   });
 });

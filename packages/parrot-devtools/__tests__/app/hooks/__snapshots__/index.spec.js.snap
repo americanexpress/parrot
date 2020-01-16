@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hooks should consistently export hooks 1`] = `
+Array [
+  Array [
+    "useDevTools",
+    [Function],
+  ],
+  Array [
+    "useScenarios",
+    [Function],
+  ],
+]
+`;

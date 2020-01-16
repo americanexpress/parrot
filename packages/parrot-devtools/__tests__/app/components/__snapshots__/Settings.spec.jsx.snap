@@ -16,14 +16,16 @@ exports[`Settings should render 1`] = `
       <label
         htmlFor="url"
       >
-        Middleware URL
+        <span>
+          Middleware URL
+        </span>
+        <input
+          className="form-control"
+          defaultValue="squawk"
+          id="url"
+          onBlur={[Function]}
+        />
       </label>
-      <input
-        className="form-control"
-        defaultValue="squawk"
-        id="url"
-        onBlur={[Function]}
-      />
     </div>
   </div>
 </styled.div>

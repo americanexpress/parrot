@@ -29,7 +29,6 @@ describe('Settings', () => {
   });
 
   it('should setUrl', () => {
-    const setUrl = jest.fn();
     const rendered = shallow(<Settings url="squawk" setUrl={setUrl} />);
     rendered.find('input').simulate('blur', { target: { value: 'squawk' } });
     expect(setUrl).toHaveBeenCalledWith('squawk');

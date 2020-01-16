@@ -14,10 +14,9 @@
 
 global.console.log = jest.fn();
 
+const chalk = require('chalk');
 const { logger } = require('../../src/utils');
 const { loggerColors } = require('../../src/utils/logger');
-
-const chalk = require('chalk');
 
 describe('logger', () => {
   const testLoggerOutput = (logType, logPrefix) => {

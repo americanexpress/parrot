@@ -14,7 +14,7 @@
 
 function normalizeMock(mock) {
   if (typeof mock !== 'function' && (!mock.request || !mock.response)) {
-    throw new Error();
+    throw new Error('expected mock to be a function');
   }
 
   if (typeof mock === 'function') {
