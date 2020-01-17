@@ -2,9 +2,10 @@
 	<img src="./parrot-devtools.png" alt="Parrot-DevTools" width="50%" />
 </h1>
 
+
 ### Chrome Extension
 
-- Install [the extension](https://github.com/americanexpress/parrot/blob/master/packages/parrot-devtools/parrot-devtools-extension.zip).
+- Install [the extension](https://chrome.google.com/webstore/detail/parrot-devtools/jckchajdleibnohnphddbiglgpjpbffn).
 - Navigate to the Parrot tab of your devtools panel.
 
 ### Firefox Add-On
