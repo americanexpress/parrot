@@ -12,12 +12,18 @@
  * the License.
  */
 
-const express = require('express');
-const parrot = require('parrot-middleware');
-const parrotWs = require('parrot-websocket').default;
-const { httpScenarios, wsScenarios } = require('./scenarios');
+// eslint-disable-next-line max-params
+export default async function resolveResponse(normalizedRequest, platformRequest, mock, resolver) {
+  if (!mock) {
+    return resolver();
+  }
 
-const app = express();
-app.use(parrot(httpScenarios));
-app.use('/ws', parrotWs(app, wsScenarios));
-app.listen(3001);
+  const { events } = mock;
+  const { connection, messages, message, interval, delay } = await events;
+  const resolvedResponse = { connection, messages, message, interval };
+
+  if (delay) {
+    return new Promise(resolve => setTimeout(() => resolve(resolver(resolvedResponse)), delay));
+  }
+  return Promise.resolve(resolver(resolvedResponse));
+}

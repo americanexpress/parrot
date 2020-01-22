@@ -12,12 +12,16 @@
  * the License.
  */
 
-const express = require('express');
-const parrot = require('parrot-middleware');
-const parrotWs = require('parrot-websocket').default;
-const { httpScenarios, wsScenarios } = require('./scenarios');
+import pathToRegexp from 'path-to-regexp';
 
-const app = express();
-app.use(parrot(httpScenarios));
-app.use('/ws', parrotWs(app, wsScenarios));
-app.listen(3001);
+export default function getParams(path, route) {
+  const keys = [];
+  const [, ...values] = pathToRegexp(route, keys).exec(path);
+  return keys.reduce(
+    (acc, { name }, index) => ({
+      ...acc,
+      [name]: values[index],
+    }),
+    {}
+  );
+}

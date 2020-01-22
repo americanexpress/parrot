@@ -12,12 +12,8 @@
  * the License.
  */
 
-const express = require('express');
-const parrot = require('parrot-middleware');
-const parrotWs = require('parrot-websocket').default;
-const { httpScenarios, wsScenarios } = require('./scenarios');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-const app = express();
-app.use(parrot(httpScenarios));
-app.use('/ws', parrotWs(app, wsScenarios));
-app.listen(3001);
+ReactDOM.render(<App />, document.getElementById('root'));

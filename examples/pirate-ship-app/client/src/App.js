@@ -15,10 +15,26 @@
 import React, { Component } from 'react';
 
 class App extends Component {
-  state = {
-    loading: true,
-    error: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+      error: false,
+    };
+
+    const echoSocketUrl = 'ws://localhost:3001/ws/echo';
+    this.socket = new WebSocket(echoSocketUrl);
+
+    this.socket.onopen = () => {
+      console.log('it is open');
+    }
+
+    this.socket.onmessage = msg => {
+      console.log('Got message', msg);
+      this.socket.send('I got your message dude');
+    }
+  }
 
   async componentDidMount() {
     try {

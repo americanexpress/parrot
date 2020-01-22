@@ -1,7 +1,6 @@
 {
-  "name": "parrot-example-server",
+  "name": "pirate-chat",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
     "start:client": "cd client && npm run start",
     "start:server": "babel-node server.js",
@@ -13,6 +12,8 @@
     "concurrently": "^3.5.1",
     "express": "^4.16.2",
     "parrot-middleware": "^3.0.0",
-    "parrot-websocket": "file:../../packages/parrot-websocket/parrot-websocket-0.0.0.tgz"
+    "parrot-websocket": "file:../../packages/parrot-websocket/parrot-websocket-0.0.0.tgz",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }

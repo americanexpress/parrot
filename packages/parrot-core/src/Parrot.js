@@ -15,8 +15,12 @@
 import { normalizeScenarios, matchMock, resolveResponse, logger } from './utils';
 
 class Parrot {
-  constructor(scenarios = {}) {
-    this.scenarios = normalizeScenarios(scenarios);
+  constructor(scenarios = {}, utils) {
+    this.normalizeScenarios = utils.normalizeScenarios || normalizeScenarios;
+    this.matchMock = utils.matchMock || matchMock;
+    this.resolveResponse = utils.resolveResponse || resolveResponse;
+
+    this.scenarios = this.normalizeScenarios(scenarios);
     [this.activeScenario] = Object.keys(scenarios);
     logger.setScenario(this.activeScenario);
   }
@@ -32,7 +36,7 @@ class Parrot {
     Object.keys(this.scenarios).map(name => ({ name, mocks: this.scenarios[name] }));
 
   setScenarios = scenarios => {
-    this.scenarios = normalizeScenarios(scenarios);
+    this.scenarios = this.normalizeScenarios(scenarios);
   };
 
   getScenario = name => this.scenarios[name];
@@ -41,7 +45,7 @@ class Parrot {
     const scenarios = { [name]: mocks };
     this.scenarios = {
       ...this.scenarios,
-      ...normalizeScenarios(scenarios),
+      ...this.normalizeScenarios(scenarios),
     };
   };
 
@@ -55,8 +59,8 @@ class Parrot {
     const normalizedRequest = this.normalizeRequest(...platformRequest);
     const resolver = this.resolver(...platformRequest);
     const mocks = this.scenarios[this.activeScenario];
-    const mock = await matchMock(normalizedRequest, platformRequest, mocks);
-    return resolveResponse(normalizedRequest, platformRequest, mock, resolver);
+    const mock = await this.matchMock(normalizedRequest, platformRequest, mocks);
+    return this.resolveResponse(normalizedRequest, platformRequest, mock, resolver);
   };
 }
 

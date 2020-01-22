@@ -12,12 +12,7 @@
  * the License.
  */
 
-const express = require('express');
-const parrot = require('parrot-middleware');
-const parrotWs = require('parrot-websocket').default;
-const { httpScenarios, wsScenarios } = require('./scenarios');
-
-const app = express();
-app.use(parrot(httpScenarios));
-app.use('/ws', parrotWs(app, wsScenarios));
-app.listen(3001);
+export { default as normalizeScenarios } from './normalizeScenarios';
+export { default as matchMock } from './matchMock';
+export { default as resolveResponse } from './resolveResponse';
+export { default as logger } from './logger';

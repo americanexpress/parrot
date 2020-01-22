@@ -44,27 +44,42 @@ module.exports.httpScenarios = {
   ],
 };
 
+console.log(JSON.stringify(process.memoryUsage(), null, 2))
+
 module.exports.wsScenarios = {
-  'found loot': [
+  'pirate chat': [
+    // {
+    //   request: '/pirate-chat',
+    //   events: {
+    //     connection: { connectionId: '1234' },
+    //     messages: [
+    //       {
+    //         user: 'Captain A',
+    //         message: 'Arr! How ya be, matties?',
+    //       },
+    //       {
+    //         user: 'Captain A',
+    //         message: 'I been shiver\'n me timbers',
+    //       },
+    //       {
+    //         user: 'Captain Jack Sparrow',
+    //         message: 'kimma commander is float',
+    //       },
+    //       {
+    //         user: 'Captain B',
+    //         message: 'Arr! How ya be, matties?',
+    //       },
+    //     ],
+    //     interval: 2000,
+    //   },
+    // },
     {
       request: '/pirate-chat',
-      response: {
-        open: 'Pirate Chat is now open!',
-        messages: [
-          {
-            user: 'Captain Hook',
-            message: 'Arr! How ya be, matties?',
-          },
-          {
-            user: 'Davy Jones',
-            message: 'I been shiver\'n me timbers',
-          },
-          {
-            user: 'Jack Sparrow',
-            message: 'kimma commander is float',
-          },
-        ],
-        delay: 500000,
+      events: {
+        connection: { connectionId: '1234' },
+        message: (ws, request) => {
+          ws.send('Yo buddy');
+        },
       },
     },
   ],

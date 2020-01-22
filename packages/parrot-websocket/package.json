@@ -1,0 +1,30 @@
+{
+  "name": "parrot-websocket",
+  "version": "0.0.0",
+  "description": "A WebSockets mocking implementation of Parrot.",
+  "files": [
+    "lib"
+  ],
+  "main": "lib",
+  "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
+    "build": "babel src --out-dir lib --copy-files",
+    "prepublish": "npm run build"
+  },
+  "author": "Jonathan Golden Ormsby",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "parrot-core": "file:../parrot-core/parrot-core-3.1.0.tgz",
+    "parrot-utils": "file:../parrot-utils/parrot-utils-3.1.0.tgz"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "babel-preset-amex": "^3.3.0",
+    "rimraf": "^3.0.0"
+  }
+}
