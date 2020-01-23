@@ -16,7 +16,9 @@
     "clean": "git clean -d -X",
     "test": "jest",
     "pretest": "npm run lint",
-    "lint": "eslint --ext js,jsx,md ./"
+    "lint": "eslint --ext js,jsx,md ./",
+    "test:lockfile": "node lockFileLint.js",
+    "posttest": "npm run test:lockfile"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
@@ -39,6 +41,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jest": "^24.9.0",
     "lerna": "^3.19.0",
+    "lockfile-lint": "^3.0.8",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
