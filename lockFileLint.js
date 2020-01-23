@@ -15,24 +15,20 @@ const pathsToValidate = [defaultLockfilePath].concat(
 );
 
 pathsToValidate.forEach(lockPath => {
-  try {
-    const { stderr } = spawnSync('./node_modules/.bin/lockfile-lint', [
-      '-p',
-      lockPath,
-      '-t',
-      'npm',
-      '-a',
-      'npm',
-      '-o',
-      'https:',
-      '-c',
-      '-i',
-    ]);
-    const error = stderr.toString();
-    if (error) invalidations.push([lockPath, error].join(':\n\n'));
-  } catch (e) {
-    console.error(e);
-  }
+  const { stderr } = spawnSync('./node_modules/.bin/lockfile-lint', [
+    '-p',
+    lockPath,
+    '-t',
+    'npm',
+    '-a',
+    'npm',
+    '-o',
+    'https:',
+    '-c',
+    '-i',
+  ]);
+  const error = stderr.toString();
+  if (error) invalidations.push([lockPath, error].join(':\n\n'));
 });
 
 if (invalidations.length > 0) {
