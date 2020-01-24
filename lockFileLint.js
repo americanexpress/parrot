@@ -4,9 +4,15 @@ const fs = require('fs');
 
 const invalidations = [];
 const defaultLockfilePath = `${process.cwd()}/package-lock.json`;
+const exampleLockfilePath = `${process.cwd()}/examples/pirate-ship-app/package-lock.json`;
+const exampleClientLockfilePath = `${process.cwd()}/examples/pirate-ship-app/client/package-lock.json`;
 const packagesBasePath = path.join(process.cwd(), 'packages');
 
-const pathsToValidate = [defaultLockfilePath].concat(
+const pathsToValidate = [
+  defaultLockfilePath,
+  exampleLockfilePath,
+  exampleClientLockfilePath,
+].concat(
   fs
     .readdirSync(packagesBasePath)
     .map(pathName => `${packagesBasePath}/${pathName}`)
