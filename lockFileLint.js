@@ -1,38 +1,39 @@
 const { spawnSync } = require('child_process');
-const path = require('path');
-const fs = require('fs');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const glob = require('glob');
+
+const lockfileGlob = '**/package-lock.json';
+const ignoreGlob = '**/node_modules/**/package-lock.json';
 
 const invalidations = [];
-const defaultLockfilePath = `${process.cwd()}/package-lock.json`;
-const packagesBasePath = path.join(process.cwd(), 'packages');
 
-const pathsToValidate = [defaultLockfilePath].concat(
-  fs
-    .readdirSync(packagesBasePath)
-    .map(pathName => `${packagesBasePath}/${pathName}`)
-    .filter(pathName => fs.statSync(pathName).isDirectory())
-    .map(pathName => `${pathName}/package-lock.json`)
-);
+glob(lockfileGlob, { ignore: ignoreGlob }, (globError, lockFiles) => {
+  if (globError) {
+    process.stderr.write(globError);
+    // eslint-disable-next-line unicorn/no-process-exit
+    process.exit(1);
+  }
 
-pathsToValidate.forEach(lockPath => {
-  const { stderr } = spawnSync('./node_modules/.bin/lockfile-lint', [
-    '-p',
-    lockPath,
-    '-t',
-    'npm',
-    '-a',
-    'npm',
-    '-o',
-    'https:',
-    '-c',
-    '-i',
-  ]);
-  const error = stderr.toString();
-  if (error) invalidations.push([lockPath, error].join(':\n\n'));
+  lockFiles.forEach(lockPath => {
+    const { stderr } = spawnSync('./node_modules/.bin/lockfile-lint', [
+      '-p',
+      lockPath,
+      '-t',
+      'npm',
+      '-a',
+      'npm',
+      '-o',
+      'https:',
+      '-c',
+      '-i',
+    ]);
+    const error = stderr.toString();
+    if (error) invalidations.push([lockPath, error].join(':\n\n'));
+  });
+
+  if (invalidations.length > 0) {
+    process.stderr.write(invalidations.join('\n'));
+    // eslint-disable-next-line unicorn/no-process-exit
+    process.exit(1);
+  }
 });
-
-if (invalidations.length > 0) {
-  process.stderr.write(invalidations.join('\n'));
-  // eslint-disable-next-line unicorn/no-process-exit
-  process.exit(1);
-}
