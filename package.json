@@ -14,9 +14,10 @@
   "scripts": {
     "postinstall": "lerna bootstrap",
     "clean": "git clean -d -X",
-    "test": "jest",
+    "test": "jest && npm run test:git-history",
     "pretest": "npm run lint",
     "lint": "eslint --ext js,jsx,md ./",
+    "test:git-history": "commitlint --from origin/master --to HEAD",
     "test:lockfile": "node lockFileLint.js",
     "posttest": "npm run test:lockfile"
   },
@@ -48,5 +49,11 @@
     "react-dom": "^16.12.0",
     "rimraf": "^3.0.0",
     "whatwg-fetch": "^3.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
