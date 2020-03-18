@@ -6,3 +6,4 @@ test-results
 **/node_modules
 **/dist
 **/lib
+.idea
