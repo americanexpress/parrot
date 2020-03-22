@@ -12,9 +12,9 @@
  * the License.
  */
 
-import express from 'express';
-import parrot from 'parrot-middleware';
-import scenarios from './scenarios';
+const express = require('express');
+const parrot = require('parrot-middleware');
+const scenarios = require('./scenarios');
 
 const app = express();
 app.use(parrot(scenarios));
