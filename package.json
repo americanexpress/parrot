@@ -14,9 +14,10 @@
   "scripts": {
     "postinstall": "lerna bootstrap",
     "clean": "git clean -d -X",
-    "test": "jest",
+    "test": "jest && npm run test:git-history",
     "pretest": "npm run lint",
     "lint": "eslint --ext js,jsx,md ./",
+    "test:git-history": "commitlint --from origin/master --to HEAD",
     "test:lockfile": "node lockFileLint.js",
     "posttest": "npm run test:lockfile",
     "semantic-release": "semantic-release",
@@ -31,7 +32,7 @@
     "@commitlint/config-conventional": "^8.2.0",
     "@testing-library/react-hooks": "^3.2.1",
     "amex-jest-preset-react": "^5.0.2",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^25.1.0",
     "babel-preset-amex": "^3.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -44,14 +45,20 @@
     "husky": "^3.1.0",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
-    "jest": "^24.9.0",
+    "jest": "^25.1.0",
     "lerna": "^3.19.0",
-    "lockfile-lint": "^3.0.8",
+    "lockfile-lint": "^4.1.0",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "rimraf": "^3.0.0",
     "semantic-release": "^17.0.4",
     "whatwg-fetch": "^3.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
