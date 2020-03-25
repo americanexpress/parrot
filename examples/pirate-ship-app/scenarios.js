@@ -44,4 +44,4 @@ const scenarios = {
   ],
 };
 
-export default scenarios;
+module.exports = scenarios;
