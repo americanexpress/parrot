@@ -20,7 +20,13 @@ const contextFetch = context.fetch.bind(context);
 export const PARROT_STATE = 'PARROT_STATE';
 
 export default function init(scenarios) {
-  const parrotFetch = new ParrotFetch(scenarios, contextFetch);
-  context.fetch = parrotFetch.resolve;
+  let parrotFetch;
+  if (context.thunks) {
+    parrotFetch = new ParrotFetch(scenarios, context.thunks.fetchClient);
+    context.thunks.fetchClient = parrotFetch.resolve;
+  } else {
+    parrotFetch = new ParrotFetch(scenarios, contextFetch);
+    context.fetch = parrotFetch.resolve;
+  }
   return parrotFetch;
 }

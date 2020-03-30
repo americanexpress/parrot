@@ -20,4 +20,11 @@ describe('parrot-fetch', () => {
     parrotFetch();
     expect(fetch).not.toBe(contextFetch);
   });
+  it('should mock fetch in context.thunks object', () => {
+    global.thunks = {
+      fetchClient: fetch,
+    };
+    parrotFetch();
+    expect(fetch).not.toBe(global.thunks.fetchClient);
+  });
 });
