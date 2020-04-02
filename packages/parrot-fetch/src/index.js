@@ -15,12 +15,14 @@
 import ParrotFetch from './ParrotFetch';
 
 /* istanbul ignore next */
-const context = typeof global === 'undefined' ? self : global; // eslint-disable-line no-restricted-globals
-const contextFetch = context.fetch.bind(context);
+const globalContext = typeof global === 'undefined' ? self : global; // eslint-disable-line no-restricted-globals
+const contextFetch = globalContext.fetch.bind(globalContext);
 export const PARROT_STATE = 'PARROT_STATE';
 
-export default function init(scenarios) {
+export default function init(scenarios, contextParam = globalContext) {
+  const context = contextParam;
   let parrotFetch;
+  // Option to mock a fetch client in a redux thunk object by attaching it to the context
   if (context.thunks) {
     parrotFetch = new ParrotFetch(scenarios, context.thunks.fetchClient);
     context.thunks.fetchClient = parrotFetch.resolve;
