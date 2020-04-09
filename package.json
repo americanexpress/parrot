@@ -28,7 +28,7 @@
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/polyfill": "^7.7.0",
-    "@commitlint/cli": "^8.2.0",
+    "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.2.0",
     "@testing-library/react-hooks": "^3.2.1",
     "amex-jest-preset-react": "^5.0.2",
@@ -46,7 +46,7 @@
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^25.1.0",
-    "lerna": "^3.19.0",
+    "lerna": "^3.20.2",
     "lockfile-lint": "^4.1.0",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
