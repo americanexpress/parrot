@@ -20,4 +20,19 @@ describe('parrot-fetch', () => {
     parrotFetch();
     expect(fetch).not.toBe(contextFetch);
   });
+  it('should mock fetchClient', () => {
+    const fetchWrapper = {
+      fetchClient: fetch,
+    };
+    const scenarios = {
+      one: [
+        {
+          request: () => 'test',
+          response: () => 'response',
+        },
+      ],
+    };
+    parrotFetch(scenarios, fetchWrapper);
+    expect(fetch).not.toBe(fetchWrapper.fetchClient);
+  });
 });

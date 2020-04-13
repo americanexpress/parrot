@@ -19,8 +19,16 @@ const context = typeof global === 'undefined' ? self : global; // eslint-disable
 const contextFetch = context.fetch.bind(context);
 export const PARROT_STATE = 'PARROT_STATE';
 
-export default function init(scenarios) {
-  const parrotFetch = new ParrotFetch(scenarios, contextFetch);
-  context.fetch = parrotFetch.resolve;
+export default function init(scenarios, fetchWrapperParam) {
+  const fetchWrapper = fetchWrapperParam;
+  let parrotFetch;
+  // option to mock a fetchClient that is different from the global fetch by passing the fetchClient in through a fetchWrapper object.
+  if (fetchWrapper) {
+    parrotFetch = new ParrotFetch(scenarios, fetchWrapper.fetchClient);
+    fetchWrapper.fetchClient = parrotFetch.resolve;
+  } else {
+    parrotFetch = new ParrotFetch(scenarios, contextFetch);
+    context.fetch = parrotFetch.resolve;
+  }
   return parrotFetch;
 }
