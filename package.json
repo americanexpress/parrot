@@ -19,7 +19,10 @@
     "lint": "eslint --ext js,jsx,md ./",
     "test:git-history": "commitlint --from origin/master --to HEAD",
     "test:lockfile": "node lockFileLint.js",
-    "posttest": "npm run test:lockfile"
+    "posttest": "npm run test:lockfile",
+    "lerna:version": "lerna version",
+    "lerna:publish": "lerna publish from-package --yes",
+    "lerna:deploy": "node lernaDeploy.js"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
