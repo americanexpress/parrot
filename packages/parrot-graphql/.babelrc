@@ -1,0 +1,4 @@
+{
+  "presets": ["amex"],
+  "plugins": ["@babel/plugin-transform-runtime"]
+}
