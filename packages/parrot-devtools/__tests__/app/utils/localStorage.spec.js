@@ -37,8 +37,8 @@ describe('localStorage', () => {
 
   it('sets serialized value in localStorage', () => {
     const value = { parrot: 'squawk' };
-    const serlialzed = JSON.stringify(value);
+    const serialzed = JSON.stringify(value);
     setLocalStorage(value);
-    expect(localStorage.setItem).toHaveBeenCalledWith(PARROT_STATE, serlialzed);
+    expect(localStorage.setItem).toHaveBeenCalledWith(PARROT_STATE, serialzed);
   });
 });
