@@ -24,7 +24,7 @@ export default function init(scenarios, fetchWrapperParam) {
   let parrotFetch;
   // option to mock a fetchClient that is different from the global fetch by passing the fetchClient in through a fetchWrapper object.
   if (fetchWrapper) {
-    parrotFetch = new ParrotFetch(scenarios, fetchWrapper.fetchClient);
+    parrotFetch = new ParrotFetch(scenarios, contextFetch);
     fetchWrapper.fetchClient = parrotFetch.resolve;
   } else {
     parrotFetch = new ParrotFetch(scenarios, contextFetch);
