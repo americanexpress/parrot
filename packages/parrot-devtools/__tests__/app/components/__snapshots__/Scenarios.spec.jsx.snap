@@ -54,11 +54,24 @@ exports[`Scenarios ScenariosMiddleware should render scenarios middleware compon
     >
       <button
         aria-pressed={true}
-        className="nav-link fluid"
+        className="nav-link btn-secondary text-align-left fluid "
         onClick={[Function]}
         type="button"
       >
         api-fetch
+      </button>
+    </li>
+    <li
+      className="nav-item"
+      key="scenario-2"
+    >
+      <button
+        aria-pressed={false}
+        className="nav-link btn-secondary text-align-left fluid border-0"
+        onClick={[Function]}
+        type="button"
+      >
+        scenario-2
       </button>
     </li>
   </ul>

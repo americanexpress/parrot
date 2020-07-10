@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScenariosDisplay ScenariosDisplay should render ScenariosDisplay component 1`] = `
+<Fragment>
+  <Toolbar
+    scenariosData={
+      Object {
+        "filterValue": "",
+        "filteredScenarios": Array [],
+        "loadScenarios": [MockFunction],
+        "loading": false,
+        "scenario": "",
+        "setFilterValue": [MockFunction],
+        "setScenario": [MockFunction],
+      }
+    }
+  />
+  <styled.div>
+    <ScenariosMiddleware
+      scenariosData={
+        Object {
+          "filterValue": "",
+          "filteredScenarios": Array [],
+          "loadScenarios": [MockFunction],
+          "loading": false,
+          "scenario": "",
+          "setFilterValue": [MockFunction],
+          "setScenario": [MockFunction],
+        }
+      }
+    />
+  </styled.div>
+</Fragment>
+`;

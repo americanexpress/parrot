@@ -16,5 +16,5 @@ import styled from 'styled-components';
 
 export default styled.div`
   width: 100%;
-  height: calc(100% - 62.85px);
+  height: calc(100% - 97.85px);
 `;

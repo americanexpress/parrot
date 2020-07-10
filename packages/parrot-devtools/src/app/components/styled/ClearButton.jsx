@@ -12,11 +12,13 @@
  * the License.
  */
 
-export { default as Container } from './Container';
-export { default as Content } from './Content';
-export { default as Grid } from './Grid';
-export { default as Logo } from './Logo';
-export { default as Navigation } from './Navigation';
-export { default as Scrollable } from './Scrollable';
-export { default as SearchBar } from './SearchBar';
-export { default as ClearButton } from './ClearButton';
+import styled from 'styled-components';
+
+const ClearButton = styled.span`
+  margin-left: -20px;
+  cursor: pointer;
+  height: 16px;
+`;
+ClearButton.displayName = 'button';
+
+export default ClearButton;
