@@ -139,13 +139,24 @@ describe('useScenarios', () => {
     expect(global.fetch).toHaveBeenCalledTimes(2);
   });
 
-  it('should filter scenarios when filterValue is changed', () => {
-    const { result } = renderHook(() => useScenarios(url));
+  it('should filter scenarios when filterValue is changed', async () => {
+    const scenariosResponse = jest.fn(() =>
+      Promise.resolve([{ name: 'aa' }, { name: 'bb' }, { name: 'ab' }, { name: 'my-scenario' }])
+    );
+    const mockFetch = fetchUrl =>
+      Promise.resolve({
+        json: fetchUrl.endsWith('scenarios') ? scenariosResponse : jsonScenario,
+      });
+    global.fetch.mockImplementationOnce(mockFetch).mockImplementationOnce(mockFetch);
+    const { result, waitForNextUpdate } = renderHook(() => useScenarios(url));
+
+    await waitForNextUpdate();
+
     act(() => {
-      result.current.setFilterValue('test');
+      result.current.setFilterValue('b');
     });
 
-    expect(result.current.filteredScenarios).toEqual([]);
+    expect(result.current.filteredScenarios).toEqual([{ name: 'bb' }, { name: 'ab' }]);
   });
 
   describe('with chrome', () => {
