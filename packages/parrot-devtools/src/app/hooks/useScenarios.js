@@ -67,10 +67,25 @@ export default function useScenarios(url, initialScenario) {
     methods.loadScenarios();
   }, [url, initialScenario]);
 
+  const [filteredScenarios, setFilteredScenarios] = React.useState(scenarios);
+  const [filterValue, setFilterValue] = React.useState('');
+
+  React.useEffect(() => {
+    if (filterValue === '') {
+      setFilteredScenarios(scenarios);
+    } else {
+      setFilteredScenarios(
+        scenarios.filter(({ name }) => name.toLowerCase().includes(filterValue))
+      );
+    }
+  }, [filterValue, scenarios]);
+
   return {
     loading,
     scenario,
-    scenarios,
+    filteredScenarios,
+    filterValue,
+    setFilterValue,
     ...methods,
   };
 }

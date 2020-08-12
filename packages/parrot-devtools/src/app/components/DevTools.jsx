@@ -20,7 +20,7 @@ import { useDevTools } from '../hooks';
 
 import { Container, Content, Navigation, Logo } from './styled';
 import Settings from './Settings';
-import Scenarios from './Scenarios';
+import ScenariosDisplay from './ScenariosDisplay';
 
 export default function DevTools() {
   const { showSettings, toggleSettings } = useDevTools();
@@ -30,9 +30,7 @@ export default function DevTools() {
       <Content className={showSettings ? '' : 'display-none'}>
         <Settings />
       </Content>
-      <Content className={showSettings ? 'display-none' : ''}>
-        <Scenarios />
-      </Content>
+      <ScenariosDisplay className={showSettings ? 'display-none' : ''} />
       <Navigation className="pad-1-t flex flex-align-center flex-justify-between">
         <Logo src={parrotLogo} />
         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
