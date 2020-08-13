@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 American Express Travel Related Services Company, Inc.
+ * Copyright (c) 2020 American Express Travel Related Services Company, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -12,11 +12,13 @@
  * the License.
  */
 
-export { default as Container } from './Container';
-export { default as Content } from './Content';
-export { default as Grid } from './Grid';
-export { default as Logo } from './Logo';
-export { default as Navigation } from './Navigation';
-export { default as Scrollable } from './Scrollable';
-export { default as SearchBar } from './SearchBar';
-export { default as ClearButton } from './ClearButton';
+import styled from 'styled-components';
+
+const ClearButton = styled.span`
+  margin-left: -20px;
+  cursor: pointer;
+  height: 16px;
+`;
+ClearButton.displayName = 'button';
+
+export default ClearButton;

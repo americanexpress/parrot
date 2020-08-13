@@ -50,9 +50,11 @@ describe('useScenarios', () => {
     expect(result.current).toMatchObject({
       loading: expect.any(Boolean),
       scenario: expect.any(String),
-      scenarios: expect.any(Array),
+      filteredScenarios: expect.any(Array),
       setScenario: expect.any(Function),
       loadScenarios: expect.any(Function),
+      filterValue: expect.any(String),
+      setFilterValue: expect.any(Function),
     });
 
     await waitForNextUpdate();
@@ -68,7 +70,7 @@ describe('useScenarios', () => {
     await waitForNextUpdate();
 
     expect(result.current.scenario).toEqual(scenarioName);
-    expect(result.current.scenarios).toEqual(scenarios);
+    expect(result.current.filteredScenarios).toEqual(scenarios);
     expect(global.fetch).toHaveBeenCalledTimes(3);
     expect(global.fetch).toHaveBeenCalledWith(`${url}/parrot/scenario`);
     expect(global.fetch).toHaveBeenCalledWith(`${url}/parrot/scenarios`);
@@ -112,7 +114,7 @@ describe('useScenarios', () => {
     await waitForNextUpdate();
 
     expect(result.current.scenario).toEqual(scenarioName);
-    expect(result.current.scenarios).toEqual(scenarios);
+    expect(result.current.filteredScenarios).toEqual(scenarios);
     expect(global.fetch).toHaveBeenCalledTimes(4);
     expect(global.fetch).toHaveBeenCalledWith(`${url}/parrot/scenario`);
     expect(global.fetch).toHaveBeenCalledWith(`${url}/parrot/scenarios`);
@@ -135,6 +137,26 @@ describe('useScenarios', () => {
 
     expect(result.current.scenario).not.toEqual(scenarioName);
     expect(global.fetch).toHaveBeenCalledTimes(2);
+  });
+
+  it('should filter scenarios when filterValue is changed', async () => {
+    const scenariosResponse = jest.fn(() =>
+      Promise.resolve([{ name: 'aa' }, { name: 'bb' }, { name: 'ab' }, { name: 'my-scenario' }])
+    );
+    const mockFetch = fetchUrl =>
+      Promise.resolve({
+        json: fetchUrl.endsWith('scenarios') ? scenariosResponse : jsonScenario,
+      });
+    global.fetch.mockImplementationOnce(mockFetch).mockImplementationOnce(mockFetch);
+    const { result, waitForNextUpdate } = renderHook(() => useScenarios(url));
+
+    await waitForNextUpdate();
+
+    act(() => {
+      result.current.setFilterValue('b');
+    });
+
+    expect(result.current.filteredScenarios).toEqual([{ name: 'bb' }, { name: 'ab' }]);
   });
 
   describe('with chrome', () => {
