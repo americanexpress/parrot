@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 American Express Travel Related Services Company, Inc.
+ * Copyright (c) 2020 American Express Travel Related Services Company, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -12,11 +12,16 @@
  * the License.
  */
 
-export { default as Container } from './Container';
-export { default as Content } from './Content';
-export { default as Grid } from './Grid';
-export { default as Logo } from './Logo';
-export { default as Navigation } from './Navigation';
-export { default as Scrollable } from './Scrollable';
-export { default as SearchBar } from './SearchBar';
-export { default as ClearButton } from './ClearButton';
+import styled from 'styled-components';
+
+const SearchBar = styled.input`
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid #2874b7;
+  padding: 0px 0px 0px 5px;
+  height: 25px;
+  width: 50%;
+`;
+SearchBar.displayName = 'input';
+
+export default SearchBar;
