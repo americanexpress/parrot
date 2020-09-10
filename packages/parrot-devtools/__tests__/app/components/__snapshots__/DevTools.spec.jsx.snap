@@ -9,11 +9,9 @@ exports[`DevTools component hides settings when false 1`] = `
   >
     <Connect(Settings) />
   </styled.div>
-  <styled.div
+  <Connect(ScenariosDisplay)
     className=""
-  >
-    <Connect(ScenariosMiddleware) />
-  </styled.div>
+  />
   <styled.div
     className="pad-1-t flex flex-align-center flex-justify-between"
   >
@@ -38,11 +36,9 @@ exports[`DevTools component renders selector when true 1`] = `
   >
     <Connect(Settings) />
   </styled.div>
-  <styled.div
+  <Connect(ScenariosDisplay)
     className="display-none"
-  >
-    <Connect(ScenariosMiddleware) />
-  </styled.div>
+  />
   <styled.div
     className="pad-1-t flex flex-align-center flex-justify-between"
   >
