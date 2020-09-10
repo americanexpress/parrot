@@ -16,13 +16,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
-import { useScenarios } from '../hooks';
 import { Grid, Scrollable } from './styled';
 
-export function ScenariosMiddleware({ url }) {
-  const { loading, scenarios, scenario, setScenario, loadScenarios } = useScenarios(url);
+function ScenariosMiddleware({ scenariosData }) {
+  const { loading, filteredScenarios, scenario, setScenario, loadScenarios } = scenariosData;
 
   if (loading) {
     return (
@@ -32,7 +30,7 @@ export function ScenariosMiddleware({ url }) {
     );
   }
 
-  if (!scenarios || !scenario) {
+  if (!filteredScenarios || !scenario) {
     return (
       <Scrollable>
         <div className="alert alert-warn alert-dialog alert-lg" role="alert">
@@ -53,11 +51,13 @@ export function ScenariosMiddleware({ url }) {
   return (
     <Scrollable className="border">
       <ul className="nav-menu">
-        {scenarios.map(({ name }) => (
+        {filteredScenarios.map(({ name }) => (
           <li className="nav-item" key={name}>
             <button
               type="button"
-              className="nav-link fluid"
+              className={`nav-link btn-secondary text-align-left fluid ${
+                name === scenario ? '' : 'border-0'
+              }`}
               aria-pressed={name === scenario}
               onClick={() => setScenario(name)}
             >
@@ -71,9 +71,13 @@ export function ScenariosMiddleware({ url }) {
 }
 
 ScenariosMiddleware.propTypes = {
-  url: PropTypes.string.isRequired,
+  scenariosData: PropTypes.shape({
+    loading: PropTypes.bool,
+    filteredScenarios: PropTypes.array,
+    scenario: PropTypes.string,
+    setScenario: PropTypes.func,
+    loadScenarios: PropTypes.func,
+  }).isRequired,
 };
 
-export const mapStateToProps = ({ url }) => ({ url });
-
-export default connect(mapStateToProps)(ScenariosMiddleware);
+export default ScenariosMiddleware;
