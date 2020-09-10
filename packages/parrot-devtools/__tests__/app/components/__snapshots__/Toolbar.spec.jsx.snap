@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toolbar should render Toolbar component 1`] = `
+<div
+  className="pad-1-b flex flex-justify-center flex-align-items-center"
+>
+  <input
+    onChange={[Function]}
+    placeholder="filter scenarios..."
+    value=""
+  />
+  <button
+    className="dls-glyph-cancel-circle"
+    onClick={[Function]}
+  />
+</div>
+`;

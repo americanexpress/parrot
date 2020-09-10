@@ -17,77 +17,50 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ScenariosMiddleware, mapStateToProps } from '../../../src/app/components/Scenarios';
-import useScenarios from '../../../src/app/hooks/useScenarios';
-
-jest.mock('../../../src/app/hooks/useScenarios', () => ({
-  __esModule: true,
-  default: jest.fn(() => ({
-    loading: false,
-    scenario: '',
-    scenarios: [],
-    setScenario: jest.fn(() => Promise.resolve()),
-    loadScenarios: jest.fn(() => Promise.resolve()),
-  })),
-}));
+import ScenariosMiddleware from '../../../src/app/components/Scenarios';
 
 describe('Scenarios', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should mapStateToProps', () => {
-    expect(mapStateToProps({ url: 'squawk' })).toMatchObject({ url: 'squawk' });
-  });
-
   describe('ScenariosMiddleware', () => {
-    const url = 'https://dev.example.com/squawk';
-
     it('should render scenarios middleware component', () => {
       const scenario = 'api-fetch';
       const setScenario = jest.fn(() => Promise.resolve());
 
-      useScenarios.mockImplementationOnce(() => ({
-        scenario,
-        setScenario,
-        loading: false,
-        scenarios: [{ name: scenario }],
-        loadScenarios: jest.fn(() => Promise.resolve()),
-      }));
+      const result = shallow(
+        <ScenariosMiddleware
+          scenariosData={{
+            scenario,
+            setScenario,
+            loading: false,
+            filteredScenarios: [{ name: scenario }, { name: 'scenario-2' }],
+            loadScenarios: jest.fn(() => Promise.resolve()),
+          }}
+        />
+      );
 
-      const result = shallow(<ScenariosMiddleware url={url} />);
-
-      expect(useScenarios).toHaveBeenCalledTimes(1);
-      expect(useScenarios).toHaveBeenCalledWith(url);
       expect(result).toMatchSnapshot();
 
-      result.find('button').simulate('click');
+      result
+        .find('button')
+        .first()
+        .simulate('click');
       expect(setScenario).toHaveBeenCalledWith(scenario);
     });
 
     it('should loading state', () => {
-      useScenarios.mockImplementationOnce(() => ({
-        loading: true,
-      }));
+      const result = shallow(<ScenariosMiddleware scenariosData={{ loading: true }} />);
 
-      const result = shallow(<ScenariosMiddleware url={url} />);
-
-      expect(useScenarios).toHaveBeenCalledTimes(1);
-      expect(useScenarios).toHaveBeenCalledWith(url);
       expect(result).toMatchSnapshot();
     });
 
     it('should inform the user of failure', () => {
-      useScenarios.mockImplementationOnce(() => ({
-        loading: false,
-        scenario: '',
-        scenarios: [],
-      }));
+      const result = shallow(
+        <ScenariosMiddleware scenariosData={{ loading: false, scenario: '', scenarios: [] }} />
+      );
 
-      const result = shallow(<ScenariosMiddleware url={url} />);
-
-      expect(useScenarios).toHaveBeenCalledTimes(1);
-      expect(useScenarios).toHaveBeenCalledWith(url);
       expect(result).toMatchSnapshot();
     });
   });
