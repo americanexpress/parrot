@@ -36,6 +36,19 @@ const scenarios = {
       },
     },
   ],
+  'has more ships with no style': [
+    {
+      request: '/ship_log',
+      response: {
+        type: 'text/plain',
+        body: [
+          '# Ship Log',
+          "* name: 'The Jolly Roger', captain: 'Captain Hook'",
+          "* name: 'The Black Pearl', captain: 'Jack Sparrow'",
+        ].join('\n'),
+      },
+    },
+  ],
   'has a server error': [
     {
       request: '/ship_log',
