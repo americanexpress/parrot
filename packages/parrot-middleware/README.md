@@ -36,7 +36,7 @@ const scenarios = {
       },
     },
   ],
-  'has more ships with no style': [
+  'has more ships with any type': [
     {
       request: '/ship_log',
       response: {
