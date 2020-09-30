@@ -36,11 +36,11 @@ const scenarios = {
       },
     },
   ],
-  'has more ships with any type': [
+  'has more ships with any mime type': [
     {
       request: '/ship_log',
       response: {
-        type: 'text/plain',
+        contentType: 'text/plain',
         body: [
           '# Ship Log',
           "* name: 'The Jolly Roger', captain: 'Captain Hook'",
