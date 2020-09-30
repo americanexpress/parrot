@@ -79,7 +79,7 @@ describe('ParrotFetch', () => {
     const req = {};
     const res = { send: jest.fn(), status: jest.fn(), type: jest.fn() };
     const next = jest.fn();
-    const response = { body: '<!DOCTYPE html>', type: 'html' };
+    const response = { body: '<!DOCTYPE html>', contentType: 'html' };
     const parrotMiddleware = new ParrotMiddleware();
     parrotMiddleware.resolver(req, res, next)(response);
     expect(res.type).toHaveBeenCalled();
