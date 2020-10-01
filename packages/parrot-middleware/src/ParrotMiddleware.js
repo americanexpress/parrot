@@ -26,8 +26,12 @@ class ParrotMiddleware extends Parrot {
       return;
     }
 
-    const { body, status } = response;
+    const { body, contentType, status } = response;
     res.status(status);
+
+    if (contentType) {
+      res.type(contentType);
+    }
 
     if (typeof body === 'object') {
       res.json(body);
