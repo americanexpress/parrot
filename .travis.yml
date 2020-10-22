@@ -6,9 +6,9 @@ cache:
   directories:
   - node_modules
 before_install:
-  # Create a master branch for commitlint
+  # Create a main branch for commitlint
   # https://github.com/conventional-changelog/commitlint/issues/6
-  - git remote set-branches origin master && git fetch
+  - git remote set-branches origin main && git fetch
 before_deploy:
   echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
 jobs:
@@ -17,7 +17,7 @@ jobs:
     - stage: release
       deploy:
           on:
-            branch: master
+            branch: main
           provider: script
           skip_cleanup: true
           script:

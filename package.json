@@ -17,7 +17,7 @@
     "test": "jest && npm run test:git-history",
     "pretest": "npm run lint",
     "lint": "eslint --ext js,jsx,md ./",
-    "test:git-history": "commitlint --from origin/master --to HEAD",
+    "test:git-history": "commitlint --from origin/main --to HEAD",
     "test:lockfile": "node lockFileLint.js",
     "posttest": "npm run test:lockfile",
     "lerna:version": "lerna version",

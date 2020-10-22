@@ -2,7 +2,7 @@
   <img src="./assets/parrot.png" alt="Parrot" width="50%" />
 </h1>
 
-Parrot is a set of tools that allow you to create HTTP mocks and organize them into scenarios in order to develop your app against different sets of data. We have implemented all of Parrot's functionality in JavaScript, but [scenarios](https://github.com/americanexpress/parrot/blob/master/SCENARIOS.md) are a general specification that can be implemented in any language.
+Parrot is a set of tools that allow you to create HTTP mocks and organize them into scenarios in order to develop your app against different sets of data. We have implemented all of Parrot's functionality in JavaScript, but [scenarios](https://github.com/americanexpress/parrot/blob/main/SCENARIOS.md) are a general specification that can be implemented in any language.
 
 ## 👩‍💻 Hiring 👨‍💻
 
@@ -14,7 +14,7 @@ Want to get paid for your contributions to `parrot`?
 
 Let's walk through a common development workflow using Parrot.
 
-#### Define your [scenarios](https://github.com/americanexpress/parrot/blob/master/SCENARIOS.md)
+#### Define your [scenarios](https://github.com/americanexpress/parrot/blob/main/SCENARIOS.md)
 
 ```js
 import { describe, it, get, post, graphql } from 'parrot-friendly';
@@ -58,7 +58,7 @@ const scenarios = describe('Ship Log', () => {
 export default scenarios;
 ```
 
-More information about writing scenarios can be found in the [scenarios documentation](https://github.com/americanexpress/parrot/blob/master/SCENARIOS.md).
+More information about writing scenarios can be found in the [scenarios documentation](https://github.com/americanexpress/parrot/blob/main/SCENARIOS.md).
 
 #### Add them to your server
 
@@ -72,7 +72,7 @@ app.use(parrot(scenarios));
 app.listen(3000);
 ```
 
-#### Develop with Parrot's [devtools](https://github.com/americanexpress/parrot/blob/master/packages/parrot-devtools)
+#### Develop with Parrot's [devtools](https://github.com/americanexpress/parrot/blob/main/packages/parrot-devtools)
 
 ![parrot-devtools](assets/parrot-devtools.gif)
 
@@ -102,13 +102,13 @@ Parrot is divided into several packages that can be used together depending on y
 
 | Name                                                                                                      | Description                                                     |
 | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| **[parrot-core](https://github.com/americanexpress/parrot/blob/master/packages/parrot-core)**             | Core Parrot functionality that can be extended to new use cases |
-| **[parrot-devtools](https://github.com/americanexpress/parrot/blob/master/packages/parrot-devtools)**     | Devtools that allow you to switch between Parrot scenarios      |
-| **[parrot-fetch](https://github.com/americanexpress/parrot/blob/master/packages/parrot-fetch)**           | Fetch mocking implementation of Parrot                          |
-| **[parrot-friendly](https://github.com/americanexpress/parrot/blob/master/packages/parrot-friendly)**     | Helper library to write your scenarios in BDD style             |
-| **[parrot-graphql](https://github.com/americanexpress/parrot/blob/master/packages/parrot-graphql)**       | Helper library to add GraphQL mocks to your scenarios           |
-| **[parrot-middleware](https://github.com/americanexpress/parrot/blob/master/packages/parrot-middleware)** | Express middleware implementation of Parrot                     |
-| **[parrot-server](https://github.com/americanexpress/parrot/blob/master/packages/parrot-server)**         | CLI to get a parrot server up and running                       |
+| **[parrot-core](https://github.com/americanexpress/parrot/blob/main/packages/parrot-core)**             | Core Parrot functionality that can be extended to new use cases |
+| **[parrot-devtools](https://github.com/americanexpress/parrot/blob/main/packages/parrot-devtools)**     | Devtools that allow you to switch between Parrot scenarios      |
+| **[parrot-fetch](https://github.com/americanexpress/parrot/blob/main/packages/parrot-fetch)**           | Fetch mocking implementation of Parrot                          |
+| **[parrot-friendly](https://github.com/americanexpress/parrot/blob/main/packages/parrot-friendly)**     | Helper library to write your scenarios in BDD style             |
+| **[parrot-graphql](https://github.com/americanexpress/parrot/blob/main/packages/parrot-graphql)**       | Helper library to add GraphQL mocks to your scenarios           |
+| **[parrot-middleware](https://github.com/americanexpress/parrot/blob/main/packages/parrot-middleware)** | Express middleware implementation of Parrot                     |
+| **[parrot-server](https://github.com/americanexpress/parrot/blob/main/packages/parrot-server)**         | CLI to get a parrot server up and running                       |
 
 ## 🏆 Contributing
 

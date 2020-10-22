@@ -13,7 +13,7 @@ See [our code of conduct](./CODE_OF_CONDUCT.md) for more details.
 
 ### Opening the PR
 
-* [Fork the Parrot repository](https://github.com/americanexpress/parrot/fork), open a PR to `master`, and follow the guidelines outlined in this document.
+* [Fork the Parrot repository](https://github.com/americanexpress/parrot/fork), open a PR to `main`, and follow the guidelines outlined in this document.
 
 ### Pull Request Guidelines
 

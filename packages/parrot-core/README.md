@@ -2,7 +2,7 @@
   <img src="./parrot-core.png" alt="Parrot-Core" width="50%" />
 </h1>
 
-parrot-core abstracts the matching, logging, and resolving functionality of Parrot away from each implementation. [parrot-middleware](https://github.com/americanexpress/parrot/blob/master/packages/parrot-middleware) and [parrot-fetch](https://github.com/americanexpress/parrot/blob/master/packages/parrot-fetch) use parrot-core and any new implementations could extend parrot-core in a similar way.
+parrot-core abstracts the matching, logging, and resolving functionality of Parrot away from each implementation. [parrot-middleware](https://github.com/americanexpress/parrot/blob/main/packages/parrot-middleware) and [parrot-fetch](https://github.com/americanexpress/parrot/blob/main/packages/parrot-fetch) use parrot-core and any new implementations could extend parrot-core in a similar way.
 
 ## Example Implementation
 
