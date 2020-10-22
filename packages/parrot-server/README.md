@@ -2,7 +2,7 @@
 	<img src="./parrot-server.png" alt="Parrot-Server" width="50%" />
 </h1>
 
-parrot-server is a CLI that creates and starts up an express app that uses [parrot-middleware](https://github.com/americanexpress/parrot/blob/master/packages/parrot-middleware)
+parrot-server is a CLI that creates and starts up an express app that uses [parrot-middleware](https://github.com/americanexpress/parrot/blob/main/packages/parrot-middleware)
 
 ## Example
 

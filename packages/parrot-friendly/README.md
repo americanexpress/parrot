@@ -2,7 +2,7 @@
 	<img src="./parrot-friendly.png" alt="Parrot-Friendly" width="50%" />
 </h1>
 
-parrot-friendly is a helper library that allows you to write [scenarios](https://github.com/americanexpress/parrot/blob/master/SCENARIOS.md) using a more declarative syntax. Based on the behavior driven development (BDD) syntax of libraries such as [Jasmine](https://jasmine.github.io/) and [Mocha](https://mochajs.org/), parrot-friendly provides `describe`, `it`, and other methods to construct your scenarios object.
+parrot-friendly is a helper library that allows you to write [scenarios](https://github.com/americanexpress/parrot/blob/main/SCENARIOS.md) using a more declarative syntax. Based on the behavior driven development (BDD) syntax of libraries such as [Jasmine](https://jasmine.github.io/) and [Mocha](https://mochajs.org/), parrot-friendly provides `describe`, `it`, and other methods to construct your scenarios object.
 
 ## Example
 

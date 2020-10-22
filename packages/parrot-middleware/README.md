@@ -10,7 +10,7 @@ Let's walk through how to set up some scenarios using the parrot-middleware.
 
 ### Define your scenarios
 
-Add a file to the root of your project called [`scenarios.js`](/americanexpress/parrot/blob/master/SCENARIOS.md):
+Add a file to the root of your project called [`scenarios.js`](/americanexpress/parrot/blob/main/SCENARIOS.md):
 
 ```js
 // scenarios.js
