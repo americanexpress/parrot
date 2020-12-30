@@ -12,9 +12,9 @@ import schema from './schema'; // our GraphQL schema
 
 const scenarios = {
   'has a ship log from GraphQL': [
-    graphql('/graphql', schema, () => ({
+    graphql('/graphql', schema, {
       ShipLog: () => require('./mocks/shipLog.json'),
-    })),
+    }),
   ],
 };
 

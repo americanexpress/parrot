@@ -12,7 +12,7 @@
  * the License.
  */
 
-import { mockServer } from 'graphql-tools';
+import { mockServer } from '@graphql-tools/mocks';
 
 export default function graphql(path, schema, mocks) {
   const server = mockServer(schema, mocks);

@@ -14,7 +14,7 @@
 
 import graphql from '../src';
 
-jest.mock('graphql-tools', () => ({
+jest.mock('@graphql-tools/mock', () => ({
   mockServer: () => ({
     query: query => query,
   }),
