@@ -7,27 +7,11 @@
     "Jason Schapiro"
   ],
   "description": "A helper library to create GraphQL Parrot mocks.",
-  "files": [
-    "lib"
-  ],
-  "main": "lib",
+  "main": "src/index.js",
   "license": "Apache-2.0",
   "repository": "americanexpress/parrot",
-  "scripts": {
-    "clean": "rimraf lib",
-    "prebuild": "npm run clean",
-    "build": "babel src --out-dir lib --copy-files",
-    "prepublish": "npm run build"
-  },
   "dependencies": {
     "@graphql-tools/mock": "^7.0.0",
     "graphql": "^15.4.0"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.7.7",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "babel-preset-amex": "^3.3.0",
-    "rimraf": "^3.0.0"
   }
 }

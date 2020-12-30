@@ -7,8 +7,8 @@ parrot-graphql is a helper library that resolves GET and POST requests to your G
 ## Example
 
 ```js
-import graphql from 'parrot-graphql';
-import schema from './schema'; // our GraphQL schema
+const graphql = require('parrot-graphql');
+const schema = require('./schema'); // our GraphQL schema
 
 const scenarios = {
   'has a ship log from GraphQL': [
@@ -18,7 +18,7 @@ const scenarios = {
   ],
 };
 
-export default scenarios;
+module.exports = scenarios;
 ```
 
 ## API
