@@ -12,9 +12,9 @@
  * the License.
  */
 
-import { mockServer } from 'graphql-tools';
+const { mockServer } = require('@graphql-tools/mock');
 
-export default function graphql(path, schema, mocks) {
+module.exports = function graphql(path, schema, mocks) {
   const server = mockServer(schema, mocks);
   return {
     request: ({ method }, match) => match({ path }) && (method === 'GET' || method === 'POST'),
@@ -25,4 +25,4 @@ export default function graphql(path, schema, mocks) {
       },
     },
   };
-}
+};
