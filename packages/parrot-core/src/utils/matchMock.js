@@ -35,6 +35,15 @@ function match(normalizedRequest) {
 
 export default function matchMock(normalizedRequest, platformRequest, mocks) {
   let matchedMock;
+
+  if (!Array.isArray(mocks)) {
+    throw new TypeError(`mocks is not an array as expected. What was passed: ${mocks}`);
+  }
+
+  if (mocks.length === 0) {
+    throw new TypeError('mocks is empty, and likely none are defined for the current scenario.');
+  }
+
   for (let index = 0; index < mocks.length; index += 1) {
     const mock = mocks[index];
     if (typeof mock === 'function') {
