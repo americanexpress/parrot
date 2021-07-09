@@ -19,6 +19,17 @@ import { shallow } from 'enzyme';
 
 import ScenariosMiddleware from '../../../src/app/components/Scenarios';
 
+const scenario = 'api-fetch';
+const setScenario = jest.fn(() => Promise.resolve());
+const scenariosData = {
+  scenario,
+  setScenario,
+  loading: false,
+  filteredScenarios: [{ name: scenario }, { name: 'scenario-2' }],
+  loadScenarios: jest.fn(() => Promise.resolve()),
+};
+const mockProps = { scenariosData };
+
 describe('Scenarios', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -26,20 +37,7 @@ describe('Scenarios', () => {
 
   describe('ScenariosMiddleware', () => {
     it('should render scenarios middleware component', () => {
-      const scenario = 'api-fetch';
-      const setScenario = jest.fn(() => Promise.resolve());
-
-      const result = shallow(
-        <ScenariosMiddleware
-          scenariosData={{
-            scenario,
-            setScenario,
-            loading: false,
-            filteredScenarios: [{ name: scenario }, { name: 'scenario-2' }],
-            loadScenarios: jest.fn(() => Promise.resolve()),
-          }}
-        />
-      );
+      const result = shallow(<ScenariosMiddleware {...mockProps} />);
 
       expect(result).toMatchSnapshot();
 
@@ -47,19 +45,32 @@ describe('Scenarios', () => {
         .find('button')
         .first()
         .simulate('click');
+
       expect(setScenario).toHaveBeenCalledWith(scenario);
     });
 
     it('should loading state', () => {
-      const result = shallow(<ScenariosMiddleware scenariosData={{ loading: true }} />);
+      const props = {
+        scenariosData: {
+          ...scenariosData,
+          loading: true,
+        },
+      };
+      const result = shallow(<ScenariosMiddleware {...props} />);
 
       expect(result).toMatchSnapshot();
     });
 
     it('should inform the user of failure', () => {
-      const result = shallow(
-        <ScenariosMiddleware scenariosData={{ loading: false, scenario: '', scenarios: [] }} />
-      );
+      const props = {
+        scenariosData: {
+          ...scenariosData,
+          loading: false,
+          scenario: '',
+          scenarios: [],
+        },
+      };
+      const result = shallow(<ScenariosMiddleware {...props} />);
 
       expect(result).toMatchSnapshot();
     });

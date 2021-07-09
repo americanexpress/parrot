@@ -9,7 +9,8 @@
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Nathan Force <nathan.a.force@aexp.com>",
-    "Jason Schapiro"
+    "Jason Schapiro",
+    "Jacob Franklin <jacob.d.franklin@aexp.com>"
   ],
   "scripts": {
     "postinstall": "lerna bootstrap",
