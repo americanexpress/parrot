@@ -1,0 +1,41 @@
+name: Deploy parrot-devtools to Chrome Webstore
+on:
+  pull_request:
+    # only trigger on pull request closed events
+    types: [ closed ]
+    # only for PRs to the main branch
+    branches:
+      - main
+    # and only if the extension has been updated
+    paths:
+      - 'packages/parrot-devtools/src/browser/extension/**'
+      - 'packages/parrot-devtools/src/browser/views/extension/**'
+jobs:
+  merge_job:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the codebase
+      uses: actions/checkout@v2
+    - name: Install packages
+      working-directory: packages/parrot-devtools
+      run: npm install
+    - name: Bundle parrot-devtools
+      working-directory: packages/parrot-devtools
+      run: npm run bundle
+    - name: Deploy extension to WebStore
+      working-directory: packages/parrot-devtools
+      env:
+        CHROME_WEBSTORE_PARROT_DEVTOOLS_APP_ID: ${{ secrets.CHROME_WEBSTORE_PARROT_DEVTOOLS_APP_ID }}
+        CHROME_WEBSTORE_CLIENT_ID: ${{ secrets.CHROME_WEBSTORE_CLIENT_ID }}
+        CHROME_WEBSTORE_CLIENT_SECRET: ${{ secrets.CHROME_WEBSTORE_CLIENT_SECRET }}
+        CHROME_WEBSTORE_REFRESH_TOKEN: ${{ secrets.CHROME_WEBSTORE_REFRESH_TOKEN }}
+      run: npm run deploy:extension
+  close_job:
+    # this job will only run if the PR has been closed without being merged
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo PR #${{ github.event.number }} has been closed without being merged
