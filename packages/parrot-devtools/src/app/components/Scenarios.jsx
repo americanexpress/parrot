@@ -73,7 +73,11 @@ function ScenariosMiddleware({ scenariosData }) {
 ScenariosMiddleware.propTypes = {
   scenariosData: PropTypes.shape({
     loading: PropTypes.bool,
-    filteredScenarios: PropTypes.array,
+    filteredScenarios: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      })
+    ),
     scenario: PropTypes.string,
     setScenario: PropTypes.func,
     loadScenarios: PropTypes.func,
