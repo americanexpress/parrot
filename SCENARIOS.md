@@ -9,24 +9,24 @@ Below are some examples of how to configure your Parrot scenarios using differen
 
 ```js
 const scenarios = {
-    'has a ship log': [
+  'has a ship log': [
     {
       request: '/ship_log', // If request is a string, the HTTP method defaults to GET
       response: {
         body: require('./mocks/shipLog.json'),
         delay: 1200, // Optional, defaults to 0
-        status: 200 // Optional, defaults to 200
+        status: 200, // Optional, defaults to 200
       },
     },
   ],
-}
+};
 ```
 
 ### Response as a function
 
 ```js
 const scenarios = {
-    'has a ship log': [
+  'has a ship log': [
     {
       request: '/ship_log',
       // Whatever is returned by this function will be put in the body of the response
@@ -36,7 +36,7 @@ const scenarios = {
       },
     },
   ],
-}
+};
 ```
 
 ## Functional Scenarios
@@ -48,20 +48,21 @@ const scenarios = {
     // handle all requests. Use the `match` function to match routes.
     // Use this to set dynamic HTTP status codes.
     (req, match) => {
-    if (match({ path: '/ship_log' })) {
-      return {
-        status: 200,
-        body: require('./mocks/shipLog.json'),
-        delay: 100,
+      if (match({ path: '/ship_log' })) {
+        return {
+          status: 200,
+          body: require('./mocks/shipLog.json'),
+          delay: 100,
+        };
       }
-    }
-    return {
-      status: 404,
-      body: { error: 'Resource Not Found' },
-      delay: 100
-    }
-  }]
-}
+      return {
+        status: 404,
+        body: { error: 'Resource Not Found' },
+        delay: 100,
+      };
+    },
+  ],
+};
 ```
 
 ### GraphQL Example
@@ -102,7 +103,7 @@ The options you can define on the `request` and `response` objects are described
 
 ## Request, Response, and Mock Functions
 
-In addition to defining `request`, `response` and `mock` as objects, they can also be defined as functions.  
+In addition to defining `request`, `response` and `mock` as objects, they can also be defined as functions.
 
 ### `request(req, match)`
 
@@ -120,7 +121,7 @@ If `response` is a function, it will be run once the request has matched and the
 #### Arguments
 
 * `req`: (*Object*): The normalized request object with `path`, `method`, `body`, `headers`, `query`, and `params` properties.
-* Additional implementation-specific arguments passed are the Express `req` and `res` objects for parrot-middleware and the `input` and `init` arguments to `fetch` for parrot-fetch. 
+* Additional implementation-specific arguments passed are the Express `req` and `res` objects for parrot-middleware and the `input` and `init` arguments to `fetch` for parrot-fetch.
 
 ### `mock(req, match)`
 
@@ -130,4 +131,4 @@ If the entire `mock` is a function, it will be called when determining if an inc
 
 - `req`: (*Object*): The normalized request object with `path`, `method`, `body`, `headers`, and `query` properties.
 - `match`: (*Function*): Parrot's internal matching function that can be run against a request object.
-- Additional implementation-specific arguments passed are the Express `req` and `res` objects for parrot-middleware and the `input` and `init` arguments to `fetch` for parrot-fetch. 
+- Additional implementation-specific arguments passed are the Express `req` and `res` objects for parrot-middleware and the `input` and `init` arguments to `fetch` for parrot-fetch.
