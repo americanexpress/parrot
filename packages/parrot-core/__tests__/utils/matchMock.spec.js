@@ -48,4 +48,18 @@ describe('matchMock', () => {
     const req = { path: '/squawk', headers: 'ahoy', 'Keep-Alive': 'timeout=5' };
     expect(matchMock(req, {}, mocks)).toEqual(mocks[0]);
   });
+
+  it('throws when mocks is not an array', () => {
+    const mocks = {};
+    expect(() => matchMock({}, {}, mocks)).toThrow(
+      'mocks is not an array as expected. What was passed: [object Object]'
+    );
+  });
+
+  it('throws when mocks is an empty array', () => {
+    const mocks = [];
+    expect(() => matchMock({}, {}, mocks)).toThrow(
+      'mocks is empty, and likely none are defined for the current scenario.'
+    );
+  });
 });
