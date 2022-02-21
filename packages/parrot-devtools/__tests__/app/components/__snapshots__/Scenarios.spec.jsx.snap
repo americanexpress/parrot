@@ -21,6 +21,7 @@ exports[`Scenarios ScenariosMiddleware should inform the user of failure 1`] = `
         Try 
       </span>
       <button
+        onClick={[MockFunction]}
         type="button"
       >
         refreshing
