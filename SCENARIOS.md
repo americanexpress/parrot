@@ -2,49 +2,75 @@
 
 Parrot scenarios describe combinations of data that you want to develop against. A scenario is comprised of multiple mocks that each describe how to match against an incoming request and what response to return.
 
-## Example
+## Examples
+
+Below are some examples of how to configure your Parrot scenarios using different methods.
+### Response as an object
+
+```js
+const scenarios = {
+    'has a ship log': [
+    {
+      request: '/ship_log', // If request is a string, the HTTP method defaults to GET
+      response: {
+        body: require('./mocks/shipLog.json'),
+        delay: 1200, // Optional, defaults to 0
+        status: 200 // Optional, defaults to 200
+      },
+    },
+  ],
+}
+```
+
+### Response as a function
+
+```js
+const scenarios = {
+    'has a ship log': [
+    {
+      request: '/ship_log',
+      // Whatever is returned by this function will be put in the body of the response
+      // Status will always be 200 for functions
+      response: () => {
+        return require('./mocks/shipLog.json');
+      },
+    },
+  ],
+}
+```
+
+## Functional Scenarios
+
+```js
+const scenarios = {
+  'has one ship': [
+    // Instead of an object with request/response, the function will
+    // handle all requests. Use the `match` function to match routes.
+    // Use this to set dynamic HTTP status codes.
+    (req, match) => {
+    if (match({ path: '/ship_log' })) {
+      return {
+        status: 200,
+        body: require('./mocks/shipLog.json'),
+        delay: 100,
+      }
+    }
+    return {
+      status: 404,
+      body: { error: 'Resource Not Found' },
+      delay: 100
+    }
+  }]
+}
+```
+
+### GraphQL Example
 
 ```js
 import graphql from 'parrot-graphql';
-import casual from 'casual'; // for generating fake data
 import schema from './schema'; // our GraphQL schema
 
 const scenarios = {
-  'has a ship log': [
-    {
-      request: '/ship_log',
-      response: {
-        body: require('./mocks/shipLog.json'),
-        delay: 1200,
-      },
-    },
-    {
-      request: {
-        path: '/ship_log',
-        method: 'POST',
-      },
-      response: req => req.body,
-    },
-  ],
-  'has a random ship log': [
-    {
-      request: '/ship_log',
-      response: () => [
-        {
-          port: casual.city,
-          captain: casual.full_name,
-        },
-      ],
-    },
-  ],
-  'has a server error': [
-    {
-      request: '/ship_log',
-      response: {
-        status: 500,
-      },
-    },
-  ],
   'has a ship log from GraphQL': [
     graphql('/graphql', schema, () => ({
       ShipLog: () => require('./mocks/shipLog.json'),
