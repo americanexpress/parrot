@@ -25,7 +25,12 @@ export default async function resolveResponse(normalizedRequest, platformRequest
   const resolvedResponse = { status };
 
   const requestWithParams = path
-    ? { ...normalizedRequest, params: getParams(normalizedRequest.path, path) }
+    ? {
+        ...normalizedRequest,
+        params: getParams(normalizedRequest.path, path),
+        // headers are lazily computed using accessor in node >15.1.0
+        headers: normalizedRequest.headers,
+      }
     : normalizedRequest;
 
   if (typeof body === 'function') {
