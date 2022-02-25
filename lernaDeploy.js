@@ -18,4 +18,7 @@ const regex = /^chore\(release\): (0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((
 const commitMessage = process.argv[2]; // This is the commit message
 if (commitMessage != null && regex.test(commitMessage)) {
   exec('npm run lerna:publish').stderr.pipe(process.stderr);
+} else {
+  // eslint-disable-next-line no-console
+  console.log('Lerna Deploy: No valid release commit detected');
 }
