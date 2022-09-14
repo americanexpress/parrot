@@ -11,7 +11,7 @@
   "license": "Apache-2.0",
   "repository": "americanexpress/parrot",
   "dependencies": {
-    "@graphql-tools/mock": "^7.0.0",
+    "@graphql-tools/mock": "^8.7.6",
     "graphql": "^15.4.0"
   }
 }
