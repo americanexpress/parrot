@@ -51,7 +51,7 @@ jest.mock(
 describe('parrot-middleware', () => {
   it('should set up the middleware', () => {
     const middleware = parrotMiddleware();
-    const router = new Router();
+    const router = Router();
 
     expect(bodyParser.json).toHaveBeenCalled();
     expect(router.post).toHaveBeenCalled();
