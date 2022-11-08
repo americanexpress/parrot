@@ -14,7 +14,7 @@
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^5.0.1"
   },
   "browserslist": {
     "production": [
