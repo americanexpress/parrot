@@ -13,3 +13,4 @@
  */
 
 export { default } from './Parrot';
+export getParams from './utils/getParams';

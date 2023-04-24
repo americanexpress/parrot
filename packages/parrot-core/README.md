@@ -90,3 +90,35 @@ Sets the mock at `index` for scenario with matching `name`.
 - `name` (_String_): Scenario name.
 - `index` (_Number_): Mock index.
 - `mock` (_Object_): Mock object.
+
+## Utility Methods
+
+### `getParams(path, route)`
+
+Extracts the route parameters from a given `path`, using the specified `route`.
+
+This is useful when using the manual `match` function.
+
+#### Arguments
+
+- `path` (_String_): Requested URL path.
+- `route` (_String_): [Express-style](https://expressjs.com/en/guide/routing.html) route with route parameters.
+
+#### Example Usage
+
+```javascript
+const { getParams } = require('parrot-core');
+
+const getBook = ({ url }, match) => {
+  const path = '/books/:bookId';
+  if (match({ path, method: 'GET' })) {
+    const { bookId } = getParams(url, path);
+    const requestedBook = books.find(book => book.bookId === bookId);
+    if (!requestedBook) {
+      return { status: 404 };
+    }
+    return { status: 200, body: requestedBook };
+  }
+  return null;
+};
+```
