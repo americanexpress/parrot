@@ -12,36 +12,27 @@
  * the License.
  */
 
-const scenarios = {
-  'has one ship': [
-    {
-      request: '/ship_log',
-      response: {
-        body: [{ name: 'The Jolly Roger', captain: 'Captain Hook' }],
-      },
-    },
-  ],
-  'has more ships': [
-    {
-      request: '/ship_log',
-      response: {
-        body: [
-          { name: 'The Jolly Roger', captain: 'Captain Hook' },
-          { name: 'The Black Pearl', captain: 'Jack Sparrow' },
-          { name: 'Flying Dutchman', captain: 'Davy Jones' },
-          { name: 'The Wanderer', captain: 'Captain Ron' },
-        ],
-      },
-    },
-  ],
-  'has a server error': [
-    {
-      request: '/ship_log',
-      response: {
-        status: 500,
-      },
-    },
-  ],
-};
+const {
+  describe, it, get,
+} = require('parrot-friendly');
+
+const scenarios = describe('Scenarios (parrot-friendly)', () => {
+  it('has one ship', () => {
+    get('/ship_log').response([{ name: 'The Jolly Roger', captain: 'Captain Hook' }]);
+  });
+
+  it('has more ships', () => {
+    get('/ship_log').response([
+      { name: 'The Jolly Roger', captain: 'Captain Hook' },
+      { name: 'The Black Pearl', captain: 'Jack Sparrow' },
+      { name: 'Flying Dutchman', captain: 'Davy Jones' },
+      { name: 'The Wanderer', captain: 'Captain Ron' },
+    ]);
+  });
+
+  it('has a server error', () => {
+    get('/ship_log').status(500);
+  });
+});
 
 module.exports = scenarios;

@@ -11,6 +11,18 @@ The following guidelines must be followed by all contributors to this repository
 
 See [our code of conduct](./CODE_OF_CONDUCT.md) for more details.
 
+### Cloning the Repo
+Clone via HTTPS, you'll need to use proxy. You can find open source documentation [here](https://opensource.aexp.com/contribute/github#connecting-to-githubcom-via-cli).
+
+### Development
+1. run `npm i` in root, in /examples/pirate-ship-app, and in /examples/pirate-ship-app/client
+2. cd into /examples/pirate-ship-app
+3. run `npm run start`
+4. accept chrome permissions in popup if you see it
+5. open localhost:3000
+6. open up parrot extension, set Middleware URL to `http://localhost:3000` 
+7. you should now be able to select sample scenarios and see the mock data for each
+
 ### Opening the PR
 
 * [Fork the Parrot repository](https://github.com/americanexpress/parrot/fork), open a PR to `main`, and follow the guidelines outlined in this document.

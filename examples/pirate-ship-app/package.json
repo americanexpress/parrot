@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "parrot-middleware": "^3.1.0"
+    "parrot-friendly": "^5.0.0-alpha.1",
+    "parrot-middleware": "^5.0.0-alpha.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
