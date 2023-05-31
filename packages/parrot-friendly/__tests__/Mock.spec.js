@@ -50,6 +50,26 @@ describe('Mock', () => {
     });
   });
 
+  it('adds data', () => {
+    const mock = new Mock({ response: {} });
+    mock.data('partial success');
+    expect(mock.structure).toEqual({
+      response: {
+        data: 'partial success',
+      },
+    });
+  });
+
+  it('adds errors', () => {
+    const mock = new Mock({ response: {} });
+    mock.errors('ahoy');
+    expect(mock.structure).toEqual({
+      response: {
+        errors: 'ahoy',
+      },
+    });
+  });
+
   it('adds delay', () => {
     const mock = new Mock({ response: {} });
     mock.delay('ahoy');

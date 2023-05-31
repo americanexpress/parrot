@@ -32,6 +32,16 @@ export default class Mock {
     return this;
   };
 
+  data = value => {
+    this.structure.response.data = value;
+    return this;
+  };
+
+  errors = value => {
+    this.structure.response.errors = value;
+    return this;
+  };
+
   delay = value => {
     this.structure.response.delay = value;
     return this;

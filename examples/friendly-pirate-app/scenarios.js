@@ -30,6 +30,26 @@ const scenarios = describe('Scenarios (parrot-friendly)', () => {
     ]);
   });
 
+  it('has a partial success and an error', () => {
+    get('/ship_log').data([
+      { name: 'The Jolly Roger', captain: 'Captain Hook' },
+      { name: 'The Black Pearl', captain: 'Jack Sparrow' },
+      { name: 'The Wanderer', captain: 'Captain Ron' },
+    ]).errors([
+      { message: "We're missing Davey Jones!" }
+    ]);
+  });
+
+  it('has a partial success and multiple errors', () => {
+    get('/ship_log').data([
+      { name: 'The Jolly Roger', captain: 'Captain Hook' },
+      { name: 'The Black Pearl', captain: 'Jack Sparrow' },
+    ]).errors([
+      { message: "We're missing Davey Jones!" },
+      { message: "We're missing Captain Ron!" }
+    ]);
+  });
+
   it('has a server error', () => {
     get('/ship_log').status(500);
   });

@@ -38,23 +38,31 @@ class App extends Component {
       return <h2>Arrr! Not a friendly Pirate after all!</h2>;
     }
 
+    const hasErrors = shipLog.errors?.length > 0;
+    console.log(shipLog);
+
     return (
-      <table className="u-full-width">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Captain</th>
-          </tr>
-        </thead>
-        <tbody>
-          {shipLog.map(({ name, captain }) => (
-            <tr key={name}>
-              <td>{name}</td>
-              <td>{captain}</td>
+      <>
+        <table className="u-full-width">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Captain</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {(shipLog.data || shipLog).map(({ name, captain }) => (
+              <tr key={name}>
+                <td>{name}</td>
+                <td>{captain}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {hasErrors && shipLog.errors.map(({ message }) => (
+          <p className="pad-1-t"><strong>Alert!</strong> {message}</p>
+        ))}
+      </>
     );
   }
 }
