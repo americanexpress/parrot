@@ -11,9 +11,6 @@ The following guidelines must be followed by all contributors to this repository
 
 See [our code of conduct](./CODE_OF_CONDUCT.md) for more details.
 
-### Cloning the Repo
-Clone via HTTPS, you'll need to use proxy. You can find open source documentation [here](https://opensource.aexp.com/contribute/github#connecting-to-githubcom-via-cli).
-
 ### Development
 1. run `npm i` in root, in /examples/pirate-ship-app, and in /examples/pirate-ship-app/client
 2. cd into /examples/pirate-ship-app
