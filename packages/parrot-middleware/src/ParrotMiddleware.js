@@ -28,6 +28,7 @@ class ParrotMiddleware extends Parrot {
 
     const { body, contentType, status } = response;
     res.status(status);
+    const resKeys = Object.keys(response);
 
     if (contentType) {
       res.type(contentType);
@@ -36,6 +37,9 @@ class ParrotMiddleware extends Parrot {
     if (typeof body === 'object') {
       res.json(body);
     } else if (typeof body === 'undefined') {
+      if (resKeys.includes('data') || resKeys.includes('errors')) {
+        res.json(response);
+      }
       res.sendStatus(status);
     } else {
       res.send(body);

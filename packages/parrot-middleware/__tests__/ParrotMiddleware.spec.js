@@ -14,7 +14,7 @@
 
 import ParrotMiddleware from '../src/ParrotMiddleware';
 
-jest.mock('parrot-core', () => class {});
+jest.mock('parrot-core', () => class { });
 
 describe('ParrotFetch', () => {
   it('should normalize', () => {
@@ -52,7 +52,17 @@ describe('ParrotFetch', () => {
     const response = { body: {} };
     const parrotMiddleware = new ParrotMiddleware();
     parrotMiddleware.resolver(req, res, next)(response);
-    expect(res.json).toHaveBeenCalled();
+    expect(res.json).toHaveBeenCalledWith({});
+  });
+
+  it('should send json if response is an object with data', () => {
+    const req = {};
+    const res = { json: jest.fn(), status: jest.fn(), sendStatus: jest.fn() };
+    const next = jest.fn();
+    const response = { data: { captain: 'Hook' } };
+    const parrotMiddleware = new ParrotMiddleware();
+    parrotMiddleware.resolver(req, res, next)(response);
+    expect(res.json).toHaveBeenCalledWith({ data: { captain: 'Hook' } });
   });
 
   it('should send status if there is no body', () => {
