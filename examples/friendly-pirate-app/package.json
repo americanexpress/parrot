@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "graphql": "^16.6.0",
     "parrot-friendly": "^5.0.0-alpha.1",
+    "parrot-graphql": "^5.0.0-alpha.1",
     "parrot-middleware": "^5.0.0-alpha.1"
   },
   "devDependencies": {

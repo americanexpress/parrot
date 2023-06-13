@@ -15,6 +15,18 @@
 const {
   describe, it, get,
 } = require('parrot-friendly');
+// const graphql = require('parrot-graphql');
+
+// const schema = `
+// type Query {
+//   shiplog: [ShipLog]
+// }
+
+// type ShipLog {
+//   Name: String!
+//   Captain: String!
+// }
+// `;
 
 const scenarios = describe('Scenarios (parrot-friendly)', () => {
   it('has one friendly ship', () => {
@@ -49,6 +61,18 @@ const scenarios = describe('Scenarios (parrot-friendly)', () => {
       { message: "We're missing Captain Ron!" }
     ]);
   });
+
+  // it('has full graphql success', () => {
+  //   // graphql('/graphql', schema, {
+  //   //   Query: () => ({
+  //   //     Name: () => 'Jolly Roger',
+  //   //     Captain: () => 'Black Beard',
+  //   //   })
+  //   // })
+  //   graphql('/graphql', schema, () => ({
+  //     ShipLog: () => { data: 'response' }
+  //   }))
+  // });
 
   it('has a server error', () => {
     get('/ship_log').status(500);

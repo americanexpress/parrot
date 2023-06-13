@@ -14,7 +14,7 @@
 
 import ParrotMiddleware from '../src/ParrotMiddleware';
 
-jest.mock('parrot-core', () => class { });
+jest.mock('parrot-core', () => class {});
 
 describe('ParrotFetch', () => {
   it('should normalize', () => {
