@@ -37,9 +37,14 @@ class ParrotFetch extends Parrot {
       return this.contextFetch(input, init);
     }
     const { body, status } = response;
-    return Promise.resolve(
-      new Response(new Blob([JSON.stringify(body)], { status, type: 'application/json' }))
-    );
+    const responseBlob = new Blob([JSON.stringify(body)]);
+    const responseOptions = {
+      status,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    return Promise.resolve(new Response(responseBlob, responseOptions));
   };
 }
 

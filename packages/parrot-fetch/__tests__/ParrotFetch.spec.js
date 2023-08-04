@@ -39,12 +39,17 @@ describe('ParrotFetch', () => {
     expect(resolved).toBe('ahoy');
   });
 
-  it('should resolve response', () => {
+  it('should resolve response', async () => {
     const input = 'http://www.parrot.com';
     const contextFetch = jest.fn();
     const parrotFetch = new ParrotFetch({}, contextFetch);
-    const resolved = parrotFetch.resolver(input)({ body: 'ahoy', status: 200 });
+    const resolved = parrotFetch.resolver(input)({ body: 'ahoy', status: 204 });
     expect(contextFetch).not.toHaveBeenCalled();
-    return resolved.then(data => expect(data).toEqual(expect.any(Response)));
+    const data = await resolved;
+    expect(data.text()).resolves.toBe('ahoy');
+    expect(data.status).toBe(204);
+    expect(Object.fromEntries([...data.headers])).toEqual({
+      'content-type': 'application/json',
+    });
   });
 });
