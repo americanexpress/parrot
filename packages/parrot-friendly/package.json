@@ -23,9 +23,9 @@
     "parrot-graphql": "^5.0.0-alpha.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.7.7",
-    "babel-preset-amex": "^3.3.0",
-    "rimraf": "^3.0.0"
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.10",
+    "babel-preset-amex": "^3.6.1",
+    "rimraf": "^3.0.2"
   }
 }

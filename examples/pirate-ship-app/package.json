@@ -8,11 +8,11 @@
     "start": "concurrently --kill-others-on-fail 'npm run start:client' 'npm run start:server'"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "parrot-middleware": "^3.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "concurrently": "^5.1.0"
+    "@babel/cli": "^7.22.10",
+    "concurrently": "^5.3.0"
   }
 }
