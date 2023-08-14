@@ -12,9 +12,9 @@
  * the License.
  */
 
+import { spawn, spawnSync } from 'child_process';
 import fetch from 'node-fetch';
 import waitPort from 'wait-port';
-import { spawn, spawnSync } from 'child_process';
 
 const runningParrotServerProcesses = [];
 
