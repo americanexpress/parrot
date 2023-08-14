@@ -1,7 +1,7 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-const webstoreClient = require('chrome-webstore-upload');
 const fs = require('fs');
 const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const webstoreClient = require('chrome-webstore-upload');
 
 const parrotPath = path.join(__dirname, '..', 'parrot-devtools-extension.zip');
 const parrotZipFile = fs.createReadStream(parrotPath);

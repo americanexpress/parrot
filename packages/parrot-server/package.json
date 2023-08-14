@@ -23,17 +23,17 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "express": "^4.16.2",
+    "express": "^4.18.2",
     "parrot-middleware": "^5.0.0-alpha.1",
-    "yargs": "^11.0.0"
+    "yargs": "^11.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.7.7",
-    "node-fetch": "^2.1.1",
-    "pretty-format": "^22.4.0",
-    "rimraf": "^3.0.0",
-    "supertest": "^3.0.0",
-    "wait-port": "^0.2.2"
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.10",
+    "node-fetch": "^2.6.12",
+    "pretty-format": "^22.4.3",
+    "rimraf": "^3.0.2",
+    "supertest": "^3.4.2",
+    "wait-port": "^0.2.14"
   }
 }

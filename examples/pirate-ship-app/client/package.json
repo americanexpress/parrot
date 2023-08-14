@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -14,7 +14,7 @@
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.4"
   },
   "browserslist": {
     "production": [
