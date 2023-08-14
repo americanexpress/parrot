@@ -43,7 +43,9 @@ class ParrotFetch extends Parrot {
       return this.contextFetch(input, init);
     }
     const { body, status } = response;
-    const responseBlob = new Blob([JSON.stringify(body)]);
+    const responseBlob = new Blob([JSON.stringify(body)], {
+      type: 'application/json',
+    });
     const responseOptions = {
       status,
       headers: {
