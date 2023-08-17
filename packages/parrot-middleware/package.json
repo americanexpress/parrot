@@ -1,6 +1,6 @@
 {
   "name": "parrot-middleware",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0",
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Nathan Force <nathan.a.force@aexp.com>",
@@ -22,7 +22,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
-    "parrot-core": "^5.0.0-alpha.1"
+    "parrot-core": "^5.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.3.1",
