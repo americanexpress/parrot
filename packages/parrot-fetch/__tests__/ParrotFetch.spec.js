@@ -30,6 +30,24 @@ describe('ParrotFetch', () => {
     });
   });
 
+  it('should parse the body is content-type is json', () => {
+    const parrotFetch = new ParrotFetch();
+    const normalized = parrotFetch.normalizeRequest('http://www.parrot.com/squawk', {
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ ahoy: 'matey' }),
+    });
+    expect(normalized).toMatchObject({
+      path: '/squawk',
+      body: {
+        ahoy: 'matey',
+      },
+      protocol: 'http:',
+      host: 'www.parrot.com',
+    });
+  });
+
   it('should resolve to context fetch', () => {
     const input = 'http://www.parrot.com';
     const contextFetch = jest.fn(() => 'ahoy');
@@ -39,12 +57,17 @@ describe('ParrotFetch', () => {
     expect(resolved).toBe('ahoy');
   });
 
-  it('should resolve response', () => {
+  it('should resolve response', async () => {
     const input = 'http://www.parrot.com';
     const contextFetch = jest.fn();
     const parrotFetch = new ParrotFetch({}, contextFetch);
-    const resolved = parrotFetch.resolver(input)({ body: 'ahoy', status: 200 });
+    const resolved = parrotFetch.resolver(input)({ body: 'ahoy', status: 204 });
     expect(contextFetch).not.toHaveBeenCalled();
-    return resolved.then(data => expect(data).toEqual(expect.any(Response)));
+    const data = await resolved;
+    await expect(data.text()).resolves.toBe('"ahoy"');
+    expect(data.status).toBe(204);
+    expect(Object.fromEntries([...data.headers])).toEqual({
+      'content-type': 'application/json',
+    });
   });
 });

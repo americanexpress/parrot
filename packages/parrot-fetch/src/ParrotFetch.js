@@ -23,9 +23,15 @@ class ParrotFetch extends Parrot {
 
   normalizeRequest = (input, { method = 'GET', ...init } = {}) => {
     const { pathname: path, query, ...parsed } = parse(input, true);
+    const headers = new Headers(init.headers);
+    let { body } = init;
+    if (headers.get('Content-Type') === 'application/json') {
+      body = JSON.parse(body);
+    }
     return {
       ...init,
       ...parsed,
+      body,
       path,
       query: Object.keys(query) && query,
       method: method && method.toUpperCase(),
@@ -37,9 +43,16 @@ class ParrotFetch extends Parrot {
       return this.contextFetch(input, init);
     }
     const { body, status } = response;
-    return Promise.resolve(
-      new Response(new Blob([JSON.stringify(body)], { status, type: 'application/json' }))
-    );
+    const responseBlob = new Blob([JSON.stringify(body)], {
+      type: 'application/json',
+    });
+    const responseOptions = {
+      status,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    return Promise.resolve(new Response(responseBlob, responseOptions));
   };
 }
 
