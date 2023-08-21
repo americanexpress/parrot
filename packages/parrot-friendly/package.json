@@ -1,6 +1,6 @@
 {
   "name": "parrot-friendly",
-  "version": "5.0.0",
+  "version": "5.0.0-alpha.1",
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Nathan Force <nathan.a.force@aexp.com>",
@@ -20,7 +20,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "parrot-graphql": "^5.0.0"
+    "parrot-graphql": "^5.0.0-alpha.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.22.10",
