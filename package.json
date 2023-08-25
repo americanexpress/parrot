@@ -29,7 +29,7 @@
     "@babel/core": "^7.22.10",
     "@babel/polyfill": "^7.12.1",
     "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^8.3.6",
+    "@commitlint/config-conventional": "^17.7.0",
     "@testing-library/react-hooks": "^7.0.2",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
     "amex-jest-preset-react": "^8.1.0",
