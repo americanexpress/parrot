@@ -8,7 +8,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
     - id: commit
-      run: echo "::set-output name=message::${{ github.event.head_commit.message }}"
+      run: echo "message=${{ github.event.head_commit.message }}" >> $GITHUB_OUTPUT
     outputs:
       commitMsg: ${{ steps.commit.outputs.message }}
   publish:
