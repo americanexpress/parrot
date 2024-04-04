@@ -20,7 +20,11 @@
     "deploy:extension": "node scripts/deploy-to-webstore.js"
   },
   "license": "Apache-2.0",
-  "repository": "americanexpress/parrot",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/americanexpress/parrot.git",
+    "directory": "packages/parrot-devtools"
+  },
   "dependencies": {
     "prop-types": "^15.8.1",
     "react": "^16.14.0",
