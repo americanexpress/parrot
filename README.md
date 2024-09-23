@@ -129,3 +129,7 @@ Any contributions made under this project will be governed by the [Apache Licens
 
 This project adheres to the [American Express Community Guidelines](./CODE_OF_CONDUCT.md).
 By participating, you are expected to honor these guidelines.
+
+### Contributors
+
+<img src="https://markupgo.com/github/americanexpress/parrot/contributors?count=0&circleSize=40&circleRadius=40&center=true" width="100%" /> 
