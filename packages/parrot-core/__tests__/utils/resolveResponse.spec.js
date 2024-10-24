@@ -65,7 +65,51 @@ describe('resolveResponse', () => {
     );
   });
 
-  it('does not set params', async () => {
+  it('does not set params when no path params', async () => {
+    expect.assertions(1);
+
+    const mock = {
+      request: {
+        path: '/squawk',
+      },
+      response: {
+        body: jest.fn(req => req),
+      },
+    };
+    await resolveResponse({ path: '/squawk' }, {}, mock, resolver);
+
+    expect(mock.response.body).toHaveBeenCalledWith(
+      {
+        path: '/squawk',
+        params: {},
+      },
+      {}
+    );
+  });
+
+  it('does not set params when no match', async () => {
+    expect.assertions(1);
+
+    const mock = {
+      request: {
+        path: '/:ahoy',
+      },
+      response: {
+        body: jest.fn(req => req),
+      },
+    };
+    await resolveResponse({ path: '/' }, {}, mock, resolver);
+
+    expect(mock.response.body).toHaveBeenCalledWith(
+      {
+        path: '/',
+        params: {},
+      },
+      {}
+    );
+  });
+
+  it('does not set params when no path', async () => {
     expect.assertions(1);
 
     const mock = {
