@@ -14,14 +14,16 @@
 
 import util from 'util';
 import isEqual from 'lodash/isEqual';
-import pathToRegexp from 'path-to-regexp';
+import { match } from 'path-to-regexp';
 import logger from './logger';
 
-function match(normalizedRequest) {
+function matchRequest(normalizedRequest) {
   return request =>
     Object.keys(request).every(property => {
       if (property === 'path') {
-        return pathToRegexp(request.path).exec(normalizedRequest.path);
+        const matchRoute = match(request.path);
+        const result = matchRoute(normalizedRequest.path);
+        return result !== false;
       }
       if (property === 'headers') {
         return Object.keys(request.headers).every(
@@ -49,7 +51,7 @@ export default function matchMock(normalizedRequest, platformRequest, mocks) {
     if (typeof mock === 'function') {
       const response = mock(
         normalizedRequest,
-        match(normalizedRequest),
+        matchRequest(normalizedRequest),
         ...[].concat(platformRequest)
       );
       if (response) {
@@ -59,12 +61,12 @@ export default function matchMock(normalizedRequest, platformRequest, mocks) {
       }
     } else if (
       typeof mock.request === 'function' &&
-      mock.request(normalizedRequest, match(normalizedRequest))
+      mock.request(normalizedRequest, matchRequest(normalizedRequest))
     ) {
       logger.info('Matched request function.', normalizedRequest.path);
       matchedMock = mock;
       break;
-    } else if (typeof mock.request === 'object' && match(normalizedRequest)(mock.request)) {
+    } else if (typeof mock.request === 'object' && matchRequest(normalizedRequest)(mock.request)) {
       logger.info(
         `Matched request object: ${util.inspect(mock.request, {
           colors: true,

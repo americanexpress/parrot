@@ -12,16 +12,13 @@
  * the License.
  */
 
-import pathToRegexp from 'path-to-regexp';
+import { match } from 'path-to-regexp';
 
 export default function getParams(path, route) {
-  const keys = [];
-  const [, ...values] = pathToRegexp(route, keys).exec(path);
-  return keys.reduce(
-    (acc, { name }, index) => ({
-      ...acc,
-      [name]: values[index],
-    }),
-    {}
-  );
+  const matchRoute = match(route);
+  const result = matchRoute(path);
+  if (result === false) {
+    return {};
+  }
+  return result.params;
 }
