@@ -17,7 +17,7 @@ import { match } from 'path-to-regexp';
 export default function getParams(path, route) {
   const matchRoute = match(route);
   const result = matchRoute(path);
-  if (result === false) {
+  if (!result) {
     return {};
   }
   return result.params;
