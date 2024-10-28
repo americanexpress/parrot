@@ -54,7 +54,9 @@ class Parrot {
   resolve = async (...platformRequest) => {
     const normalizedRequest = this.normalizeRequest(...platformRequest);
     const resolver = this.resolver(...platformRequest);
-    const mocks = this.scenarios[this.activeScenario];
+    const activeScenarioOverride =
+      this.getActiveScenarioOverride && this.getActiveScenarioOverride(...platformRequest);
+    const mocks = this.scenarios[activeScenarioOverride || this.activeScenario];
     const mock = await matchMock(normalizedRequest, platformRequest, mocks);
     return resolveResponse(normalizedRequest, platformRequest, mock, resolver);
   };
