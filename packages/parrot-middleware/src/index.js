@@ -14,6 +14,7 @@
 
 import { Router } from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import ParrotMiddleware from './ParrotMiddleware';
 
 export default function parrot(scenarios) {
@@ -35,5 +36,5 @@ export default function parrot(scenarios) {
     res.json(parrotMiddleware.getScenarios());
   });
 
-  return [jsonParser, parrotRouter, parrotMiddleware.resolve];
+  return [jsonParser, cookieParser(), parrotRouter, parrotMiddleware.resolve];
 }

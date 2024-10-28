@@ -12,6 +12,7 @@
  * the License.
  */
 
+import { when } from 'jest-when';
 import Parrot from '../src';
 import { logger, matchMock, normalizeScenarios, resolveResponse } from '../src/utils';
 
@@ -28,6 +29,8 @@ class ParrotTest extends Parrot {
   normalizeRequest = jest.fn();
 
   resolver = jest.fn();
+
+  getActiveScenarioOverride = jest.fn();
 }
 
 describe('Parrot', () => {
@@ -93,14 +96,76 @@ describe('Parrot', () => {
     expect(parrotTest.scenarios.ahoy[0]).toBe('polly');
   });
 
-  it('should resolve mock', () => {
-    const scenarios = { ahoy: [] };
+  it('should resolve mock using active scenario', () => {
+    const activeScenarioName = 'me';
+    const activeScenarioMock = 'hearties';
+    const scenarios = { ahoy: ['squawk'], [activeScenarioName]: [activeScenarioMock] };
+
     const parrotTest = new ParrotTest(scenarios);
-    return parrotTest.resolve().then(() => {
-      expect(parrotTest.normalizeRequest).toHaveBeenCalled();
-      expect(parrotTest.resolver).toHaveBeenCalled();
-      expect(matchMock).toHaveBeenCalled();
-      expect(resolveResponse).toHaveBeenCalled();
-    });
+
+    parrotTest.activeScenario = activeScenarioName;
+
+    const platformRequest = ['req', 'res', 'next'];
+    const normalisedRequest = platformRequest;
+    when(parrotTest.normalizeRequest)
+      .calledWith(...platformRequest)
+      .mockReturnValueOnce(normalisedRequest);
+
+    const testResolver = 'resolver';
+    when(parrotTest.resolver)
+      .calledWith(...platformRequest)
+      .mockReturnValueOnce(testResolver);
+
+    when(matchMock)
+      .calledWith(normalisedRequest, platformRequest, [activeScenarioMock])
+      .mockReturnValueOnce(activeScenarioMock);
+
+    const resolvedResponse = 'resolvedResponse';
+    when(resolveResponse)
+      .calledWith(normalisedRequest, platformRequest, activeScenarioMock, testResolver)
+      .mockReturnValueOnce(resolvedResponse);
+
+    return expect(parrotTest.resolve(...platformRequest)).resolves.toBe(resolvedResponse);
+  });
+
+  it('should resolve mock using the scenario from the override', () => {
+    const activeScenarioName = 'me';
+    const activeScenarioMock = 'hearties';
+    const activeScenarioOverrideName = 'ahoy';
+    const activeScenarioOverrideMock = 'squawk';
+    const scenarios = {
+      [activeScenarioOverrideName]: [activeScenarioOverrideMock],
+      [activeScenarioName]: [activeScenarioMock],
+    };
+
+    const parrotTest = new ParrotTest(scenarios);
+
+    parrotTest.activeScenario = activeScenarioName;
+
+    const platformRequest = ['req', 'res', 'next'];
+    const normalisedRequest = platformRequest;
+    when(parrotTest.normalizeRequest)
+      .calledWith(...platformRequest)
+      .mockReturnValueOnce(normalisedRequest);
+
+    const testResolver = 'resolver';
+    when(parrotTest.resolver)
+      .calledWith(...platformRequest)
+      .mockReturnValueOnce(testResolver);
+
+    when(parrotTest.getActiveScenarioOverride)
+      .calledWith(...platformRequest)
+      .mockReturnValueOnce(activeScenarioOverrideName);
+
+    when(matchMock)
+      .calledWith(normalisedRequest, platformRequest, [activeScenarioOverrideMock])
+      .mockReturnValueOnce(activeScenarioOverrideMock);
+
+    const resolvedResponse = 'resolvedResponse';
+    when(resolveResponse)
+      .calledWith(normalisedRequest, platformRequest, activeScenarioOverrideMock, testResolver)
+      .mockReturnValueOnce(resolvedResponse);
+
+    return expect(parrotTest.resolve(...platformRequest)).resolves.toBe(resolvedResponse);
   });
 });
