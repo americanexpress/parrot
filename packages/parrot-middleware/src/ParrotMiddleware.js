@@ -41,6 +41,8 @@ class ParrotMiddleware extends Parrot {
       res.send(body);
     }
   };
+
+  getActiveScenarioOverride = req => (req.cookies ? req.cookies.parrotScenarioOverride : undefined);
 }
 
 export default ParrotMiddleware;

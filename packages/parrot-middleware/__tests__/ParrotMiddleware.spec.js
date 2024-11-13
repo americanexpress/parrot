@@ -16,7 +16,7 @@ import ParrotMiddleware from '../src/ParrotMiddleware';
 
 jest.mock('parrot-core', () => class {});
 
-describe('ParrotFetch', () => {
+describe('ParrotMiddleware', () => {
   it('should normalize', () => {
     const parrotFetch = new ParrotMiddleware();
     const normalized = parrotFetch.normalizeRequest({
@@ -84,5 +84,30 @@ describe('ParrotFetch', () => {
     parrotMiddleware.resolver(req, res, next)(response);
     expect(res.type).toHaveBeenCalled();
     expect(res.send).toHaveBeenCalled();
+  });
+
+  it('should return the active scenario override from the cookie', () => {
+    const testScenarioName = 'Test Scenario Name';
+    const req = {
+      cookies: {
+        parrotScenarioOverride: testScenarioName,
+      },
+    };
+    const parrotMiddleware = new ParrotMiddleware();
+    expect(parrotMiddleware.getActiveScenarioOverride(req)).toEqual(testScenarioName);
+  });
+
+  it('should return undefined if the active scenario override is not present as a cookie', () => {
+    const req = {
+      cookies: {},
+    };
+    const parrotMiddleware = new ParrotMiddleware();
+    expect(parrotMiddleware.getActiveScenarioOverride(req)).toBeUndefined();
+  });
+
+  it('should return undefined if there are no cookies', () => {
+    const req = {};
+    const parrotMiddleware = new ParrotMiddleware();
+    expect(parrotMiddleware.getActiveScenarioOverride(req)).toBeUndefined();
   });
 });
