@@ -35,9 +35,10 @@ class ParrotTest extends Parrot {
 
 describe('Parrot', () => {
   it('normalizes scenarios and sets logger', () => {
-    new ParrotTest(); // eslint-disable-line no-new
+    const parrotTest = new ParrotTest();
     expect(normalizeScenarios).toHaveBeenCalledWith({});
     expect(logger.setScenario).toHaveBeenCalledWith(undefined);
+    expect(parrotTest.logger).toBe(logger);
   });
 
   it('should get the active scenario name', () => {
