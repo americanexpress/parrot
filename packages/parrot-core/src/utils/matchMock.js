@@ -21,6 +21,9 @@ function matchRequest(normalizedRequest) {
   return request =>
     Object.keys(request).every(property => {
       if (property === 'path') {
+        if (request.path instanceof RegExp) {
+          return request.path.test(normalizedRequest.path);
+        }
         const matchRoute = match(request.path);
         const result = matchRoute(normalizedRequest.path);
         return result !== false;
