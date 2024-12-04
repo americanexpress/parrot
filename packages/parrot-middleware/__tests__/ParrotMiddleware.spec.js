@@ -14,7 +14,15 @@
 
 import ParrotMiddleware from '../src/ParrotMiddleware';
 
-jest.mock('parrot-core', () => class {});
+jest.mock(
+  'parrot-core',
+  () =>
+    class {
+      constructor() {
+        this.logger = { warn: jest.fn() };
+      }
+    }
+);
 
 describe('ParrotMiddleware', () => {
   it('should normalize', () => {
@@ -27,13 +35,17 @@ describe('ParrotMiddleware', () => {
     });
   });
 
-  it('should call next middleware', () => {
+  it('should call next middleware and log a warning', () => {
     const req = {};
     const res = { headersSent: false };
     const next = jest.fn();
     const parrotMiddleware = new ParrotMiddleware();
     parrotMiddleware.resolver(req, res, next)();
     expect(next).toHaveBeenCalled();
+    expect(parrotMiddleware.logger.warn).toHaveBeenCalledWith(
+      'No matching mock found for request',
+      req.path
+    );
   });
 
   it('should not call next middleware if headers sent', () => {

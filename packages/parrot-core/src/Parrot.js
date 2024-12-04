@@ -19,6 +19,7 @@ class Parrot {
     this.scenarios = normalizeScenarios(scenarios);
     [this.activeScenario] = Object.keys(scenarios);
     logger.setScenario(this.activeScenario);
+    this.logger = logger;
   }
 
   getActiveScenario = () => this.activeScenario;
