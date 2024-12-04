@@ -49,6 +49,22 @@ describe('matchMock', () => {
     expect(matchMock(req, {}, mocks)).toEqual(mocks[0]);
   });
 
+  it('matches mock object when path variable', () => {
+    const mocks = [
+      { request: { path: '/squawk/:id', headers: 'ahoy', 'Keep-Alive': 'timeout=5' } },
+    ];
+    const req = { path: '/squawk/123', headers: 'ahoy', 'Keep-Alive': 'timeout=5' };
+    expect(matchMock(req, {}, mocks)).toEqual(mocks[0]);
+  });
+
+  it('matches mock object when regex path', () => {
+    const mocks = [
+      { request: { path: /^\/squawk\/\d?/, headers: 'ahoy', 'Keep-Alive': 'timeout=5' } },
+    ];
+    const req = { path: '/squawk/123', headers: 'ahoy', 'Keep-Alive': 'timeout=5' };
+    expect(matchMock(req, {}, mocks)).toEqual(mocks[0]);
+  });
+
   it('throws when mocks is not an array', () => {
     const mocks = {};
     expect(() => matchMock({}, {}, mocks)).toThrow(
