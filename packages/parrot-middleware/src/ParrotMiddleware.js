@@ -22,6 +22,7 @@ class ParrotMiddleware extends Parrot {
       return;
     }
     if (!response) {
+      this.logger.warn('No matching mock found for request', req.path);
       next();
       return;
     }
