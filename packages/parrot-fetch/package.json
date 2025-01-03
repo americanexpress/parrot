@@ -1,6 +1,6 @@
 {
   "name": "parrot-fetch",
-  "version": "5.2.1",
+  "version": "5.3.0",
   "contributors": [
     "Jack Cross <jack.cross1@aexp.com>",
     "Nathan Force <nathan.a.force@aexp.com>",
@@ -24,7 +24,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "parrot-core": "^5.2.1",
+    "parrot-core": "^5.3.0",
     "url-parse": "^1.5.10"
   },
   "devDependencies": {
