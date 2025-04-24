@@ -1,14 +1,13 @@
 <h1 align="center">
+
+[Parrot is now InnerSource](https://github.com/americanexpress/one-app/issues/1393)
+
+  <hr/>
+
   <img src="./assets/parrot.png" alt="Parrot" width="50%" />
 </h1>
 
 Parrot is a set of tools that allow you to create HTTP mocks and organize them into scenarios in order to develop your app against different sets of data. We have implemented all of Parrot's functionality in JavaScript, but [scenarios](https://github.com/americanexpress/parrot/blob/main/SCENARIOS.md) are a general specification that can be implemented in any language.
-
-## 👩‍💻 Hiring 👨‍💻
-
-Want to get paid for your contributions to `parrot`?
-
-> Send your resume to oneamex.careers@aexp.com
 
 ## 🤹‍ Usage
 
@@ -100,8 +99,8 @@ $ curl -X POST -H "Content-Type: application/json" -d '{ "scenario": "[scenario 
 
 Parrot is divided into several packages that can be used together depending on your use case.
 
-| Name                                                                                                      | Description                                                     |
-| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Name                                                                                                    | Description                                                     |
+| ------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | **[parrot-core](https://github.com/americanexpress/parrot/blob/main/packages/parrot-core)**             | Core Parrot functionality that can be extended to new use cases |
 | **[parrot-devtools](https://github.com/americanexpress/parrot/blob/main/packages/parrot-devtools)**     | Devtools that allow you to switch between Parrot scenarios      |
 | **[parrot-fetch](https://github.com/americanexpress/parrot/blob/main/packages/parrot-fetch)**           | Fetch mocking implementation of Parrot                          |
